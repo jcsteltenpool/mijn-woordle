@@ -71,6 +71,8 @@ p, h1, h2, h3, h4, h5, h6 {
   isolation: isolate;
 }
 
+/* Grid Container */
+
 .game-grid-wrapper {
   flex: 1;
   margin-inline: auto;
@@ -120,15 +122,10 @@ p, h1, h2, h3, h4, h5, h6 {
   backface-visibility: hidden;
 }
 
-/* .game-tile > *[data-visible="false"] {
+.game-tile > *[data-visible="false"] {
   visibility: hidden;
   transform: rotateX(180deg);
 }
-
-.game-tile > *:not(.visible) {
-  visibility: hidden;
-  transform: rotateX(180deg);
-} */
 
 .game-tile > *[data-state="empty"] {
   opacity: 0.4;
@@ -155,3 +152,7 @@ p, h1, h2, h3, h4, h5, h6 {
   background-color: var(--bg-color-correct);
   border-color: var(--bg-color-correct);
 }
+
+/* Keyboard Container */
+
+

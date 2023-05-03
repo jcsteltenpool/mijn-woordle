@@ -1,32 +1,30 @@
 import React from "react";
 
-function Tile({ flip = false }) {
+function Tile({ isEvaluated }) {
     return (
         <div className="game-tile">
-            {!flip 
-            ? <div data-state="empty">M</div>
-            : <div data-state="correct">K</div>
-            }
+            <div data-state="empty" data-visible={!isEvaluated}>M</div>
+            <div data-state="correct" data-visible={isEvaluated}>K</div>
         </div>
     )
 }
 
-function Row({ flip }) {
+function Row({ isEvaluated }) {
     return (
         <div className="game-grid-row">
             {Array.from({ length: 5 }, (tile, index) => (
-                <Tile key={index} />
+                <Tile key={index} isEvaluated={isEvaluated} />
             ))}
         </div>
     )
 }
 
-function Grid({ flip }) {
+function Grid({ isEvaluated }) {
     return (
         <div className="game-grid-wrapper">
             <div className="game-grid">
                 {Array.from({ length: 6}, (row, index) => (
-                    <Row key={index} flip={flip}/>
+                    <Row key={index} isEvaluated={isEvaluated} />
                 ))}
             </div>
         </div>
@@ -34,6 +32,6 @@ function Grid({ flip }) {
 }
 
 
-export default function GridContainer() {
-    return <Grid />
+export default function GridContainer({ isEvaluated }) {
+    return <Grid isEvaluated={isEvaluated}/>
 }
