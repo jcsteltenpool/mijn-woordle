@@ -3,8 +3,8 @@ import React from "react";
 function Tile({ isEvaluated }) {
     return (
         <div className="game-tile">
-            <div data-state="empty" data-visible={!isEvaluated}>M</div>
-            <div data-state="correct" data-visible={isEvaluated}>K</div>
+            <div data-state="empty" data-visible={!isEvaluated}>m</div>
+            <div data-state="correct" data-visible={isEvaluated}>k</div>
         </div>
     )
 }

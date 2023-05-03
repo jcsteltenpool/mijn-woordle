@@ -9,8 +9,8 @@ export default function App() {
 
   return (
     <>
-      <GridContainer isEvaluated={isEvaluated} />
       <button onClick={() => setIsEvaluated(!isEvaluated)}>Test</button>
+      <GridContainer isEvaluated={isEvaluated} />
       <KeyboardContainer />
     </>
   );
