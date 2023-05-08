@@ -40,7 +40,6 @@ html, body {
 
 body {
   line-height: 1.5;
-  /* line-height: calc(1em + 0.5rem); */
 
   -webkit-font-smoothing: antialiased;
 
@@ -73,6 +72,12 @@ p, h1, h2, h3, h4, h5, h6 {
 
 #root, #__next {
   isolation: isolate;
+}
+
+#root {
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
 /* Grid Container */
@@ -132,27 +137,27 @@ p, h1, h2, h3, h4, h5, h6 {
   transform: rotateX(180deg);
 }
 
-.game-tile > *[data-state="empty"] {
+.game-tile > *[data-status="empty"] {
   opacity: 0.4;
 } 
 
-.game-tile > *[data-state="tbd"] {
+.game-tile > *[data-status="tbd"] {
   opacity: 1;
 }
 
-.game-tile > *[data-state="absent"] {
+.game-tile > *[data-status="absent"] {
   color: var(--color-absent);
   background-color: var(--bg-color-absent);
   border-color: var(--bg-color-absent);
 }
 
-.game-tile > *[data-state="present"] {
+.game-tile > *[data-status="present"] {
   color: var(--color-present);
   background-color: var(--bg-color-present);
   border-color: var(--bg-color-present);
 }
 
-.game-tile > *[data-state="correct"] {
+.game-tile > *[data-status="correct"] {
   color: var(--color-correct);
   background-color: var(--bg-color-correct);
   border-color: var(--bg-color-correct);
@@ -164,6 +169,7 @@ p, h1, h2, h3, h4, h5, h6 {
   justify-content: center;
   margin-top: 1rem;
   background-color: var(--keyboard-background-color);
+  padding-bottom: 0.5rem;
 }
 
 .keyboard {
@@ -204,6 +210,10 @@ p, h1, h2, h3, h4, h5, h6 {
   border-radius: 5px;
   box-shadow: 0 1px 1px 0 rgb(0 0 0 / 20%);
   transform-origin: bottom;
+}
+
+.keyboard-key-bg:active {
+  opacity: 0.6;
 }
 
 .keyboard-key-content {
