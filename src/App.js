@@ -12,7 +12,6 @@ export default function App() {
   let initVisible = Array(6).fill(Array(5).fill(false));
   let initTarget = { row: 0, tile: 0 };
 
-  const [isEvaluated, setIsEvaluated] = useState(false);
   const [grid, setGrid] = useState(initGrid);
   const [results, setResults] = useState(initResults);
   const [visible, setVisible] = useState(initVisible);
@@ -78,6 +77,7 @@ export default function App() {
         return;
       } else {
         showResult();
+        disableKeyboard();
         setTarget({ 
           row: target.row + 1, 
           tile: 0
@@ -157,6 +157,7 @@ export default function App() {
   }
 
   const [tileToShow, setTileToShow] = useState(null);
+  const animationTime = 350;
   
   function showResult() {
     setTileToShow(0);
@@ -197,37 +198,28 @@ export default function App() {
         })
         );
         setTileToShow(tileToShow + 1);
-      }, 350)
+      }, animationTime)
       return () => clearInterval(intervalId);
     }
   }, [tileToShow, target.row, visible])
 
-  // function showResult() {
-  //   const nextVisible = visible.map((row, i) => {
-  //     if (i === target.row) {
-  //       return row.map((tile, i) => {
-  //         if (i === tileToShow) {
-  //           return true;
-  //         } else {
-  //           return tile;
-  //         }
-  //       });
-  //     } else {
-  //       return row;
-  //     }
-  //   })
+  const [disabled, setDisabled] = useState(false);
 
-  //   setVisible(nextVisible);
-  // }
+  function disableKeyboard() {
+    setTimeout(() => {
+      setDisabled(false);
+    }, (5 * animationTime))
+    setDisabled(true);
+  }
 
   return (
     <>
-      <button onClick={() => setIsEvaluated(!isEvaluated)}>Test</button>
       <GridContainer rows={grid}
                      results={results}
                      visible={visible}
                      />
-      <KeyboardContainer onKeyboardClick={handleClick}/>
+      <KeyboardContainer onKeyboardClick={handleClick}
+                         disabled={disabled} />
     </>
   );
 }

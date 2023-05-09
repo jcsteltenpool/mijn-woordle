@@ -88,6 +88,8 @@ p, h1, h2, h3, h4, h5, h6 {
   padding: 0 0.5rem;
   width: max-content;
   max-width: 600px;
+
+  margin-top: 10rem;
 }
 
 .game-grid {
@@ -225,10 +227,15 @@ p, h1, h2, h3, h4, h5, h6 {
   align-items: center;
   justify-content: center;
   color: var(--color-dark-gray);
+  transition: opacity 0.3s ease 0s;
 }
 
 .keyboard-key-enter {
   max-width: 120px;
   width: 175px;
+}
+
+.keyboard-key:disabled .keyboard-key-content {
+  opacity: 0.6;
 }
 
