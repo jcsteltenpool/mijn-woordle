@@ -1,10 +1,10 @@
 import React, {useState, useEffect} from "react";
 
 function Tile({ value, isEvaluated }) {
-    const [status, setStatus] = useState("empty")
+    const [status, setStatus] = useState("empty");
 
     useEffect(() => {
-        if (value === null){
+        if (value === ''){
             setStatus("empty");
         } else {
             setStatus("tbd")
@@ -19,47 +19,32 @@ function Tile({ value, isEvaluated }) {
     )
 }
 
-function Row({ guess, isEvaluated }) {
+function Row({ tiles, isEvaluated }) {
+    const rowTiles = tiles.map((tile, i) =>
+        <Tile key={i}
+              value={tile}
+              isEvaluated={isEvaluated} />
+    );
+
     return (
         <div className="game-grid-row">
-            {Array.from({ length: 5}, (tile, index) => (
-                <Tile key={index}
-                      value={guess[index]}
-                      isEvaluated={isEvaluated} />  
-            ))}
+            {rowTiles}
         </div>
     )
 }
 
-export default function Grid({ guess, isEvaluated }) {
+export default function GridContainer({ rows, isEvaluated }) {
+    const gridRows = rows.map((row, i) => 
+        <Row key={i}
+             tiles={row}
+             isEvaluated={isEvaluated} />
+    );
+
     return (
         <div className="game-grid-wrapper">
             <div className="game-grid">
-                {Array.from({ length: 6}, (row, index) => (
-                    <Row key={index}
-                         guess={guess}
-                         isEvaluated={isEvaluated} />
-                ))}
+                {gridRows}
             </div>
         </div>
     )
 }
-
-// export default function GridContainer({ keyValue, isEvaluated }) {
-//     return (
-//         <div className="game-grid-wrapper">
-//             <div className="game-grid">
-//                 {Array.from({ length: 6}, (row, index) => (
-//                     <div key={index} className="game-grid-row">
-//                         {Array.from({ length: 5 }, (tile, index) => (
-//                             <div key={index} className="game-tile">
-//                                 <div data-state="empty" data-visible={!isEvaluated}>{keyValue}</div>
-//                                 <div data-state="correct" data-visible={isEvaluated}>{keyValue}</div>
-//                             </div>
-//                         ))}
-//                     </div>
-//                 ))}
-//             </div>
-//         </div>
-//     )
-// }
