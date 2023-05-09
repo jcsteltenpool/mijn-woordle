@@ -1,29 +1,30 @@
 import React, {useState, useEffect} from "react";
 
-function Tile({ value, isEvaluated }) {
-    const [status, setStatus] = useState("empty");
+function Tile({ value, result, visible }) {
+    const [input, setInput] = useState("empty");
 
     useEffect(() => {
         if (value === ''){
-            setStatus("empty");
+            setInput("empty");
         } else {
-            setStatus("tbd")
+            setInput("tbd");
         }
     }, [value]);
 
     return (
         <div className="game-tile">
-            <div data-status={status} data-visible={!isEvaluated}>{value}</div>
-            <div data-status="correct" data-visible={isEvaluated}>{value}</div>
+            <div data-status={input} data-visible={!visible}>{value}</div>
+            <div data-status={result} data-visible={visible}>{value}</div>
         </div>
     )
 }
 
-function Row({ tiles, isEvaluated }) {
+function Row({ tiles, results, visible }) {
     const rowTiles = tiles.map((tile, i) =>
         <Tile key={i}
               value={tile}
-              isEvaluated={isEvaluated} />
+              result={results[i]}
+              visible={visible[i]} />
     );
 
     return (
@@ -33,11 +34,12 @@ function Row({ tiles, isEvaluated }) {
     )
 }
 
-export default function GridContainer({ rows, isEvaluated }) {
+export default function GridContainer({ rows, results, visible }) {
     const gridRows = rows.map((row, i) => 
         <Row key={i}
              tiles={row}
-             isEvaluated={isEvaluated} />
+             results={results[i]}
+             visible={visible[i]} />
     );
 
     return (

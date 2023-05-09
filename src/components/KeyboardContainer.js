@@ -19,7 +19,7 @@ export default function Keyboard({ onKeyboardClick }) {
 
     return (
         <div className="keyboard-wrapper">
-            <section className="keyboard">
+        <section className="keyboard">
                 {keyboardKeys}        
             </section>
         </div>

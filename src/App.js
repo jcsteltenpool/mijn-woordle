@@ -7,14 +7,17 @@ import { KEYBOARD_KEYS } from "./util/keyboard_keys";
 
 
 export default function App() {
-  let initialGrid = Array(6).fill(Array(5).fill(''));
-  let initialTarget = { row: 0, tile: 0 };
+  let initGrid = Array(6).fill(Array(5).fill(''));
+  let initResults = Array(6).fill(Array(5).fill(''));
+  let initVisible = Array(6).fill(Array(5).fill(false));
+  let initTarget = { row: 0, tile: 0 };
 
   const [isEvaluated, setIsEvaluated] = useState(false);
-  const [grid, setGrid] = useState(initialGrid);
-  const [target, setTarget] = useState(initialTarget);
+  const [grid, setGrid] = useState(initGrid);
+  const [results, setResults] = useState(initResults);
+  const [visible, setVisible] = useState(initVisible);
+  const [target, setTarget] = useState(initTarget);
   
-  const [result, setResult] = useState(Array(5).fill(null));
 
   useEffect(() => {
     function handleKeyDown(e) {
@@ -59,6 +62,7 @@ export default function App() {
           return row;
         }
       }))
+      evaluateGuess(keyValue);
       setTarget({
         ...target,
         tile: target.tile + 1
@@ -73,6 +77,7 @@ export default function App() {
       if (target.row > 5) {
         return;
       } else {
+        showResult();
         setTarget({ 
           row: target.row + 1, 
           tile: 0
@@ -105,11 +110,70 @@ export default function App() {
     }
   }
 
+  function evaluateGuess(keyValue){
+    if (keyValue === 'e' || keyValue === 'a' || keyValue === 'o') {
+      setResults(results.map((row, i) => {
+        if (i === target.row) {
+          return row.map((tile, i) => {
+            if (i === target.tile) {
+              return 'correct';
+            } else {
+              return tile;
+            }
+          });  
+        } else {
+          return row;
+        }
+      }))
+    } else if (keyValue === 'k' || keyValue === 'r'){
+      setResults(results.map((row, i) => {
+        if (i === target.row) {
+          return row.map((tile, i) => {
+            if (i === target.tile) {
+              return 'present';
+            } else {
+              return tile;
+            }
+          });  
+        } else {
+          return row;
+        }
+      }))
+    } else {
+      setResults(results.map((row, i) => {
+        if (i === target.row) {
+          return row.map((tile, i) => {
+            if (i === target.tile) {
+              return 'absent';
+            } else {
+              return tile;
+            }
+          });  
+        } else {
+          return row;
+        }
+      }));
+    }
+  }
+
+  function showResult() {
+    const nextVisible = visible.map((row, i) => {
+      if (i === target.row) {
+        return row.map((tile, i) => true);
+      } else {
+        return row;
+      }
+    })
+
+    setVisible(nextVisible);
+  }
+
   return (
     <>
       <button onClick={() => setIsEvaluated(!isEvaluated)}>Test</button>
-      <GridContainer isEvaluated={isEvaluated}
-                     rows={grid}
+      <GridContainer rows={grid}
+                     results={results}
+                     visible={visible}
                      />
       <KeyboardContainer onKeyboardClick={handleClick}/>
     </>
