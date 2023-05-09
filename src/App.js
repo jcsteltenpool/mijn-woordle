@@ -156,17 +156,69 @@ export default function App() {
     }
   }
 
+  const [tileToShow, setTileToShow] = useState(null);
+  
   function showResult() {
-    const nextVisible = visible.map((row, i) => {
-      if (i === target.row) {
-        return row.map((tile, i) => true);
-      } else {
-        return row;
-      }
-    })
-
-    setVisible(nextVisible);
+    setTileToShow(0);
   }
+
+  useEffect(() => {
+    if (tileToShow === 0) {
+      setVisible(visible.map((row, i) => {
+        if (i === target.row - 1) {
+          return row.map((tile, i) => {
+            if (i === tileToShow) {
+              return true;
+            } else {
+              return tile;
+            }
+          });
+        } else {
+          return row;
+        }
+      })
+      );
+      setTileToShow(1);
+    }
+    while (tileToShow >= 1 && tileToShow < 5) {
+      const intervalId = setInterval(() => {
+        setVisible(visible.map((row, i) => {
+          if (i === target.row - 1) {
+            return row.map((tile, i) => {
+              if (i === tileToShow) {
+                return true;
+              } else {
+                return tile;
+              }
+            });
+          } else {
+            return row;
+          }
+        })
+        );
+        setTileToShow(tileToShow + 1);
+      }, 350)
+      return () => clearInterval(intervalId);
+    }
+  }, [tileToShow, target.row, visible])
+
+  // function showResult() {
+  //   const nextVisible = visible.map((row, i) => {
+  //     if (i === target.row) {
+  //       return row.map((tile, i) => {
+  //         if (i === tileToShow) {
+  //           return true;
+  //         } else {
+  //           return tile;
+  //         }
+  //       });
+  //     } else {
+  //       return row;
+  //     }
+  //   })
+
+  //   setVisible(nextVisible);
+  // }
 
   return (
     <>

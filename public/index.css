@@ -107,6 +107,7 @@ p, h1, h2, h3, h4, h5, h6 {
 }
 
 .game-tile {
+  --delay: 300ms;
   position: relative;
   width: var(--cell-size);
   height: var(--cell-size);
@@ -133,7 +134,7 @@ p, h1, h2, h3, h4, h5, h6 {
 }
 
 .game-tile > *[data-visible="false"] {
-  visibility: hidden;
+  /* visibility: hidden; */
   transform: rotateX(180deg);
 }
 
@@ -162,6 +163,7 @@ p, h1, h2, h3, h4, h5, h6 {
   background-color: var(--bg-color-correct);
   border-color: var(--bg-color-correct);
 }
+
 
 /* Keyboard Container */
 .keyboard-wrapper {
