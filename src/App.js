@@ -16,21 +16,23 @@ export default function App() {
   const [results, setResults] = useState(initResults);
   const [visible, setVisible] = useState(initVisible);
   const [target, setTarget] = useState(initTarget);
-  
+  const [disabled, setDisabled] = useState(false);
 
   useEffect(() => {
-    function handleKeyDown(e) {
-      e.preventDefault();
-      KEYBOARD_KEYS.forEach(key => {
-        if (e.key === key) {
-          handleClick(e.key);
-        }
-      })
-    }
-    document.addEventListener('keydown', handleKeyDown);
-    
-    return () => {
-      document.removeEventListener('keydown', handleKeyDown);
+    if (!disabled) {
+      function handleKeyDown(e) {
+        e.preventDefault();
+        KEYBOARD_KEYS.forEach(key => {
+          if (e.key === key) {
+            handleClick(e.key);
+          }
+        })
+      }
+      document.addEventListener('keydown', handleKeyDown);
+      
+      return () => {
+        document.removeEventListener('keydown', handleKeyDown);
+      }
     }
   });
   
@@ -162,48 +164,36 @@ export default function App() {
   function showResult() {
     setTileToShow(0);
   }
+  
 
   useEffect(() => {
+    const nextVisible = visible.map((row, i) => {
+      if (i === target.row - 1) {
+        return row.map((tile, i) => {
+          if (i === tileToShow) {
+            return true;
+          } else {
+            return tile;
+          }
+        });
+      } else {
+        return row;
+      }
+    });
+    
     if (tileToShow === 0) {
-      setVisible(visible.map((row, i) => {
-        if (i === target.row - 1) {
-          return row.map((tile, i) => {
-            if (i === tileToShow) {
-              return true;
-            } else {
-              return tile;
-            }
-          });
-        } else {
-          return row;
-        }
-      })
-      );
-      setTileToShow(1);
+      setVisible(nextVisible);
+      setTileToShow(tileToShow + 1);
     }
     while (tileToShow >= 1 && tileToShow < 5) {
       const intervalId = setInterval(() => {
-        setVisible(visible.map((row, i) => {
-          if (i === target.row - 1) {
-            return row.map((tile, i) => {
-              if (i === tileToShow) {
-                return true;
-              } else {
-                return tile;
-              }
-            });
-          } else {
-            return row;
-          }
-        })
-        );
+        setVisible(nextVisible);
         setTileToShow(tileToShow + 1);
       }, animationTime)
       return () => clearInterval(intervalId);
     }
   }, [tileToShow, target.row, visible])
 
-  const [disabled, setDisabled] = useState(false);
 
   function disableKeyboard() {
     setTimeout(() => {
