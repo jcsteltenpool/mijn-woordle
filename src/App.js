@@ -1,10 +1,7 @@
 import React, { useState, useEffect } from "react";
-import GameContainer from "./components/GameContainer";
 import GridContainer from "./components/GridContainer";
 import KeyboardContainer from "./components/KeyboardContainer";
 import { KEYBOARD_KEYS } from "./util/keyboard_keys";
-
-
 
 export default function App() {
   let initGrid = Array(6).fill(Array(5).fill(''));
@@ -17,6 +14,7 @@ export default function App() {
   const [visible, setVisible] = useState(initVisible);
   const [target, setTarget] = useState(initTarget);
   const [disabled, setDisabled] = useState(false);
+  const [keyStatus, setKeyStatus] = useState({});
 
   useEffect(() => {
     if (!disabled) {
@@ -126,7 +124,10 @@ export default function App() {
         } else {
           return row;
         }
-      }))
+      }));
+
+      updateKeyboard(keyValue, 'correct');
+
     } else if (keyValue === 'k' || keyValue === 'r'){
       setResults(results.map((row, i) => {
         if (i === target.row) {
@@ -140,7 +141,10 @@ export default function App() {
         } else {
           return row;
         }
-      }))
+      }));
+
+      updateKeyboard(keyValue, 'present');
+
     } else {
       setResults(results.map((row, i) => {
         if (i === target.row) {
@@ -155,7 +159,26 @@ export default function App() {
           return row;
         }
       }));
+
+      updateKeyboard(keyValue, 'absent');
+
     }
+  }
+
+  function updateResults(status) {
+    setResults(results.map((row, i) => {
+      if (i === target.row) {
+        return row.map((tile, i) => {
+          if (i === target.tile) {
+            return status;
+          } else {
+            return tile;
+          }
+        });  
+      } else {
+        return row;
+      }
+    }));
   }
 
   const [tileToShow, setTileToShow] = useState(null);
@@ -202,13 +225,19 @@ export default function App() {
     setDisabled(true);
   }
 
+  function updateKeyboard(keyValue) {
+
+  }
+
   return (
     <>
       <GridContainer rows={grid}
                      results={results}
                      visible={visible}
                      />
+      <button onChange={updateKeyboard}>Update Keyboard</button>
       <KeyboardContainer onKeyboardClick={handleClick}
+                         result={keyStatus}
                          disabled={disabled} />
     </>
   );

@@ -7,7 +7,10 @@ function Tile({ value, result, visible }) {
                  data-visible={!visible}>
                     {value}
             </div>
-            <div data-status={result} data-visible={visible}>{value}</div>
+            <div data-status={result} 
+                 data-visible={visible}>
+                    {value}
+            </div>
         </div>
     )
 }

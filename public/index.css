@@ -216,10 +216,6 @@ p, h1, h2, h3, h4, h5, h6 {
   transform-origin: bottom;
 }
 
-.keyboard-key-bg:active {
-  opacity: 0.6;
-}
-
 .keyboard-key-content {
   position: relative;
   z-index: 4;
@@ -239,3 +235,23 @@ p, h1, h2, h3, h4, h5, h6 {
   opacity: 0.6;
 }
 
+.keyboard-key-bg[data-status="correct"] {
+  background-color: var(--bg-color-correct);
+}
+.keyboard-key-content[data-status="correct"] {
+  color: var(--color-correct);
+}
+
+.keyboard-key-bg[data-status="absent"] {
+  background-color: var(--bg-color-absent);
+}
+.keyboard-key-content[data-status="absent"] {
+  color: var(--color-absent);
+}
+
+.keyboard-key-bg[data-status="present"] {
+  background-color: var(--bg-color-present);
+}
+.keyboard-key-content[data-status="present"] {
+  color: var(--color-present);
+}
