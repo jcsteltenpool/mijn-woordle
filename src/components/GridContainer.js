@@ -1,19 +1,12 @@
-import React, {useState, useEffect} from "react";
+import React from "react";
 
 function Tile({ value, result, visible }) {
-    const [input, setInput] = useState("empty");
-
-    useEffect(() => {
-        if (value === ''){
-            setInput("empty");
-        } else {
-            setInput("tbd");
-        }
-    }, [value]);
-
     return (
         <div className="game-tile">
-            <div data-status={input} data-visible={!visible}>{value}</div>
+            <div data-status={value === '' ? "empty" : "tbd"} 
+                 data-visible={!visible}>
+                    {value}
+            </div>
             <div data-status={result} data-visible={visible}>{value}</div>
         </div>
     )
