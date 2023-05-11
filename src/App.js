@@ -76,6 +76,7 @@ export default function App() {
       } else {
         showResult();
         disableKeyboard();
+        showNextKeyboard();
         setTarget({ 
           row: target.row + 1, 
           tile: 0
@@ -112,7 +113,7 @@ export default function App() {
     if (keyValue === 'e' || keyValue === 'x' || keyValue === 'o') {
       updateResults('correct');
       updateKeyboard(keyValue, 'correct');
-    } else if (keyValue === 'k' || keyValue === 'i'){
+    } else if (keyValue === 'k' || keyValue === 'q'){
       updateResults('present');
       updateKeyboard(keyValue, 'present');
     } else {
@@ -185,9 +186,10 @@ export default function App() {
 
   // KEYBOARD UPDATE
   const [keyboard, setKeyboard] = useState(initialKeyboard);
+  const [nextKeyboard, setNextKeyboard] = useState(keyboard);
 
   function updateKeyboard(keyValue, keyStatus) {
-    const nextKeyboard = keyboard.map(key => {
+    setNextKeyboard(nextKeyboard.map(key => {
       if (key.value === keyValue) {
         if (key.status === 'correct') {
           return key;
@@ -201,30 +203,14 @@ export default function App() {
       } else {
         return key;
       }
-    });
-    setKeyboard(nextKeyboard);
+    }));
   }
 
-  // function updateKeyboard(keyValue, keyStatus) {
-  //   if (keyboard.find(key => key.value === keyValue) &&
-  //       keyStatus === 'correct') {
-  //         setKeyboard(prev => prev.filter(k => k.value !== keyValue));
-  //         setKeyboard(prev => [
-  //           ...prev,
-  //           { value: keyValue,
-  //           status: keyStatus }
-  //         ]);   
-  //   }
-  //   if (keyboard.find(key => key.value === keyValue)) {
-  //     return;
-  //   } 
-    
-  //   setKeyboard([
-  //     ...keyboard,
-  //     { value: keyValue,
-  //     status: keyStatus }
-  //   ]);
-  // }
+  function showNextKeyboard() {
+    setTimeout(() => {
+      setKeyboard(nextKeyboard);
+    }, (5 * animationTime))
+  }
 
   return (
     <>
@@ -232,7 +218,6 @@ export default function App() {
                      results={results}
                      visible={visible}
                      />
-      <button onChange={updateKeyboard}>Update Keyboard</button>
       <KeyboardContainer onKeyboardClick={handleClick}
                          keyboard={keyboard}
                          disabled={disabled} />
