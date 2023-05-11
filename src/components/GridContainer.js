@@ -30,7 +30,7 @@ function Row({ tiles, results, visible }) {
     )
 }
 
-export default function GridContainer({ rows, results, visible }) {
+export default function Grid({ rows, results, visible }) {
     const gridRows = rows.map((row, i) => 
         <Row key={i}
              tiles={row}

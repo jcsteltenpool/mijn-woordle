@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import GridContainer from "./components/GridContainer";
 import KeyboardContainer from "./components/KeyboardContainer";
-import { KEYBOARD_KEYS } from "./util/keyboard_keys";
+import { initialKeyboard } from "./util/keyboard_keys";
 
 export default function App() {
   let initGrid = Array(6).fill(Array(5).fill(''));
@@ -13,15 +13,13 @@ export default function App() {
   const [results, setResults] = useState(initResults);
   const [visible, setVisible] = useState(initVisible);
   const [target, setTarget] = useState(initTarget);
-  const [disabled, setDisabled] = useState(false);
-  const [keyStatus, setKeyStatus] = useState({});
 
   useEffect(() => {
     if (!disabled) {
       function handleKeyDown(e) {
         e.preventDefault();
-        KEYBOARD_KEYS.forEach(key => {
-          if (e.key === key) {
+        initialKeyboard.forEach(key => {
+          if (e.key === key.value) {
             handleClick(e.key);
           }
         })
@@ -111,57 +109,15 @@ export default function App() {
   }
 
   function evaluateGuess(keyValue){
-    if (keyValue === 'e' || keyValue === 'a' || keyValue === 'o') {
-      setResults(results.map((row, i) => {
-        if (i === target.row) {
-          return row.map((tile, i) => {
-            if (i === target.tile) {
-              return 'correct';
-            } else {
-              return tile;
-            }
-          });  
-        } else {
-          return row;
-        }
-      }));
-
+    if (keyValue === 'e' || keyValue === 'x' || keyValue === 'o') {
+      updateResults('correct');
       updateKeyboard(keyValue, 'correct');
-
-    } else if (keyValue === 'k' || keyValue === 'r'){
-      setResults(results.map((row, i) => {
-        if (i === target.row) {
-          return row.map((tile, i) => {
-            if (i === target.tile) {
-              return 'present';
-            } else {
-              return tile;
-            }
-          });  
-        } else {
-          return row;
-        }
-      }));
-
+    } else if (keyValue === 'k' || keyValue === 'i'){
+      updateResults('present');
       updateKeyboard(keyValue, 'present');
-
     } else {
-      setResults(results.map((row, i) => {
-        if (i === target.row) {
-          return row.map((tile, i) => {
-            if (i === target.tile) {
-              return 'absent';
-            } else {
-              return tile;
-            }
-          });  
-        } else {
-          return row;
-        }
-      }));
-
+      updateResults('absent');
       updateKeyboard(keyValue, 'absent');
-
     }
   }
 
@@ -181,14 +137,16 @@ export default function App() {
     }));
   }
 
+  // KEYBOARD ANIMATION
   const [tileToShow, setTileToShow] = useState(null);
+  const [disabled, setDisabled] = useState(false);
+
   const animationTime = 350;
   
   function showResult() {
     setTileToShow(0);
   }
   
-
   useEffect(() => {
     const nextVisible = visible.map((row, i) => {
       if (i === target.row - 1) {
@@ -225,9 +183,48 @@ export default function App() {
     setDisabled(true);
   }
 
-  function updateKeyboard(keyValue) {
+  // KEYBOARD UPDATE
+  const [keyboard, setKeyboard] = useState(initialKeyboard);
 
+  function updateKeyboard(keyValue, keyStatus) {
+    const nextKeyboard = keyboard.map(key => {
+      if (key.value === keyValue) {
+        if (key.status === 'correct') {
+          return key;
+        } else {
+          return {
+            ...key,
+            status: keyStatus,
+          };
+
+        }
+      } else {
+        return key;
+      }
+    });
+    setKeyboard(nextKeyboard);
   }
+
+  // function updateKeyboard(keyValue, keyStatus) {
+  //   if (keyboard.find(key => key.value === keyValue) &&
+  //       keyStatus === 'correct') {
+  //         setKeyboard(prev => prev.filter(k => k.value !== keyValue));
+  //         setKeyboard(prev => [
+  //           ...prev,
+  //           { value: keyValue,
+  //           status: keyStatus }
+  //         ]);   
+  //   }
+  //   if (keyboard.find(key => key.value === keyValue)) {
+  //     return;
+  //   } 
+    
+  //   setKeyboard([
+  //     ...keyboard,
+  //     { value: keyValue,
+  //     status: keyStatus }
+  //   ]);
+  // }
 
   return (
     <>
@@ -237,8 +234,9 @@ export default function App() {
                      />
       <button onChange={updateKeyboard}>Update Keyboard</button>
       <KeyboardContainer onKeyboardClick={handleClick}
-                         result={keyStatus}
+                         keyboard={keyboard}
                          disabled={disabled} />
     </>
   );
 }
+
