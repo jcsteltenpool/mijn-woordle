@@ -1,25 +1,34 @@
 import React, { useState, useEffect } from "react";
+import Menu from "./components/Menu";
+import Hint from "./components/Hint";
 import GridContainer from "./components/GridContainer";
 import KeyboardContainer from "./components/KeyboardContainer";
 import { initialKeyboard } from "./util/keyboard_keys";
+import { puzzle_words } from "./util/puzzle_words_5";
 
 export default function App() {
   let initGrid = Array(6).fill(Array(5).fill(''));
   let initResults = Array(6).fill(Array(5).fill(''));
-  let initVisible = Array(6).fill(Array(5).fill(false));
   let initTarget = { row: 0, tile: 0 };
+  let randomPuzzleWord = puzzle_words[Math.floor(Math.random() * puzzle_words.length)]
 
+  const [solution, setSolution] = useState('kater'); //Replace for randomPuzzleWord
   const [grid, setGrid] = useState(initGrid);
   const [results, setResults] = useState(initResults);
-  const [visible, setVisible] = useState(initVisible);
   const [target, setTarget] = useState(initTarget);
+  const [hint, setHint] = useState('');
+  
+  let currentGuess = grid[target.row].join('');
 
   useEffect(() => {
     if (!disabled) {
       function handleKeyDown(e) {
         e.preventDefault();
-        initialKeyboard.forEach(key => {
-          if (e.key === key.value) {
+        keyboard.forEach(key => {
+          if (e.key === key.value && e.key !== 'Enter') {
+            handleClick(e.key);
+            setHint('');
+          } else if (e.key === key.value) {
             handleClick(e.key);
           }
         })
@@ -31,6 +40,15 @@ export default function App() {
       }
     }
   });
+
+  useEffect(() => {
+    if (hint.length > 0) {
+      const timeoutId = setTimeout(() => {
+        setHint('');
+      }, 5500);
+      return () => {clearTimeout(timeoutId)};
+    }
+  }, [hint]);
   
   function handleClick(keyValue) {
     if (keyValue === 'Enter' ) {
@@ -68,19 +86,19 @@ export default function App() {
   }
   
   function handleEnter() {
-    if (target.tile < 5) {
-      alert('Het woord is te kort');
+    if (currentGuess.length < 5) {
+      setHint('Woorden moeten 5 letters lang zijn.');
+    } else if (puzzle_words.indexOf(currentGuess) === -1) {
+      setHint('Dit woord staat niet in de lijst.');
     } else {
-      if (target.row > 5) {
-        return;
-      } else {
-        showResult();
-        disableKeyboard();
-        showNextKeyboard();
-        setTarget({ 
-          row: target.row + 1, 
-          tile: 0
-        })
+      showResult();
+      disableKeyboard();
+      showNextKeyboard();
+      updateTargetRow();
+      if (currentGuess === solution) {
+        setTimeout(() => {
+          alert(`Gefeliciteerd, het woord was inderdaad ${solution}!`);
+        }, (7 * animationTime));
       }
     }
   }
@@ -139,9 +157,11 @@ export default function App() {
   }
 
   // KEYBOARD ANIMATION
+  let initVisible = Array(6).fill(Array(5).fill(false));
+
+  const [visible, setVisible] = useState(initVisible);
   const [tileToShow, setTileToShow] = useState(null);
   const [disabled, setDisabled] = useState(false);
-
   const animationTime = 350;
   
   function showResult() {
@@ -150,7 +170,7 @@ export default function App() {
   
   useEffect(() => {
     const nextVisible = visible.map((row, i) => {
-      if (i === target.row - 1) {
+      if (i  === target.row) {
         return row.map((tile, i) => {
           if (i === tileToShow) {
             return true;
@@ -176,11 +196,19 @@ export default function App() {
     }
   }, [tileToShow, target.row, visible])
 
+  function updateTargetRow() {
+    if (target.row === 5) {
+      return;
+    }
+    setTimeout(() => {
+      setTarget({ row: target.row + 1, tile: 0 });
+    }, (5 * animationTime));
+  }
 
   function disableKeyboard() {
     setTimeout(() => {
       setDisabled(false);
-    }, (5 * animationTime))
+    }, (5 * animationTime));
     setDisabled(true);
   }
 
@@ -214,10 +242,14 @@ export default function App() {
 
   return (
     <>
+      <Menu />
+      <Hint hint={hint} />
       <GridContainer rows={grid}
                      results={results}
                      visible={visible}
                      />
+      {/* <p>{currentGuess}</p> */}
+      {/* <button onClick={() => setSolution(randomPuzzleWord)}>Click</button> */}
       <KeyboardContainer onKeyboardClick={handleClick}
                          keyboard={keyboard}
                          disabled={disabled} />
