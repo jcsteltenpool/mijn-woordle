@@ -89,12 +89,12 @@ p, h1, h2, h3, h4, h5, h6 {
   color: var(--body-color);
 }
 
-@media (prefers-color-scheme: dark) {
+/* @media (prefers-color-scheme: dark) {
   :root {
     --bg-color: var(--color-gray);
     --body-color: var(--color-white);
   }
-}
+} */
 
 .button {
   display: flex;
@@ -241,15 +241,11 @@ p, h1, h2, h3, h4, h5, h6 {
   --gap: calc(0.05 * var(--cell-size));
   
   display: grid;
+  grid-template-columns: repeat(5, auto);
+
   gap: var(--gap);
   font-size: calc(0.55 * var(--cell-size));
   font-weight: bold;
-}
-
-.game-grid-row {
-  display: grid;
-  grid-template-columns: repeat(5, auto);
-  gap: var(--gap);
 }
 
 .game-tile {

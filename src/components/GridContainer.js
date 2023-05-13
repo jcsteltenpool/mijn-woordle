@@ -15,27 +15,28 @@ function Tile({ value, result, visible }) {
     )
 }
 
-function Row({ tiles, results, visible }) {
-    const rowTiles = tiles.map((tile, i) =>
+// function Row({ tiles, results, visible }) {
+//     const rowTiles = tiles.map((tile, i) =>
+//         <Tile key={i}
+//               value={tile}
+//               result={results[i]}
+//               visible={visible[i]} />
+//     );
+
+//     return (
+//         <div className="game-grid-row">
+//             {rowTiles}
+//         </div>
+//     )
+// }
+
+export default function Grid({ grid }) {
+    const gridRows = grid.map((tile, i) => 
         <Tile key={i}
-              value={tile}
-              result={results[i]}
-              visible={visible[i]} />
-    );
-
-    return (
-        <div className="game-grid-row">
-            {rowTiles}
-        </div>
-    )
-}
-
-export default function Grid({ rows, results, visible }) {
-    const gridRows = rows.map((row, i) => 
-        <Row key={i}
-             tiles={row}
-             results={results[i]}
-             visible={visible[i]} />
+              value={tile.value}
+              result={tile.result}
+              visible={tile.visible}
+        />
     );
 
     return (

@@ -7,19 +7,15 @@ import { initialKeyboard } from "./util/keyboard_keys";
 import { puzzle_words } from "./util/puzzle_words_5";
 
 export default function App() {
-  let initGrid = Array(6).fill(Array(5).fill(''));
-  let initResults = Array(6).fill(Array(5).fill(''));
-  let initTarget = { row: 0, tile: 0 };
+  let initialGrid = Array(30).fill({ value: "", result: "", visible: false })
   let randomPuzzleWord = puzzle_words[Math.floor(Math.random() * puzzle_words.length)]
 
-  const [solution, setSolution] = useState('kater'); //Replace for randomPuzzleWord
-  const [grid, setGrid] = useState(initGrid);
-  const [results, setResults] = useState(initResults);
-  const [target, setTarget] = useState(initTarget);
+  const [grid, setGrid] = useState(initialGrid);
+  const [target, setTarget] = useState(0);
+  const [guess, setGuess] = useState([]);
   const [hint, setHint] = useState('');
+  const [solution, setSolution] = useState('kater'); //Replace for randomPuzzleWord
   
-  let currentGuess = grid[target.row].join('');
-
   useEffect(() => {
     if (!disabled) {
       function handleKeyDown(e) {
@@ -59,151 +55,127 @@ export default function App() {
       handleGuess(keyValue);
     }
   }
-
-  function handleGuess(keyValue) {
-    if (target.tile === 5) {
-      return;
-    } else {
-      setGrid(grid.map((row, i) => {
-        if (i === target.row) {
-          return row.map((tile, i) => {
-            if (i === target.tile) {
-              return keyValue;
-            } else {
-              return tile;
-            }
-          })  
-        } else {
-          return row;
-        }
-      }))
-      evaluateGuess(keyValue);
-      setTarget({
-        ...target,
-        tile: target.tile + 1
-      });
-    }
-  }
   
   function handleEnter() {
-    if (currentGuess.length < 5) {
+    let guessString = guess.join('');
+    if (guess.length < 5) {
       setHint('Woorden moeten 5 letters lang zijn.');
-    } else if (puzzle_words.indexOf(currentGuess) === -1) {
+    } else if (puzzle_words.indexOf(guessString) === -1) {
       setHint('Dit woord staat niet in de lijst.');
     } else {
       showResult();
       disableKeyboard();
       showNextKeyboard();
-      updateTargetRow();
-      if (currentGuess === solution) {
+      clearGuess();
+      if (guessString === solution) {
         setTimeout(() => {
           alert(`Gefeliciteerd, het woord was inderdaad ${solution}!`);
+        }, (7 * animationTime));
+      }
+      if (target === 30 && guessString !== solution) {
+        setTimeout(() => {
+          alert("Jammer joh, loser!");        
         }, (7 * animationTime));
       }
     }
   }
 
   function handleBackspace() {
-    if (target.tile === 0) {
+    if (guess.length === 0) {
       return
     } else {
-      setGrid(grid.map((row, i) => {
-        if (i === target.row) {
-          return row.map((tile, i) => {
-            if (i === target.tile - 1) {
-              return '';
-            } else {
-              return tile;
-            }
-          })  
+      setGrid(grid.map((tile, i) => {
+        if (i === target - 1) {
+          return {
+            ...tile,
+            value: '',
+          }
         } else {
-          return row;
+          return tile;
         }
-      }))
-      setTarget({
-        ...target,
-        tile: target.tile - 1
-      });
+      }));
+      setGuess([...guess.slice(0, -1)]);
+      setTarget(target - 1);
     }
   }
 
-  function evaluateGuess(keyValue){
+  function handleGuess(keyValue) {
     if (keyValue === 'e' || keyValue === 'x' || keyValue === 'o') {
-      updateResults('correct');
+      updateGrid(keyValue, 'correct');
       updateKeyboard(keyValue, 'correct');
     } else if (keyValue === 'k' || keyValue === 'q'){
-      updateResults('present');
+      updateGrid(keyValue, 'present');
       updateKeyboard(keyValue, 'present');
     } else {
-      updateResults('absent');
+      updateGrid(keyValue, 'absent');
       updateKeyboard(keyValue, 'absent');
     }
   }
 
-  function updateResults(status) {
-    setResults(results.map((row, i) => {
-      if (i === target.row) {
-        return row.map((tile, i) => {
-          if (i === target.tile) {
-            return status;
-          } else {
-            return tile;
-          }
-        });  
-      } else {
-        return row;
-      }
-    }));
+  function updateGrid(keyValue, result) {
+    if (guess.length === 5) {
+      return;
+    } else {
+      setGrid(grid.map((tile, i) => {
+        if (i === target) {
+          return {
+            ...tile,
+            value: keyValue,
+            result: result,
+          };
+        } else {
+          return tile;
+        }
+      }));
+      setGuess([
+        ...guess,
+        keyValue
+      ]);
+      setTarget(target + 1);
+    }
+  }
+
+  function clearGuess() {
+    setGuess([]);
   }
 
   // KEYBOARD ANIMATION
-  let initVisible = Array(6).fill(Array(5).fill(false));
-
-  const [visible, setVisible] = useState(initVisible);
   const [tileToShow, setTileToShow] = useState(null);
   const [disabled, setDisabled] = useState(false);
   const animationTime = 350;
   
   function showResult() {
-    setTileToShow(0);
+    setTileToShow(target - 5);
+    setTimeout(() => {
+      setTileToShow(null);
+    }, (5 * animationTime))
   }
   
   useEffect(() => {
-    const nextVisible = visible.map((row, i) => {
-      if (i  === target.row) {
-        return row.map((tile, i) => {
-          if (i === tileToShow) {
-            return true;
-          } else {
-            return tile;
-          }
-        });
+    const nextGrid = grid.map((tile, i) => {
+      if (i === tileToShow) {
+        return {
+          ...tile,
+          visible: true,
+        }
       } else {
-        return row;
+        return tile;
       }
     });
-    
-    if (tileToShow === 0) {
-      setVisible(nextVisible);
+    if (tileToShow === null) {
+      return;
+    } else if (tileToShow === target - 5) {
+      setGrid(nextGrid);
       setTileToShow(tileToShow + 1);
     }
-    while (tileToShow >= 1 && tileToShow < 5) {
+    while (tileToShow > target - 6 && tileToShow < target) {
       const intervalId = setInterval(() => {
-        setVisible(nextVisible);
+        setGrid(nextGrid);
         setTileToShow(tileToShow + 1);
       }, animationTime)
       return () => clearInterval(intervalId);
     }
-  }, [tileToShow, target.row, visible])
-
-  function updateTargetRow() {
-    if (target.row === 5) {
-      return;
-    }
-    setTimeout(() => {
-      setTarget({ row: target.row + 1, tile: 0 });
-    }, (5 * animationTime));
-  }
+  }, [tileToShow, target, grid]);
 
   function disableKeyboard() {
     setTimeout(() => {
@@ -226,7 +198,6 @@ export default function App() {
             ...key,
             status: keyStatus,
           };
-
         }
       } else {
         return key;
@@ -244,12 +215,7 @@ export default function App() {
     <>
       <Menu />
       <Hint hint={hint} />
-      <GridContainer rows={grid}
-                     results={results}
-                     visible={visible}
-                     />
-      {/* <p>{currentGuess}</p> */}
-      {/* <button onClick={() => setSolution(randomPuzzleWord)}>Click</button> */}
+      <GridContainer grid={grid}/>
       <KeyboardContainer onKeyboardClick={handleClick}
                          keyboard={keyboard}
                          disabled={disabled} />
