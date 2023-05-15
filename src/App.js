@@ -12,7 +12,7 @@ export default function App() {
 
   const [grid, setGrid] = useState(initialGrid);
   const [target, setTarget] = useState(0);
-  const [guess, setGuess] = useState([]);
+  const [guessArray, setGuessArray] = useState([]);
   const [hint, setHint] = useState('');
   const [solution, setSolution] = useState('kater'); //Replace for randomPuzzleWord
   
@@ -57,8 +57,8 @@ export default function App() {
   }
   
   function handleEnter() {
-    let guessString = guess.join('');
-    if (guess.length < 5) {
+    let guessString = guessArray.join('');
+    if (guessArray.length < 5) {
       setHint('Woorden moeten 5 letters lang zijn.');
     } else if (puzzle_words.indexOf(guessString) === -1) {
       setHint('Dit woord staat niet in de lijst.');
@@ -81,7 +81,7 @@ export default function App() {
   }
 
   function handleBackspace() {
-    if (guess.length === 0) {
+    if (guessArray.length === 0) {
       return
     } else {
       setGrid(grid.map((tile, i) => {
@@ -94,26 +94,48 @@ export default function App() {
           return tile;
         }
       }));
-      setGuess([...guess.slice(0, -1)]);
+      setGuessArray([...guessArray.slice(0, -1)]);
       setTarget(target - 1);
     }
   }
 
   function handleGuess(keyValue) {
-    if (keyValue === 'e' || keyValue === 'x' || keyValue === 'o') {
-      updateGrid(keyValue, 'correct');
-      updateKeyboard(keyValue, 'correct');
-    } else if (keyValue === 'k' || keyValue === 'q'){
-      updateGrid(keyValue, 'present');
-      updateKeyboard(keyValue, 'present');
+    if (guessArray.length === 5) {
+      return;
     } else {
-      updateGrid(keyValue, 'absent');
-      updateKeyboard(keyValue, 'absent');
+      setGrid(grid.map((tile, i) => {
+        if (i === target) {
+          return {
+            ...tile,
+            value: keyValue,
+          };
+        } else {
+          return tile;
+        }
+      }));
+      setGuessArray([
+        ...guessArray,
+        keyValue
+      ]);
+      setTarget(target + 1);
     }
   }
+  
+  // function handleGuess(keyValue) {
+  //   if (keyValue === 'e' || keyValue === 'x' || keyValue === 'o') {
+  //     updateGrid(keyValue, 'correct');
+  //     updateKeyboard(keyValue, 'correct');
+  //   } else if (keyValue === 'k' || keyValue === 'q'){
+  //     updateGrid(keyValue, 'present');
+  //     updateKeyboard(keyValue, 'present');
+  //   } else {
+  //     updateGrid(keyValue, 'absent');
+  //     updateKeyboard(keyValue, 'absent');
+  //   }
+  // }
 
   function updateGrid(keyValue, result) {
-    if (guess.length === 5) {
+    if (guessArray.length === 5) {
       return;
     } else {
       setGrid(grid.map((tile, i) => {
@@ -127,8 +149,8 @@ export default function App() {
           return tile;
         }
       }));
-      setGuess([
-        ...guess,
+      setGuessArray([
+        ...guessArray,
         keyValue
       ]);
       setTarget(target + 1);
@@ -136,7 +158,7 @@ export default function App() {
   }
 
   function clearGuess() {
-    setGuess([]);
+    setGuessArray([]);
   }
 
   // KEYBOARD ANIMATION
