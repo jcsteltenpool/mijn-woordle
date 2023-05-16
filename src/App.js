@@ -11,10 +11,12 @@ export default function App() {
   let randomPuzzleWord = puzzle_words[Math.floor(Math.random() * puzzle_words.length)]
 
   const [grid, setGrid] = useState(initialGrid);
+  const [keyboard, setKeyboard] = useState(initialKeyboard);
   const [target, setTarget] = useState(0);
   const [guessArray, setGuessArray] = useState([]);
   const [hint, setHint] = useState('');
-  const [solution, setSolution] = useState('kater'); //Replace for randomPuzzleWord
+  const [solution, setSolution] = useState(randomPuzzleWord);
+
   
   useEffect(() => {
     if (!disabled) {
@@ -57,16 +59,16 @@ export default function App() {
   }
   
   function handleEnter() {
-    let guessString = guessArray.join('');
+    const guessString = guessArray.join('');
     if (guessArray.length < 5) {
       setHint('Woorden moeten 5 letters lang zijn.');
     } else if (puzzle_words.indexOf(guessString) === -1) {
       setHint('Dit woord staat niet in de lijst.');
     } else {
+      evaluateGuess();
       showResult();
       disableKeyboard();
-      showNextKeyboard();
-      clearGuess();
+      clearGuessArray();
       if (guessString === solution) {
         setTimeout(() => {
           alert(`Gefeliciteerd, het woord was inderdaad ${solution}!`);
@@ -74,7 +76,7 @@ export default function App() {
       }
       if (target === 30 && guessString !== solution) {
         setTimeout(() => {
-          alert("Jammer joh, loser!");        
+          alert(`Jammer! Het woord was ${solution}`);        
         }, (7 * animationTime));
       }
     }
@@ -120,44 +122,66 @@ export default function App() {
       setTarget(target + 1);
     }
   }
-  
-  // function handleGuess(keyValue) {
-  //   if (keyValue === 'e' || keyValue === 'x' || keyValue === 'o') {
-  //     updateGrid(keyValue, 'correct');
-  //     updateKeyboard(keyValue, 'correct');
-  //   } else if (keyValue === 'k' || keyValue === 'q'){
-  //     updateGrid(keyValue, 'present');
-  //     updateKeyboard(keyValue, 'present');
-  //   } else {
-  //     updateGrid(keyValue, 'absent');
-  //     updateKeyboard(keyValue, 'absent');
-  //   }
-  // }
 
-  function updateGrid(keyValue, result) {
-    if (guessArray.length === 5) {
-      return;
-    } else {
-      setGrid(grid.map((tile, i) => {
-        if (i === target) {
+  function evaluateGuess() {
+    const solutionTemp = solution.split('');
+    let resultArray = [];
+
+    guessArray.forEach((guess, i) => {
+      if (guess === solution.charAt(i)) {
+        delete solutionTemp[solutionTemp.indexOf(guess)];
+        console.log(solutionTemp);
+        resultArray.push({ value: guess, status: 'correct' });
+      } else {
+        resultArray.push({ value: guess, status: 'tbd' });
+      }
+    })
+
+    resultArray.forEach((guess, i) => {
+      if (guess.status === 'tbd') {
+        if (solutionTemp.indexOf(guessArray[i]) !== -1) {
+          delete solutionTemp[solutionTemp.indexOf(guessArray[i])];
+          resultArray[i] = { ...guess, status: 'present' }; 
+        } else {
+          resultArray[i] = { ...guess, status: 'absent'};
+        }
+      }
+    })
+
+    resultArray.forEach((result, index) => {
+      setGrid(gr => gr.map((tile, i) => {
+        if (i === (target - 5) + index) {
           return {
             ...tile,
-            value: keyValue,
-            result: result,
-          };
+            result: result.status,
+          }
         } else {
           return tile;
         }
       }));
-      setGuessArray([
-        ...guessArray,
-        keyValue
-      ]);
-      setTarget(target + 1);
-    }
+
+      setTimeout(() => {
+        setKeyboard(k => k.map(key => {
+          if (key.value === result.value) {
+            if (key.status === 'correct') {
+              return key;
+            } else if (result.status === 'absent' && key.status === 'present') {
+              return key;
+            } else {
+              return {
+                ...key,
+                status: result.status,
+              };
+            }
+          } else {
+            return key;
+          }
+        }));
+      }, (5 * animationTime));
+    });
   }
 
-  function clearGuess() {
+  function clearGuessArray() {
     setGuessArray([]);
   }
 
@@ -204,33 +228,6 @@ export default function App() {
       setDisabled(false);
     }, (5 * animationTime));
     setDisabled(true);
-  }
-
-  // KEYBOARD UPDATE
-  const [keyboard, setKeyboard] = useState(initialKeyboard);
-  const [nextKeyboard, setNextKeyboard] = useState(keyboard);
-
-  function updateKeyboard(keyValue, keyStatus) {
-    setNextKeyboard(nextKeyboard.map(key => {
-      if (key.value === keyValue) {
-        if (key.status === 'correct') {
-          return key;
-        } else {
-          return {
-            ...key,
-            status: keyStatus,
-          };
-        }
-      } else {
-        return key;
-      }
-    }));
-  }
-
-  function showNextKeyboard() {
-    setTimeout(() => {
-      setKeyboard(nextKeyboard);
-    }, (5 * animationTime))
   }
 
   return (
