@@ -11,6 +11,7 @@
   --bg-color: var(--color-white);
   --body-color: var(--color-dark-gray);
 
+  --keyboard-key-color: var(--color-dark-gray);
   --keyboard-background-color: var(--color-light);
   --secondary-button-color: var(--color-dark-gray);
   --secondary-button-background-color: var(--color-light);  
@@ -45,12 +46,11 @@ html, body {
 }
 
 body {
-  line-height: 1.5;
-
   -webkit-font-smoothing: antialiased;
 
   font-family: var(--font-family-primary);
   background-color: var(--bg-color);
+  color: var(--body-color);
   transition: opacity ease-in 0.2s;
 }
 
@@ -81,20 +81,16 @@ p, h1, h2, h3, h4, h5, h6 {
   min-height: 100%;
   display: flex;
   flex-direction: column;
-  align-items: center;
   overflow: hidden;
   touch-action: manipulation;
-
-  background-color: var(--bg-color);
-  color: var(--body-color);
 }
 
-@media (prefers-color-scheme: dark) {
+/* @media (prefers-color-scheme: dark) {
   :root {
     --bg-color: var(--color-gray);
     --body-color: var(--color-white);
   }
-}
+} */
 
 .button {
   display: flex;
@@ -102,7 +98,7 @@ p, h1, h2, h3, h4, h5, h6 {
   align-items: center;
   flex-grow: 0;
   margin: 0;
-  padding: 1rem;
+  padding: 0.75rem;
   border: 0.25rem solid;
   border-color: rgb(255 255 255 / 0%);
   background-clip: padding-box;
@@ -125,7 +121,7 @@ p, h1, h2, h3, h4, h5, h6 {
   border-color: var(--secondary-button-hover-color);
 }
 
-@media (width > 768px) {
+@media (width > 1024px) {
   .button {
     padding: 1rem;
   }
@@ -141,7 +137,17 @@ p, h1, h2, h3, h4, h5, h6 {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin: 8px 0;
+  margin: 0.5rem 0;
+}
+
+.title-bar h1 {
+  font-size: 1.5rem;
+}
+
+@media (width > 480px) {
+  .title-bar h1 {
+    font-size: 2rem;
+  }
 }
 
 .title-bar .slot {
@@ -178,6 +184,12 @@ p, h1, h2, h3, h4, h5, h6 {
 @media (width > 768px) {
   .title-bar {
     margin: 1rem auto 2rem auto;
+  }
+}
+
+@media (width < 480px) {
+  .button .label {
+    display: none;
   }
 }
 
@@ -232,28 +244,26 @@ p, h1, h2, h3, h4, h5, h6 {
   flex: 1;
   margin-inline: auto;
   padding: 0 0.5rem;
-  width: max-content;
-  max-width: 600px;
 }
 
 .game-grid {
-  --cell-size: 3.4rem;
-  --gap: calc(0.05 * var(--cell-size));
+  --cell-size: min(18vw, 8vh);
   
   display: grid;
-  gap: var(--gap);
+  grid-template-columns: repeat(5, auto);
+
+  gap: calc(0.05 * var(--cell-size));
   font-size: calc(0.55 * var(--cell-size));
   font-weight: bold;
 }
 
-.game-grid-row {
-  display: grid;
-  grid-template-columns: repeat(5, auto);
-  gap: var(--gap);
+@media (width > 480px) {
+  .game-grid {
+    --cell-size: clamp(12px, 8vh, 5rem);
+  }
 }
 
 .game-tile {
-  --delay: 300ms;
   position: relative;
   width: var(--cell-size);
   height: var(--cell-size);
@@ -280,7 +290,6 @@ p, h1, h2, h3, h4, h5, h6 {
 }
 
 .game-tile > *[data-visible="false"] {
-  /* visibility: hidden; */
   transform: rotateX(180deg);
 }
 
@@ -316,24 +325,24 @@ p, h1, h2, h3, h4, h5, h6 {
   width: 100%;
   display: flex;
   justify-content: center;
+  /* flex: 0 0 auto; */
+
   margin-top: 1rem;
   background-color: var(--keyboard-background-color);
-  padding-bottom: 0.5rem;
 }
 
 .keyboard {
-  --key-size: 3.5rem;
+  --key-size: calc(7.4vw);
   --gap: 0.5rem;
 
   display: flex;
   gap: var(--gap);
-  flex: 0 0 auto;
   justify-content: center;
   flex-flow: row wrap; 
   width: calc(10 * var(--key-size) + 9 * var(--gap)); 
   background-color: var(--keyboard-background-color);
   margin: 0.5rem;
-  height: calc(3 * var(--key-size)); 
+  height: 11.375rem; 
 }
 
 .keyboard-key {
@@ -341,10 +350,11 @@ p, h1, h2, h3, h4, h5, h6 {
   flex-grow: 0;
   flex-shrink: 0;
   width: var(--key-size);
-  max-width: 70px;
+  height: 3.125rem;
   font-family: var(--font-family-primary);
   font-size: 1.25rem;
   text-transform: uppercase;
+  -webkit-tap-highlight-color: transparent;
   touch-action: manipulation;
 }
 
@@ -360,6 +370,28 @@ p, h1, h2, h3, h4, h5, h6 {
   box-shadow: 0 1px 1px 0 rgb(0 0 0 / 20%);
   transform-origin: bottom;
 }
+@media (hover: none) {
+  .keyboard-key:active:not(.keyboard-key-enter) {
+    font-size: 1.8rem;
+  }
+
+  .keyboard-key:active .keyboard-key-bg {
+    height: 108px;
+    top: -58px;
+    box-shadow: 0 1px 5px 0.5px rgb(0 0 0 / 20%);
+    background-image: linear-gradient(rgba(0, 0, 0, 0.25) 0 0)
+  }
+
+  .keyboard-key:active .keyboard-key-content {
+    top: -58px;
+  }
+}
+
+@media (hover: hover) {
+  .keyboard-key:active .keyboard-key-bg {
+    opacity: 0.6;
+  }
+}
 
 .keyboard-key-content {
   position: relative;
@@ -367,14 +399,37 @@ p, h1, h2, h3, h4, h5, h6 {
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--color-dark-gray);
+  color: var(--keyboard-key-color);
   transition: opacity 0.3s ease 0s;
 }
 
 .keyboard-key-enter {
+  width: 18vw;
   max-width: 120px;
-  width: 175px;
 }
+
+.keyboard-key svg {
+  width: 20px;
+  height: 20px;
+  fill: var(--keyboard-key-color);
+}
+
+@media (width > 480px) {
+  .keyboard {
+    --key-size: min(calc(8.4vw - 1.5px), 3.5rem);
+    height: 13.25rem;
+  }
+
+  .keyboard-key {
+    height: 3.75rem;
+  }
+
+  .keyboard-key svg {
+    width: 30px;
+    height: 30px;
+  }
+}
+
 
 .keyboard-key:disabled .keyboard-key-content {
   opacity: 0.6;

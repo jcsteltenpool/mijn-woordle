@@ -8,7 +8,7 @@ export default function Menu() {
         <div className="menu-wrapper">
             <div className="title-bar preserve-height">
                 <div className="slot left">
-                    <button className="button secondary-button" type="button">
+                    <button className="button secondary-button" aria-label="Hoe werkt het?" type="button">
                         <span className="svg-icon">
                             {helpSVG}
                         </span>
