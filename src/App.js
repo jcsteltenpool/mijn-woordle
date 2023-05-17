@@ -15,6 +15,7 @@ export default function App() {
   const [target, setTarget] = useState(0);
   const [guessArray, setGuessArray] = useState([]);
   const [hint, setHint] = useState('');
+
   const [solution, setSolution] = useState(randomPuzzleWord);
 
   

@@ -36,16 +36,10 @@
   user-select: none;
 }
 
-* {
+body {
   margin: 0;
   padding: 0;
-}
-
-html, body {
-  height: 100%;
-}
-
-body {
+  height: 100vh;
   -webkit-font-smoothing: antialiased;
 
   font-family: var(--font-family-primary);
@@ -242,7 +236,7 @@ p, h1, h2, h3, h4, h5, h6 {
 /* Grid Container */
 .game-grid-wrapper {
   flex: 1;
-  margin-inline: auto;
+  margin: 0 auto;
   padding: 0 0.5rem;
 }
 
@@ -259,7 +253,7 @@ p, h1, h2, h3, h4, h5, h6 {
 
 @media (width > 480px) {
   .game-grid {
-    --cell-size: clamp(12px, 8vh, 5rem);
+    --cell-size: clamp(12px, calc(8vh - 2px), 5rem);
   }
 }
 
@@ -325,7 +319,7 @@ p, h1, h2, h3, h4, h5, h6 {
   width: 100%;
   display: flex;
   justify-content: center;
-  /* flex: 0 0 auto; */
+  flex: 0 0 auto;
 
   margin-top: 1rem;
   background-color: var(--keyboard-background-color);
@@ -339,6 +333,7 @@ p, h1, h2, h3, h4, h5, h6 {
   gap: var(--gap);
   justify-content: center;
   flex-flow: row wrap; 
+  /* flex: 0 0 auto; */
   width: calc(10 * var(--key-size) + 9 * var(--gap)); 
   background-color: var(--keyboard-background-color);
   margin: 0.5rem;
