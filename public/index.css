@@ -75,6 +75,7 @@ p, h1, h2, h3, h4, h5, h6 {
   min-height: 100%;
   display: flex;
   flex-direction: column;
+  align-items: center;
   overflow: hidden;
   touch-action: manipulation;
 }
@@ -242,6 +243,8 @@ p, h1, h2, h3, h4, h5, h6 {
 
 .game-grid {
   --cell-size: min(18vw, 8vh);
+  --cell-size: clamp(12px, calc((100vh - 336px) / 6.25), 18vw);
+
   
   display: grid;
   grid-template-columns: repeat(5, auto);
@@ -253,7 +256,13 @@ p, h1, h2, h3, h4, h5, h6 {
 
 @media (width > 480px) {
   .game-grid {
-    --cell-size: clamp(12px, calc(8vh - 2px), 5rem);
+    --cell-size: clamp(12px, calc((100vh - 388px) / 6.25), 80px);
+  }
+}
+
+@media (width > 768px) {
+  .game-grid {
+    --cell-size: clamp(12px, calc((100vh - 420px) / 6.25), 80px);
   }
 }
 
@@ -333,7 +342,6 @@ p, h1, h2, h3, h4, h5, h6 {
   gap: var(--gap);
   justify-content: center;
   flex-flow: row wrap; 
-  /* flex: 0 0 auto; */
   width: calc(10 * var(--key-size) + 9 * var(--gap)); 
   background-color: var(--keyboard-background-color);
   margin: 0.5rem;
