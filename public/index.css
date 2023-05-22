@@ -415,8 +415,9 @@ p, h1, h2, h3, h4, h5, h6 {
 }
 
 .keyboard-key svg {
-  width: 20px;
-  height: 20px;
+  --svg: clamp(5px, 5vw, 20px);
+  width: var(--svg);
+  height: var(--svg);
   fill: var(--keyboard-key-color);
 }
 
@@ -431,8 +432,20 @@ p, h1, h2, h3, h4, h5, h6 {
   }
 
   .keyboard-key svg {
-    width: 30px;
-    height: 30px;
+    --svg: 30px;
+  }
+}
+
+@media (width < 340px) {
+  .keyboard {
+    --gap: 2.25vw;
+  }
+  .keyboard-key {
+    flex-shrink: 1;
+  }
+
+  .keyboard-key-content {
+    font-size: min(1rem, 5vw);
   }
 }
 
