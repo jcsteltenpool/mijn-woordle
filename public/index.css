@@ -206,9 +206,12 @@ p, h1, h2, h3, h4, h5, h6 {
   margin: 0;
   line-height: 40px;
   color: var(--body-color);
-  opacity: 0;
-  animation: hint-show 0.3s ease-in-out 0s forwards,
-             hint-hide 0.2s linear 5s forwards;
+  opacity: 1;
+  animation: hint-show 0.3s ease-in-out 0s forwards;
+}
+
+.hide {
+  animation: hint-hide 0.2s linear 0s forwards;
 }
 
 @keyframes hint-show {

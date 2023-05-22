@@ -15,6 +15,7 @@ export default function App() {
   const [target, setTarget] = useState(0);
   const [guessArray, setGuessArray] = useState([]);
   const [hint, setHint] = useState('');
+  const [showHint, setShowHint] = useState(false);
 
   const [solution, setSolution] = useState(randomPuzzleWord);
 
@@ -26,7 +27,7 @@ export default function App() {
         keyboard.forEach(key => {
           if (e.key === key.value && e.key !== 'Enter') {
             handleClick(e.key);
-            setHint('');
+            setShowHint(false);
           } else if (e.key === key.value) {
             handleClick(e.key);
           }
@@ -42,12 +43,22 @@ export default function App() {
 
   useEffect(() => {
     if (hint.length > 0) {
+      setShowHint(true);
       const timeoutId = setTimeout(() => {
-        setHint('');
-      }, 5500);
+        setShowHint(false);
+      }, 5000);
       return () => {clearTimeout(timeoutId)};
     }
   }, [hint]);
+
+  useEffect(() => {
+    if(!showHint) {
+      const timeoutId = setTimeout(() => {
+        setHint('');
+      }, 200);
+      return () => {clearTimeout(timeoutId)};
+    }
+  }, [showHint]);
   
   function handleClick(keyValue) {
     if (keyValue === 'Enter' ) {
@@ -72,7 +83,8 @@ export default function App() {
       clearGuessArray();
       if (guessString === solution) {
         setTimeout(() => {
-          alert(`Gefeliciteerd, het woord was inderdaad ${solution}!`);
+          alert(`Gefeliciteerd, het woord was inderdaad ${solution}! \n
+                Je hebt het woord geraden in ${target/5} pogingen.`);
         }, (7 * animationTime));
       }
       if (target === 30 && guessString !== solution) {
@@ -234,7 +246,8 @@ export default function App() {
   return (
     <>
       <Menu />
-      <Hint hint={hint} />
+      <Hint hint={hint}
+            showHint={showHint} />
       <GridContainer grid={grid}/>
       <KeyboardContainer onKeyboardClick={handleClick}
                          keyboard={keyboard}
