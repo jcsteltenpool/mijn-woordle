@@ -6,7 +6,8 @@ export default function Keyboard({ onKeyboardClick, disabled, keyboard }) {
     const keyboardKeys = keyboard.map(key =>
         <button key={key.value} 
                 className={`${key.value === "Enter" ? "keyboard-key-enter" : ""} keyboard-key`}
-                disabled={disabled}             
+                disabled={disabled}
+                tabIndex={-1}             
                 onClick={() => onKeyboardClick(key.value)}>
             <span className="keyboard-key-bg" 
                   data-status={key.status}></span>

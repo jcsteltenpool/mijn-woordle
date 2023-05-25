@@ -8,11 +8,20 @@
   --color-green: #3dc662;
   --color-yellow: #ffc312;
 
-  --bg-color: var(--color-white);
+  --primary-color: #009fdf;
+  --primary-color-hover: #008fc8;
+  --secondary-color: #105797;
+  --tertiary-color: #ffffff;
+
+  --bg-color: #ffffff;
   --body-color: var(--color-dark-gray);
 
   --keyboard-key-color: var(--color-dark-gray);
   --keyboard-background-color: var(--color-light);
+
+  --primary-button-color: var(--color-white);
+  --primary-button-background-color: var(--primary-color);
+  --primary-button-hover-color: var(--primary-color-hover);
   --secondary-button-color: var(--color-dark-gray);
   --secondary-button-background-color: var(--color-light);  
   --secondary-button-hover-color: var(--color-light-gray);
@@ -25,6 +34,9 @@
   --bg-color-correct: var(--color-green);
   --color-present: var(--color-white);
   --bg-color-present: var(--color-yellow);
+
+  --modal-text-color: var(--body-color);
+  --modal-background-color: var(--tertiary-color); 
 
   --font-family-primary: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
 }
@@ -41,11 +53,6 @@ body {
   padding: 0;
   height: 100vh;
   -webkit-font-smoothing: antialiased;
-
-  font-family: var(--font-family-primary);
-  background-color: var(--bg-color);
-  color: var(--body-color);
-  transition: opacity ease-in 0.2s;
 }
 
 img, picture, video, canvas, svg {
@@ -68,16 +75,26 @@ button {
 
 p, h1, h2, h3, h4, h5, h6 {
   overflow-wrap: break-word;
+  margin: 0 0 1rem 0;
 }
 
 #root {
   isolation: isolate;
-  min-height: 100%;
+  position: relative;
+  width: 100%;
+  height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
   overflow: hidden;
   touch-action: manipulation;
+
+  font-family: var(--font-family-primary);
+  background-color: var(--bg-color);
+  color: var(--body-color);
+  transition: opacity ease-in 0.2s,
+              background-color 1.3s;
+
 }
 
 /* @media (prefers-color-scheme: dark) {
@@ -104,6 +121,16 @@ p, h1, h2, h3, h4, h5, h6 {
   white-space: nowrap;
   transition: border-color 0.2s linear;
   touch-action: manipulation;
+}
+
+.primary-button {
+  color: var(--primary-button-color);
+  background-color: var(--primary-button-background-color);
+}
+
+.primary-button:not(:disabled):hover,
+.primary-button:not(:disabled):focus {
+  border-color: var(--primary-button-hover-color);
 }
 
 .secondary-button {
@@ -136,7 +163,9 @@ p, h1, h2, h3, h4, h5, h6 {
 }
 
 .title-bar h1 {
+  margin: 0;
   font-size: 1.5rem;
+  text-align: center;
 }
 
 @media (width > 480px) {
@@ -172,6 +201,7 @@ p, h1, h2, h3, h4, h5, h6 {
   width: 1rem;
   height: 1rem;
 }
+
 .secondary-button svg {
   fill: var(--secondary-button-color);
 }
@@ -206,26 +236,31 @@ p, h1, h2, h3, h4, h5, h6 {
   margin: 0;
   line-height: 40px;
   color: var(--body-color);
-  opacity: 1;
-  animation: hint-show 0.3s ease-in-out 0s forwards;
+}
+
+.show-hint {
+  animation: show-hint 0.3s linear 0s forwards;
 }
 
 .hide {
-  animation: hint-hide 0.2s linear 0s forwards;
+  animation: hide 0.2s linear 0s forwards;
 }
 
-@keyframes hint-show {
+@keyframes show-hint {
+  0% {
+    opacity: 0;
+  }
   80% {
     transform: scale(1.02);
     opacity: 1;
   }
   100% {
     transform: scale(1);
-    opacity: 1;
   } 
 }
 
-@keyframes hint-hide {
+@keyframes hide {
+  0% { opacity: 1; }
   100% { opacity: 0;  }
 }
 
@@ -245,10 +280,8 @@ p, h1, h2, h3, h4, h5, h6 {
 }
 
 .game-grid {
-  --cell-size: min(18vw, 8vh);
   --cell-size: clamp(12px, calc((100vh - 336px) / 6.25), 18vw);
 
-  
   display: grid;
   grid-template-columns: repeat(5, auto);
 
@@ -338,7 +371,7 @@ p, h1, h2, h3, h4, h5, h6 {
 }
 
 .keyboard {
-  --key-size: calc(7.4vw);
+  --key-size: calc(100vw / 10 - 0.55rem);
   --gap: 0.5rem;
 
   display: flex;
@@ -376,28 +409,6 @@ p, h1, h2, h3, h4, h5, h6 {
   box-shadow: 0 1px 1px 0 rgb(0 0 0 / 20%);
   transform-origin: bottom;
 }
-@media (hover: none) {
-  .keyboard-key:active:not(.keyboard-key-enter) {
-    font-size: 1.8rem;
-  }
-
-  .keyboard-key:active .keyboard-key-bg {
-    height: 108px;
-    top: -58px;
-    box-shadow: 0 1px 5px 0.5px rgb(0 0 0 / 20%);
-    background-image: linear-gradient(rgba(0, 0, 0, 0.25) 0 0)
-  }
-
-  .keyboard-key:active .keyboard-key-content {
-    top: -58px;
-  }
-}
-
-@media (hover: hover) {
-  .keyboard-key:active .keyboard-key-bg {
-    opacity: 0.6;
-  }
-}
 
 .keyboard-key-content {
   position: relative;
@@ -423,7 +434,6 @@ p, h1, h2, h3, h4, h5, h6 {
 
 @media (width > 480px) {
   .keyboard {
-    --key-size: min(calc(8.4vw - 1.5px), 3.5rem);
     height: 13.25rem;
   }
 
@@ -434,14 +444,22 @@ p, h1, h2, h3, h4, h5, h6 {
   .keyboard-key svg {
     --svg: 30px;
   }
+
+  .keyboard-key:active .keyboard-key-bg {
+    opacity: 0.6;
+  }
+}
+
+@media (width > 787px) {
+  .keyboard {
+    --key-size: 70px;
+  }
 }
 
 @media (width < 340px) {
   .keyboard {
+    --key-size: calc(100vw / 10 - 0.53rem);
     --gap: 2.25vw;
-  }
-  .keyboard-key {
-    flex-shrink: 1;
   }
 
   .keyboard-key-content {
@@ -449,6 +467,22 @@ p, h1, h2, h3, h4, h5, h6 {
   }
 }
 
+@media (width <= 480px) {
+  .keyboard-key:active:not(.keyboard-key-enter) {
+    font-size: 1.8rem;
+  }
+
+  .keyboard-key:active .keyboard-key-bg {
+    height: 108px;
+    top: -58px;
+    box-shadow: 0 1px 5px 0.5px rgb(0 0 0 / 20%);
+    background-image: linear-gradient(rgba(0, 0, 0, 0.25) 0 0)
+  }
+
+  .keyboard-key:active .keyboard-key-content {
+    top: -58px;
+  }
+}
 
 .keyboard-key:disabled .keyboard-key-content {
   opacity: 0.6;
@@ -474,3 +508,154 @@ p, h1, h2, h3, h4, h5, h6 {
 .keyboard-key-content[data-status="present"] {
   color: var(--color-present);
 }
+
+
+/* Modal Container */
+.modal-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: opacity 5s linear;
+
+}
+
+.modal-backdrop {
+  z-index: 6;
+  background-color: rgba(0, 0, 0, 0.5);
+  opacity: 0;
+}
+
+.show-backdrop {
+  animation: show-backdrop 0.2s linear forwards;
+}
+
+@keyframes show-backdrop {
+  100% {
+    opacity: 1;
+  }
+}
+
+.cover-parent {
+  position: absolute;
+  inset: 0;
+}
+
+.modal {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  max-width: inherit;
+  min-width: inherit;
+  padding: 2rem 2rem 1rem;
+  z-index: 7;
+  overflow: hidden;
+  color: var(--modal-text-color);
+  background-color: var(--modal-background-color);
+}
+
+.show-modal {
+  animation: show-modal 0.3s ease-out forwards;
+}
+
+.hide-modal {
+  animation: hide-modal 0.3s ease-out forwards;
+}
+
+@keyframes show-modal {
+  0% {
+    opacity: 0;
+    transform: translateY(3rem);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes hide-modal {
+  100% {
+    opacity: 0;
+    transform: translateY(3rem);
+  }
+}
+
+.modal .close-button {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  padding: 12px;
+  width: 46px;
+  height: 46px;
+  z-index: 1;
+}
+
+.content-modal {
+  max-width: 300px;
+  margin-inline: auto;
+  overflow-x: hidden;
+  overflow-y: auto;
+  overscroll-behavior-x: contain;
+}
+
+.content-modal-panel-wrapper {
+  position: relative;
+  display: inline-flex;
+  transition: transform 0.42s;
+}
+
+.content-modal-panel {
+  width: calc(100vw - (4 * 16px));
+  max-width: 300px;
+  display: block;
+}
+
+@media (width <= 480px) {
+  .modal {
+    width: 100%;
+    height: 100%;
+  }
+}
+
+@media (width > 480px) {
+  .modal {
+    max-height: calc(100vh - 2 * 32px);
+    max-width: calc(100vw - 2 * 32px);
+    border-radius: 1rem;
+    box-shadow: 0 0 8px rgb(0 0 0 / 50%);
+  }
+
+  .content-modal {
+    max-width: 400px;
+  }
+
+  .content-modal-panel {
+    max-width: 400px;
+  }
+}
+
+@media (width > 1020px) {
+  .modal {
+    max-width: 600px;
+    max-height: calc(100vh - 32px);
+  }
+
+  .content-modal,
+  .content-modal-panel {
+    max-width: fit-content;
+    width: 520px;
+  }
+}
+
+.content-modal-panel .primary-button {
+  margin-inline: auto;
+  margin-bottom: 1rem;
+}
+
+.button.outline:not(:disabled):hover {
+  border-color: var(--secondary-button-hover-color);
+}
+
+.button .outline svg {
+  color: var(--body-color)
+}
+

@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
-import Menu from "./components/Menu";
+import Header from "./components/Header";
 import Hint from "./components/Hint";
-import GridContainer from "./components/GridContainer";
-import KeyboardContainer from "./components/KeyboardContainer";
+import Grid from "./components/GridContainer";
+import Keyboard from "./components/KeyboardContainer";
+import Modal from "./components/ModalContainer";
 import { initialKeyboard } from "./util/keyboard_keys";
 import { puzzle_words } from "./util/puzzle_words_5";
 
@@ -23,20 +24,31 @@ export default function App() {
   useEffect(() => {
     if (!disabled) {
       function handleKeyDown(e) {
-        e.preventDefault();
+          // e.preventDefault();
         keyboard.forEach(key => {
           if (e.key === key.value && e.key !== 'Enter') {
             handleClick(e.key);
             setShowHint(false);
           } else if (e.key === key.value) {
             handleClick(e.key);
-          }
+          } 
         })
       }
       document.addEventListener('keydown', handleKeyDown);
       
       return () => {
         document.removeEventListener('keydown', handleKeyDown);
+      }
+    } else if (disabled && modalContent !== null) {
+      function handleEscKey(e) {
+        if (e.key === 'Escape') {
+          setShowModal(false);
+        }
+      }
+      document.addEventListener('keydown', handleEscKey);
+      
+      return () => {
+        document.removeEventListener('keydown', handleEscKey);
       }
     }
   });
@@ -48,6 +60,8 @@ export default function App() {
         setShowHint(false);
       }, 5000);
       return () => {clearTimeout(timeoutId)};
+    } else {
+      setShowHint(false);
     }
   }, [hint]);
 
@@ -61,7 +75,7 @@ export default function App() {
   }, [showHint]);
   
   function handleClick(keyValue) {
-    if (keyValue === 'Enter' ) {
+    if (keyValue === 'Enter') {
       handleEnter();
     } else if (keyValue === 'Backspace') {
       handleBackspace();
@@ -243,15 +257,42 @@ export default function App() {
     setDisabled(true);
   }
 
+  // MODAL
+  const [showModal, setShowModal] = useState(false);
+  const [modalContent, setModalContent] = useState(null);
+
+  useEffect(() => {
+    if (modalContent) {
+      setShowModal(true);
+    }
+  }, [modalContent])
+  
+  useEffect(() => {
+    if (showModal) {
+      setDisabled(true);
+    } else {
+      setDisabled(false);
+      const timeoutId = setTimeout(() => {
+        console.log("setModalContent timeout " + timeoutId)
+        setModalContent(null);
+      }, 500);
+      return () => {clearTimeout(timeoutId)};
+    }
+  }, [showModal]);
+
   return (
     <>
-      <Menu />
+      <Header setHint={setHint}
+              setModalContent={setModalContent}/>
       <Hint hint={hint}
             showHint={showHint} />
-      <GridContainer grid={grid}/>
-      <KeyboardContainer onKeyboardClick={handleClick}
+      <Grid grid={grid}/>
+      <Keyboard onKeyboardClick={handleClick}
                          keyboard={keyboard}
                          disabled={disabled} />
+      <Modal modalContent={modalContent}
+             showModal={showModal}
+             setShowModal={setShowModal}/>
     </>
   );
 }
