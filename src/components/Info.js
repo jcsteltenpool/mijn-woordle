@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function Info() {
+export default function Info({ onClose }) {
     return (
         <div className="content-modal">
             <div className="content-modal-panel-wrapper">
@@ -14,7 +14,10 @@ export default function Info() {
                         ⬛ Verkeerde letter
                     </p>
                     <p>Je kunt Mijn Woordle onbeperkt spelen!</p>
-                    <button className="button primary-button">Speel Mijn Woordle</button>
+                    <button className="button primary-button"
+                            onClick={onClose}>
+                                Speel Mijn Woordle
+                    </button>
                 </div>
             </div>
         </div>

@@ -6,13 +6,11 @@ export default function Hint({ hint, showHint }) {
 
     useEffect(() => {
         if (showHint) {
-            console.log("showHint")
             const timeoutId = setTimeout(() => {
                 messageClasses.current = "hint-message hide";
               }, 3);
               return () => {clearTimeout(timeoutId)};
         } else {
-            console.log("hide hint")
             const timeoutId = setTimeout(() => {
                 messageClasses.current = "hint-message show-hint";
               }, 3);

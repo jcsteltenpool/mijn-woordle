@@ -8,7 +8,6 @@ export default function ModalContent({ onClose, showModal, children }) {
     useEffect(() => {
         if (showModal) {
             const timeoutId = setTimeout(() => {
-                console.log("showModal timeOut " + timeoutId)
                 backDropClasses.current = "modal-backdrop cover-parent hide";
                 modalClasses.current = "modal hide-modal";
               }, 3);
@@ -32,6 +31,3 @@ export default function ModalContent({ onClose, showModal, children }) {
         </div>
     )
 }
-
-// `modal-backdrop cover-parent ${showModal ? "show-backdrop" : "hide"}`
-// {`hint-message ${!showHint ? "hide" : "show-hint"}`}

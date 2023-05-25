@@ -13,6 +13,7 @@ export default function App() {
 
   const [grid, setGrid] = useState(initialGrid);
   const [keyboard, setKeyboard] = useState(initialKeyboard);
+  const [showKeyboard, setShowKeyboard] = useState(true);
   const [target, setTarget] = useState(0);
   const [guessArray, setGuessArray] = useState([]);
   const [hint, setHint] = useState('');
@@ -20,7 +21,15 @@ export default function App() {
 
   const [solution, setSolution] = useState(randomPuzzleWord);
 
-  
+  function startNewGame() {
+    setGrid(initialGrid);
+    setKeyboard(initialKeyboard);
+    setShowKeyboard(true);
+    setTarget(0);
+    setShowModal(false);
+    setSolution(randomPuzzleWord);  
+  }
+
   useEffect(() => {
     if (!disabled) {
       function handleKeyDown(e) {
@@ -39,10 +48,12 @@ export default function App() {
       return () => {
         document.removeEventListener('keydown', handleKeyDown);
       }
-    } else if (disabled && modalContent !== null) {
+    } else {
       function handleEscKey(e) {
         if (e.key === 'Escape') {
           setShowModal(false);
+        } else {
+          return;
         }
       }
       document.addEventListener('keydown', handleEscKey);
@@ -97,12 +108,16 @@ export default function App() {
       clearGuessArray();
       if (guessString === solution) {
         setTimeout(() => {
-          alert(`Gefeliciteerd, het woord was inderdaad ${solution}! \n
-                Je hebt het woord geraden in ${target/5} pogingen.`);
+          setModalContent('win');
+          setShowKeyboard(false);
+          // setDisabled(true);
+          // alert(`Gefeliciteerd, het woord was inderdaad ${solution}! \n
+          //       Je hebt het woord geraden in ${target/5} pogingen.`);
         }, (7 * animationTime));
       }
       if (target === 30 && guessString !== solution) {
         setTimeout(() => {
+          setModalContent('lose');
           alert(`Jammer! Het woord was ${solution}`);        
         }, (7 * animationTime));
       }
@@ -157,7 +172,6 @@ export default function App() {
     guessArray.forEach((guess, i) => {
       if (guess === solution.charAt(i)) {
         delete solutionTemp[solutionTemp.indexOf(guess)];
-        console.log(solutionTemp);
         resultArray.push({ value: guess, status: 'correct' });
       } else {
         resultArray.push({ value: guess, status: 'tbd' });
@@ -212,6 +226,8 @@ export default function App() {
     setGuessArray([]);
   }
 
+  
+
   // KEYBOARD ANIMATION
   const [tileToShow, setTileToShow] = useState(null);
   const [disabled, setDisabled] = useState(false);
@@ -258,8 +274,8 @@ export default function App() {
   }
 
   // MODAL
-  const [showModal, setShowModal] = useState(false);
-  const [modalContent, setModalContent] = useState(null);
+  const [showModal, setShowModal] = useState(true);
+  const [modalContent, setModalContent] = useState('win');
 
   useEffect(() => {
     if (modalContent) {
@@ -271,14 +287,13 @@ export default function App() {
     if (showModal) {
       setDisabled(true);
     } else {
-      setDisabled(false);
+      !showKeyboard ? setDisabled(true) : setDisabled(false);
       const timeoutId = setTimeout(() => {
-        console.log("setModalContent timeout " + timeoutId)
         setModalContent(null);
       }, 500);
       return () => {clearTimeout(timeoutId)};
     }
-  }, [showModal]);
+  }, [showModal, showKeyboard]);
 
   return (
     <>
@@ -289,10 +304,13 @@ export default function App() {
       <Grid grid={grid}/>
       <Keyboard onKeyboardClick={handleClick}
                          keyboard={keyboard}
+                         showKeyboard={showKeyboard}
                          disabled={disabled} />
       <Modal modalContent={modalContent}
              showModal={showModal}
-             setShowModal={setShowModal}/>
+             setShowModal={setShowModal}
+             startNewGame={startNewGame}
+             solution={solution} />
     </>
   );
 }
