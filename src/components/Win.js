@@ -18,7 +18,7 @@ export default function Win({ solution, startNewGame, onClose }) {
                         Speel nog een keer
                     </button>
                 </div>
-                <p className="stats-reset-text">Statistieken <a href="#">resetten</a>.</p>
+                <p className="stats-reset-text">Statistieken <a href="#">verwijderen</a>.</p>
             </div>
         </div>
     )

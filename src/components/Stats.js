@@ -8,12 +8,83 @@ export default function Stats({ solution }) {
                 <section>
                     <h3>Statistieken</h3>
                     <div className="stats-table">
-                        
+                        <p className="stats-table-item">
+                            <span>20</span> Gespeeld
+                        </p>
+                        <p className="stats-table-item">
+                            <span>97%</span> Win %
+                        </p>
+                        <p className="stats-table-item">
+                            <span>2</span> Huidige reeks
+                        </p>
+                        <p className="stats-table-item">
+                            <span>15</span> Max reeks
+                        </p>
                     </div>
                 </section>
                 <section>
                     <h3>Verdeling</h3>
-                    <div className="stats-distribution"></div>
+                    <div className="stats-distribution">
+                        <div className="stats-distribution-row">
+                            <p className="index-column">1</p>
+                            <div className="bar-column">
+                                <span className="bar"
+                                      style={{ width: "0%"}}  >
+                                    0
+                                </span>
+                            </div>
+                        </div>
+
+                        <div className="stats-distribution-row">
+                            <p className="index-column">2</p>
+                            <div className="bar-column">
+                                <span className="bar"
+                                      style={{ width: "3.7%"}}  >
+                                    4
+                                </span>
+                            </div>
+                        </div>
+
+                        <div className="stats-distribution-row">
+                            <p className="index-column">3</p>
+                            <div className="bar-column">
+                                <span className="bar"
+                                      style={{ width: "20%"}}  >
+                                    16
+                                </span>
+                            </div>
+                        </div>
+
+                        <div className="stats-distribution-row">
+                            <p className="index-column">4</p>
+                            <div className="bar-column">
+                                <span className="bar current"
+                                      style={{ width: "40%"}}  >
+                                    37
+                                </span>
+                            </div>
+                        </div>
+
+                        <div className="stats-distribution-row">
+                            <p className="index-column">5</p>
+                            <div className="bar-column">
+                                <span className="bar"
+                                      style={{ width: "30%"}}  >
+                                    31
+                                </span>
+                            </div>
+                        </div>
+
+                        <div className="stats-distribution-row">
+                            <p className="index-column">6</p>
+                            <div className="bar-column">
+                                <span className="bar"
+                                      style={{ width: "20%"}}  >
+                                    19
+                                </span>
+                            </div>
+                        </div>
+                    </div>
                 </section>
             </div>
         </div>

@@ -680,6 +680,10 @@ p, h1, h2, h3, h4, h5, h6 {
   overflow-y: auto;
 }
 
+.prompt-panel {
+  margin-top: 1rem;
+}
+
 .correct-word {
   font-weight: bold;
   text-transform: uppercase;
@@ -704,6 +708,56 @@ p, h1, h2, h3, h4, h5, h6 {
   border-radius: 8px;
   padding: 4px;
   background: rgba(0, 0, 0, 0.1);
+}
+
+.stats-table {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.stats-table-item {
+  padding: 0 0.35rem;
+  display: grid;
+  text-align: center;
+  justify-items: center;
+  font-size: 0.875rem;
+}
+
+.stats-table-item span {
+  display: block;
+  font-size: 1.15rem;
+  font-weight: bold;
+}
+
+.stats-distribution {
+  display: grid;
+  gap: 0.2rem;
+}
+
+.stats-distribution-row {
+  display: grid;
+  grid-template-columns: 15px 1fr;
+  gap: 0.5rem;
+}
+
+.index-column {
+  text-align: center;
+}
+
+.bar-column {
+  width: 100%;
+}
+
+.bar {
+  display: inline-block;
+  min-width: fit-content;
+  padding: 0 0.25rem;
+  color: var(--color-white);
+  background-color: var(--color-dark-gray);
+}
+
+.bar.current {
+  background-color: var(--color-green);
 }
 
 .prompt-button-container {
