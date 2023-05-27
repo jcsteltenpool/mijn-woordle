@@ -1,6 +1,16 @@
 import React from "react";
 
 export default function Stats({ solution }) {
+    const totalGames = JSON.parse(localStorage.getItem('totalGames'));
+    const gamesWon = JSON.parse(localStorage.getItem('gamesWon'));
+    const currentStreak = JSON.parse(localStorage.getItem('streak'));
+    const maxStreak = JSON.parse(localStorage.getItem('maxStreak'));
+    const statsArray = JSON.parse(localStorage.getItem('stats'))
+
+    const winPercentage = Math.round((100 / totalGames) * gamesWon);
+
+    console.log(statsArray);
+
     return (
         <div className="stats">
             <p>Het woord was: <span className="correct-word">{solution}</span></p>
@@ -9,16 +19,16 @@ export default function Stats({ solution }) {
                     <h3>Statistieken</h3>
                     <div className="stats-table">
                         <p className="stats-table-item">
-                            <span>20</span> Gespeeld
+                            <span>{totalGames}</span> Gespeeld
                         </p>
                         <p className="stats-table-item">
-                            <span>97%</span> Win %
+                            <span>{winPercentage}%</span> Win %
                         </p>
                         <p className="stats-table-item">
-                            <span>2</span> Huidige reeks
+                            <span>{currentStreak}</span> Huidige reeks
                         </p>
                         <p className="stats-table-item">
-                            <span>15</span> Max reeks
+                            <span>{maxStreak}</span> Max reeks
                         </p>
                     </div>
                 </section>

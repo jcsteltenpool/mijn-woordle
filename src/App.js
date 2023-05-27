@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Header from "./components/Header";
 import Hint from "./components/Hint";
 import Grid from "./components/GridContainer";
@@ -6,6 +6,18 @@ import Keyboard from "./components/KeyboardContainer";
 import Modal from "./components/ModalContainer";
 import { initialKeyboard } from "./util/keyboard_keys";
 import { puzzle_words } from "./util/puzzle_words_5";
+
+const useLocalStorage = (storageKey, fallbackState) => {
+  const [value, setValue] = useState(
+    JSON.parse(localStorage.getItem(storageKey)) ?? fallbackState
+  );
+
+  useEffect(() => {
+    localStorage.setItem(storageKey, JSON.stringify(value));
+  }, [value, storageKey]);
+
+  return [value, setValue];
+};
 
 export default function App() {
   let initialGrid = Array(30).fill({ value: "", result: "", visible: false })
@@ -18,18 +30,80 @@ export default function App() {
   const [guessArray, setGuessArray] = useState([]);
   const [hint, setHint] = useState('');
   const [showHint, setShowHint] = useState(false);
+  const [isWon, setIsWon] = useState(false);
+  const [currentWin, setCurrentWin] = useState(0);
 
-  const [solution, setSolution] = useState(randomPuzzleWord);
+  const solution = useRef(randomPuzzleWord);
+  console.log(solution);
 
+  // LOCAL STORAGE
+  const [total, setTotal] = useLocalStorage('totalGames', '0');
+  const [gamesWon, setGamesWon] = useLocalStorage('gamesWon', '0');
+  const [currentStreak, setCurrentStreak] = useLocalStorage('streak', '0');
+  const [maxStreak, setMaxStreak] = useLocalStorage('maxStreak', '0');
+
+  const statsDistArray = [0, 10, 20, 30, 40, 50];
+  const [statsDist, setStatsDist] = useLocalStorage('stats', statsDistArray);
+
+
+  function incrementTotal() {
+    let totalParseInt = parseInt(total);
+    totalParseInt ++;
+    setTotal(totalParseInt.toString());
+  }
+
+  function incrementGamesWon() {
+    let gamesWonParseInt = parseInt(gamesWon);
+    gamesWonParseInt ++;
+    setGamesWon(gamesWonParseInt.toString());
+  }
+
+  function incrementCurrentStreak() {
+    let currentStreakParseInt = parseInt(currentStreak);
+    currentStreakParseInt ++;
+    setCurrentStreak(currentStreakParseInt.toString());
+  }
+
+  function updateMaxStreak() {
+    let currentStreakParseInt = parseInt(currentStreak);
+    let maxStreakParseInt = parseInt(maxStreak);
+    if (currentStreakParseInt >= maxStreakParseInt) {
+      setMaxStreak((currentStreakParseInt + 1).toString());
+    }
+  }
+
+  function resetCurrentStreak() {
+    setCurrentStreak('0');    
+  }
+
+  function updateStatsDistribution(index) {
+    let nextStatsDist = [];
+
+    for (let i = 0; i < statsDist.length; i++) {
+      if (i === index) {
+        nextStatsDist.push(statsDist[i] += 1);
+      } else {
+        nextStatsDist.push(statsDist[i]);
+      }
+    }
+  
+    setStatsDist(nextStatsDist);
+  }
+
+
+  // RESET GAME
   function startNewGame() {
     setGrid(initialGrid);
     setKeyboard(initialKeyboard);
     setShowKeyboard(true);
     setTarget(0);
     setShowModal(false);
-    setSolution(randomPuzzleWord);  
+    setIsWon(false);
+    solution.current = randomPuzzleWord;
   }
 
+
+  // PLAY GAME
   useEffect(() => {
     if (!disabled) {
       function handleKeyDown(e) {
@@ -97,6 +171,7 @@ export default function App() {
   
   function handleEnter() {
     const guessString = guessArray.join('');
+
     if (guessArray.length < 5) {
       setHint('Woorden moeten 5 letters lang zijn.');
     } else if (puzzle_words.indexOf(guessString) === -1) {
@@ -106,19 +181,24 @@ export default function App() {
       showResult();
       disableKeyboard();
       clearGuessArray();
-      if (guessString === solution) {
+      if (guessString === solution.current) {
+        incrementTotal();
+        incrementGamesWon();
+        incrementCurrentStreak();
+        updateMaxStreak();
+        updateStatsDistribution((target / 5) - 1);
+        setIsWon(true);
         setTimeout(() => {
-          setModalContent('win');
+          setModalContent('result');
           setShowKeyboard(false);
-          // setDisabled(true);
-          // alert(`Gefeliciteerd, het woord was inderdaad ${solution}! \n
-          //       Je hebt het woord geraden in ${target/5} pogingen.`);
         }, (7 * animationTime));
       }
-      if (target === 30 && guessString !== solution) {
+      if (target === 30 && guessString !== solution.current) {
+        incrementTotal();
+        resetCurrentStreak();
         setTimeout(() => {
-          setModalContent('lose');
-          alert(`Jammer! Het woord was ${solution}`);        
+          setModalContent('result');
+          setShowKeyboard(false);
         }, (7 * animationTime));
       }
     }
@@ -166,11 +246,11 @@ export default function App() {
   }
 
   function evaluateGuess() {
-    const solutionTemp = solution.split('');
+    const solutionTemp = solution.current.split('');
     let resultArray = [];
 
     guessArray.forEach((guess, i) => {
-      if (guess === solution.charAt(i)) {
+      if (guess === solution.current.charAt(i)) {
         delete solutionTemp[solutionTemp.indexOf(guess)];
         resultArray.push({ value: guess, status: 'correct' });
       } else {
@@ -227,7 +307,6 @@ export default function App() {
   }
 
   
-
   // KEYBOARD ANIMATION
   const [tileToShow, setTileToShow] = useState(null);
   const [disabled, setDisabled] = useState(false);
@@ -274,8 +353,8 @@ export default function App() {
   }
 
   // MODAL
-  const [showModal, setShowModal] = useState(true);
-  const [modalContent, setModalContent] = useState('win');
+  const [showModal, setShowModal] = useState(false);
+  const [modalContent, setModalContent] = useState(null);
 
   useEffect(() => {
     if (modalContent) {
@@ -302,15 +381,21 @@ export default function App() {
       <Hint hint={hint}
             showHint={showHint} />
       <Grid grid={grid}/>
-      <Keyboard onKeyboardClick={handleClick}
-                         keyboard={keyboard}
-                         showKeyboard={showKeyboard}
-                         disabled={disabled} />
-      <Modal modalContent={modalContent}
-             showModal={showModal}
-             setShowModal={setShowModal}
-             startNewGame={startNewGame}
-             solution={solution} />
+      <button onClick={() => updateStatsDistribution(3)}>Update stats</button>
+      {showKeyboard && 
+        <Keyboard onKeyboardClick={handleClick}
+                          keyboard={keyboard}
+                          disabled={disabled} />
+      }
+      {modalContent && 
+        <Modal modalContent={modalContent}
+              showKeyboard={showKeyboard}
+              showModal={showModal}
+              setShowModal={setShowModal}
+              startNewGame={startNewGame}
+              solution={solution.current}
+              isWon={isWon} />
+      }
     </>
   );
 }

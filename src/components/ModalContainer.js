@@ -2,32 +2,36 @@ import React from "react";
 import ModalContent from "./ModalContent";
 import Info from "./Info";
 import Menu from "./Menu";
-import Win from "./Win";
+import Result from "./Result";
 
 export default function Modal({ 
-    modalContent, 
+    modalContent,
+    showKeyboard, 
     showModal, 
     setShowModal, 
-    solution, 
+    solution,
+    isWon, 
     startNewGame }) {
 
     function handleClose() {
         setShowModal(false);
     }
-    
+
     return (
         <>
-            {modalContent && 
-                <ModalContent onClose={handleClose}
-                              showModal={showModal} >
-                    {modalContent === 'info' && <Info onClose={handleClose} />} 
-                    {modalContent === 'menu' && <Menu />}
-                    {modalContent === 'win' && 
-                        <Win onClose={handleClose} 
-                             startNewGame={startNewGame}
-                             solution={solution} />}
-                </ModalContent>
-            }
+            <ModalContent onClose={handleClose}
+                          showModal={showModal} >
+                {modalContent === 'info' && 
+                    <Info onClose={handleClose} 
+                          showKeyboard={showKeyboard}
+                          startNewGame={startNewGame} />} 
+                {modalContent === 'menu' && <Menu />}
+                {modalContent === 'result' && 
+                    <Result onClose={handleClose} 
+                            startNewGame={startNewGame}
+                            isWon={isWon}
+                            solution={solution} />}
+            </ModalContent>
         </>
     )
 }

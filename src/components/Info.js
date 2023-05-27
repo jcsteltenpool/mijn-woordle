@@ -1,6 +1,7 @@
 import React from "react";
+import PlayAgainButton from "./PlayAgainButton";
 
-export default function Info({ onClose }) {
+export default function Info({ onClose, startNewGame, showKeyboard }) {
     return (
         <div className="content-modal">
             <div className="content-modal-panel-wrapper">
@@ -14,10 +15,14 @@ export default function Info({ onClose }) {
                         ⬛ Verkeerde letter
                     </p>
                     <p>Je kunt Mijn Woordle onbeperkt spelen!</p>
-                    <button className="button primary-button"
-                            onClick={onClose}>
-                                Speel Mijn Woordle
-                    </button>
+                    {showKeyboard
+                        ? <button className="button primary-button"
+                                  onClick={onClose}>
+                            Speel Mijn Woordle
+                          </button>
+                        : <PlayAgainButton startNewGame={startNewGame}/>
+                    }
+                    
                 </div>
             </div>
         </div>
