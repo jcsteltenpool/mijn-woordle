@@ -10,7 +10,8 @@ export default function Modal({
     showModal, 
     setShowModal, 
     solution,
-    isWon, 
+    isWon,
+    currentWin, 
     startNewGame }) {
 
     function handleClose() {
@@ -30,6 +31,7 @@ export default function Modal({
                     <Result onClose={handleClose} 
                             startNewGame={startNewGame}
                             isWon={isWon}
+                            currentWin={currentWin}
                             solution={solution} />}
             </ModalContent>
         </>

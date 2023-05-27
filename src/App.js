@@ -6,6 +6,7 @@ import Keyboard from "./components/KeyboardContainer";
 import Modal from "./components/ModalContainer";
 import { initialKeyboard } from "./util/keyboard_keys";
 import { puzzle_words } from "./util/puzzle_words_5";
+import PlayAgainButton from "./components/PlayAgainButton";
 
 const useLocalStorage = (storageKey, fallbackState) => {
   const [value, setValue] = useState(
@@ -31,7 +32,7 @@ export default function App() {
   const [hint, setHint] = useState('');
   const [showHint, setShowHint] = useState(false);
   const [isWon, setIsWon] = useState(false);
-  const [currentWin, setCurrentWin] = useState(0);
+  const [currentWin, setCurrentWin] = useState(null);
 
   const solution = useRef(randomPuzzleWord);
   console.log(solution);
@@ -42,8 +43,8 @@ export default function App() {
   const [currentStreak, setCurrentStreak] = useLocalStorage('streak', '0');
   const [maxStreak, setMaxStreak] = useLocalStorage('maxStreak', '0');
 
-  const statsDistArray = [0, 10, 20, 30, 40, 50];
-  const [statsDist, setStatsDist] = useLocalStorage('stats', statsDistArray);
+  const statsArray = [0, 0, 0, 0, 0, 0];
+  const [stats, setStats] = useLocalStorage('stats', statsArray);
 
 
   function incrementTotal() {
@@ -77,17 +78,17 @@ export default function App() {
   }
 
   function updateStatsDistribution(index) {
-    let nextStatsDist = [];
+    let nextStats = [];
 
-    for (let i = 0; i < statsDist.length; i++) {
+    for (let i = 0; i < stats.length; i++) {
       if (i === index) {
-        nextStatsDist.push(statsDist[i] += 1);
+        nextStats.push(stats[i] += 1);
       } else {
-        nextStatsDist.push(statsDist[i]);
+        nextStats.push(stats[i]);
       }
     }
   
-    setStatsDist(nextStatsDist);
+    setStats(nextStats);
   }
 
 
@@ -182,11 +183,13 @@ export default function App() {
       disableKeyboard();
       clearGuessArray();
       if (guessString === solution.current) {
+        let statIndex = (target / 5) - 1;
         incrementTotal();
         incrementGamesWon();
         incrementCurrentStreak();
         updateMaxStreak();
-        updateStatsDistribution((target / 5) - 1);
+        updateStatsDistribution(statIndex);
+        setCurrentWin(statIndex);
         setIsWon(true);
         setTimeout(() => {
           setModalContent('result');
@@ -196,6 +199,7 @@ export default function App() {
       if (target === 30 && guessString !== solution.current) {
         incrementTotal();
         resetCurrentStreak();
+        setCurrentWin(null);
         setTimeout(() => {
           setModalContent('result');
           setShowKeyboard(false);
@@ -381,7 +385,7 @@ export default function App() {
       <Hint hint={hint}
             showHint={showHint} />
       <Grid grid={grid}/>
-      <button onClick={() => updateStatsDistribution(3)}>Update stats</button>
+      {!showKeyboard && <PlayAgainButton startNewGame={startNewGame}/>}
       {showKeyboard && 
         <Keyboard onKeyboardClick={handleClick}
                           keyboard={keyboard}
@@ -394,6 +398,7 @@ export default function App() {
               setShowModal={setShowModal}
               startNewGame={startNewGame}
               solution={solution.current}
+              currentWin={currentWin}
               isWon={isWon} />
       }
     </>

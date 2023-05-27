@@ -2,7 +2,8 @@ import React from "react";
 import Stats from "./Stats";
 import PlayAgainButton from "./PlayAgainButton";
 
-export default function Result({ solution, isWon, startNewGame, onClose }) {
+export default function Result({ 
+    solution, isWon, startNewGame, onClose, currentWin }) {
     return (
         <div className="prompt">
             <div className="prompt-panel">
@@ -11,7 +12,8 @@ export default function Result({ solution, isWon, startNewGame, onClose }) {
                     : <h2>Jammer!</h2>
                 }
                 
-                <Stats solution={solution} />
+                <Stats solution={solution}
+                       currentWin={currentWin} />
 
                 <div className="prompt-button-container">
                     <button className="button prompt-button secondary-button"
@@ -20,7 +22,7 @@ export default function Result({ solution, isWon, startNewGame, onClose }) {
                     </button>
                     <PlayAgainButton startNewGame={startNewGame}/>
                 </div>
-                <p className="stats-reset-text">Statistieken <a href="#">verwijderen</a>.</p>
+                <p className="stats-reset-text">Statistieken <a href="#">resetten</a>.</p>
             </div>
         </div>
     )
