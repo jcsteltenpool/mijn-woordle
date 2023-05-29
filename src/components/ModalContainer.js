@@ -3,16 +3,19 @@ import ModalContent from "./ModalContent";
 import Info from "./Info";
 import Menu from "./Menu";
 import Result from "./Result";
+import Reset from "./ResetStats";
 
 export default function Modal({ 
     modalContent,
+    setModalContent,
     showKeyboard, 
     showModal, 
     setShowModal, 
     solution,
     isWon,
     currentWin, 
-    startNewGame }) {
+    startNewGame,
+    clearStats }) {
 
     function handleClose() {
         setShowModal(false);
@@ -32,7 +35,13 @@ export default function Modal({
                             startNewGame={startNewGame}
                             isWon={isWon}
                             currentWin={currentWin}
-                            solution={solution} />}
+                            solution={solution}
+                            setModalContent={setModalContent} 
+                    />}
+                {modalContent === 'reset' && 
+                    <Reset onClose={handleClose}
+                           clearStats={clearStats}
+                    />}
             </ModalContent>
         </>
     )

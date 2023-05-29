@@ -32,4 +32,3 @@ export default function Hint({ hint, showHint }) {
     )
 }
 
-// `hint-message ${!showHint ? "hide" : "show-hint"}`

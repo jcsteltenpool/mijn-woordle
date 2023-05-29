@@ -3,7 +3,7 @@ import Stats from "./Stats";
 import PlayAgainButton from "./PlayAgainButton";
 
 export default function Result({ 
-    solution, isWon, startNewGame, onClose, currentWin }) {
+    solution, isWon, startNewGame, onClose, currentWin, setModalContent }) {
     return (
         <div className="prompt">
             <div className="prompt-panel">
@@ -22,7 +22,13 @@ export default function Result({
                     </button>
                     <PlayAgainButton startNewGame={startNewGame}/>
                 </div>
-                <p className="stats-reset-text">Statistieken <a href="#">resetten</a>.</p>
+                <p className="stats-reset-text">Statistieken 
+                    <button className="stats-reset-button"
+                            onClick={() => setModalContent('reset')}>
+                        resetten
+                    </button>
+                    .
+                </p>
             </div>
         </div>
     )

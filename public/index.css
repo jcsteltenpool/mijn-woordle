@@ -281,7 +281,7 @@ p, h1, h2, h3, h4, h5, h6 {
 }
 
 .game-grid {
-  --cell-size: clamp(12px, calc((100vh - 336px) / 6.25), 18vw);
+  --cell-size: clamp(12px, calc((100vh - 330px) / 6.25), 18vw);
 
   display: grid;
   grid-template-columns: repeat(5, auto);
@@ -293,13 +293,19 @@ p, h1, h2, h3, h4, h5, h6 {
 
 @media (width > 480px) {
   .game-grid {
-    --cell-size: clamp(12px, calc((100vh - 388px) / 6.25), 80px);
+    --cell-size: clamp(12px, calc((100vh - 355px) / 6.25), 80px);
   }
 }
 
 @media (width > 768px) {
   .game-grid {
-    --cell-size: clamp(12px, calc((100vh - 420px) / 6.25), 80px);
+    --cell-size: clamp(12px, calc((100vh - 390px) / 6.25), 80px);
+  }
+}
+
+@media (width > 1020px) {
+  .game-grid {
+    --cell-size: clamp(12px, calc((100vh - 395px) / 6.25), 80px);
   }
 }
 
@@ -510,6 +516,16 @@ p, h1, h2, h3, h4, h5, h6 {
   color: var(--color-present);
 }
 
+/* Play Again Button Container */
+.play-again-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: start;
+  margin-top: 1rem;
+}
+
 
 /* Modal Container */
 .modal-wrapper {
@@ -582,10 +598,6 @@ p, h1, h2, h3, h4, h5, h6 {
 .modal h2 {
   font-size: 1.25rem;
   margin-bottom: 0.75rem;
-}
-
-.modal a {
-  color: var(--modal-link-color);
 }
 
 .modal .close-button {
@@ -779,6 +791,11 @@ p, h1, h2, h3, h4, h5, h6 {
   margin-bottom: 0.25rem;
   text-align: center;
   font-size: 0.875rem;
+}
+
+.stats-reset-button {
+  margin-left: 0.5ch;
+  color: var(--primary-color);
 }
 
 @media (width > 362px) {
