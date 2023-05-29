@@ -6,7 +6,7 @@ import Keyboard from "./components/KeyboardContainer";
 import Modal from "./components/ModalContainer";
 import { initialKeyboard } from "./util/keyboard_keys";
 import { puzzle_words } from "./util/puzzle_words_5";
-import PlayAgainButton from "./components/PlayAgainButton";
+import PlayAgainContainer from "./components/PlayAgainContainer";
 
 const useLocalStorage = (storageKey, fallbackState) => {
   const [value, setValue] = useState(
@@ -43,8 +43,8 @@ export default function App() {
   const [currentStreak, setCurrentStreak] = useLocalStorage('streak', '0');
   const [maxStreak, setMaxStreak] = useLocalStorage('maxStreak', '0');
 
-  const statsArray = [0, 0, 0, 0, 0, 0];
-  const [stats, setStats] = useLocalStorage('stats', statsArray);
+  const statsInitial = [0, 0, 0, 0, 0, 0];
+  const [stats, setStats] = useLocalStorage('stats', statsInitial);
 
 
   function incrementTotal() {
@@ -87,8 +87,15 @@ export default function App() {
         nextStats.push(stats[i]);
       }
     }
-  
     setStats(nextStats);
+  }
+
+  function clearStats() {
+    setTotal('0');
+    setGamesWon('0');
+    setCurrentStreak('0');
+    setMaxStreak('0');
+    setStats(statsInitial);
   }
 
 
@@ -193,15 +200,17 @@ export default function App() {
         setIsWon(true);
         setTimeout(() => {
           setModalContent('result');
+          setShowModal(true);
           setShowKeyboard(false);
         }, (7 * animationTime));
       }
-      if (target === 30 && guessString !== solution.current) {
+      else if (target === 30 && guessString !== solution.current) {
         incrementTotal();
         resetCurrentStreak();
         setCurrentWin(null);
         setTimeout(() => {
           setModalContent('result');
+          setShowModal(true);
           setShowKeyboard(false);
         }, (7 * animationTime));
       }
@@ -357,14 +366,8 @@ export default function App() {
   }
 
   // MODAL
-  const [showModal, setShowModal] = useState(false);
-  const [modalContent, setModalContent] = useState(null);
-
-  useEffect(() => {
-    if (modalContent) {
-      setShowModal(true);
-    }
-  }, [modalContent])
+  const [showModal, setShowModal] = useState(true);
+  const [modalContent, setModalContent] = useState('result');
   
   useEffect(() => {
     if (showModal) {
@@ -385,7 +388,8 @@ export default function App() {
       <Hint hint={hint}
             showHint={showHint} />
       <Grid grid={grid}/>
-      {!showKeyboard && <PlayAgainButton startNewGame={startNewGame}/>}
+      {!showKeyboard && 
+        <PlayAgainContainer startNewGame={startNewGame}/>}
       {showKeyboard && 
         <Keyboard onKeyboardClick={handleClick}
                           keyboard={keyboard}
@@ -393,12 +397,14 @@ export default function App() {
       }
       {modalContent && 
         <Modal modalContent={modalContent}
+              setModalContent={setModalContent}
               showKeyboard={showKeyboard}
               showModal={showModal}
               setShowModal={setShowModal}
               startNewGame={startNewGame}
               solution={solution.current}
               currentWin={currentWin}
+              clearStats={clearStats}
               isWon={isWon} />
       }
     </>
