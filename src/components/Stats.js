@@ -7,7 +7,10 @@ export default function Stats({ solution, currentWin }) {
     const maxStreak = JSON.parse(localStorage.getItem('maxStreak'));
     const stats = JSON.parse(localStorage.getItem('stats'))
 
-    const winPercentage = Math.round((100 / totalGames) * gamesWon);
+    let winPercentage = Math.round((100 / totalGames) * gamesWon);
+    if (isNaN(winPercentage)) {
+        winPercentage = 0;
+    }
 
     const statsSum = stats.reduce((a, c) => a + c);
     
@@ -18,7 +21,6 @@ export default function Stats({ solution, currentWin }) {
 
     return (
         <div className="stats">
-            <p>Het woord was: <span className="correct-word">{solution}</span></p>
             <div >
                 <section>
                     <h3>Statistieken</h3>
@@ -27,7 +29,9 @@ export default function Stats({ solution, currentWin }) {
                             <span>{totalGames}</span> Gespeeld
                         </p>
                         <p className="stats-table-item">
-                            <span>{winPercentage}%</span> Win %
+                            <span>{winPercentage}
+                            
+                            %</span> Win %
                         </p>
                         <p className="stats-table-item">
                             <span>{currentStreak}</span> Huidige reeks

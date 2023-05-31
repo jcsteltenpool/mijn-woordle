@@ -1,6 +1,7 @@
 import React from "react";
 import Stats from "./Stats";
 import PlayAgainButton from "./PlayAgainButton";
+import ResetText from "./ResetText";
 
 export default function Result({ 
     solution, isWon, startNewGame, onClose, currentWin, setModalContent }) {
@@ -11,7 +12,8 @@ export default function Result({
                     ? <h2>Goed gedaan!</h2>
                     : <h2>Jammer!</h2>
                 }
-                
+                <p>Het woord was: <span className="correct-word">{solution}</span></p>
+
                 <Stats solution={solution}
                        currentWin={currentWin} />
 
@@ -22,13 +24,7 @@ export default function Result({
                     </button>
                     <PlayAgainButton startNewGame={startNewGame}/>
                 </div>
-                <p className="stats-reset-text">Statistieken 
-                    <button className="stats-reset-button"
-                            onClick={() => setModalContent('reset')}>
-                        resetten
-                    </button>
-                    .
-                </p>
+                <ResetText setModalContent={setModalContent}/>
             </div>
         </div>
     )

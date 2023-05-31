@@ -3,14 +3,18 @@ import ModalContent from "./ModalContent";
 import Info from "./Info";
 import Menu from "./Menu";
 import Result from "./Result";
+import Stats from "./Stats";
 import Reset from "./ResetStats";
+import ResetText from "./ResetText";
 
 export default function Modal({ 
     modalContent,
     setModalContent,
     showKeyboard, 
     showModal, 
-    setShowModal, 
+    setShowModal,
+    settings,
+    handleToggle, 
     solution,
     isWon,
     currentWin, 
@@ -29,7 +33,16 @@ export default function Modal({
                     <Info onClose={handleClose} 
                           showKeyboard={showKeyboard}
                           startNewGame={startNewGame} />} 
-                {modalContent === 'menu' && <Menu />}
+                {modalContent === 'menu' && 
+                    <Menu setModalContent={setModalContent} 
+                          settings={settings}
+                          handleToggle={handleToggle}/>}
+                {modalContent === 'stats' &&
+                    <>
+                        <Stats />
+                        <ResetText setModalContent={setModalContent}/>
+                    </>
+                }
                 {modalContent === 'result' && 
                     <Result onClose={handleClose} 
                             startNewGame={startNewGame}
@@ -37,11 +50,13 @@ export default function Modal({
                             currentWin={currentWin}
                             solution={solution}
                             setModalContent={setModalContent} 
-                    />}
+                    />
+                }
                 {modalContent === 'reset' && 
                     <Reset onClose={handleClose}
                            clearStats={clearStats}
-                    />}
+                    />
+                }
             </ModalContent>
         </>
     )

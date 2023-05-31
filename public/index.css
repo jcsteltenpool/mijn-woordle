@@ -12,6 +12,8 @@
   --primary-color-hover: #008fc8;
   --secondary-color: #105797;
   --tertiary-color: #ffffff;
+  --success-color: #3dc662;
+  --danger-color: #ea4336;
 
   --bg-color: #ffffff;
   --body-color: var(--color-dark-gray);
@@ -59,6 +61,7 @@ body {
 img, picture, video, canvas, svg {
   display: block;
   max-width: 100%;
+  min-width: 1rem;
 }
 
 input, button, textarea, select {
@@ -129,9 +132,9 @@ p, h1, h2, h3, h4, h5, h6 {
   background-color: var(--primary-button-background-color);
 }
 
-.primary-button:not(:disabled):hover,
-.primary-button:not(:disabled):focus {
-  border-color: var(--primary-button-hover-color);
+.primary-button:disabled,
+.secondary-button:disabled {
+  opacity: 0.6;
 }
 
 .secondary-button {
@@ -139,15 +142,27 @@ p, h1, h2, h3, h4, h5, h6 {
   background-color: var(--secondary-button-background-color);
 }
 
-.secondary-button:not(:disabled):hover,
-.secondary-button:not(:disabled):focus {
-  border-color: var(--secondary-button-hover-color);
+.primary-button.toggled {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.25) 0 0);
+}
+
+@media (hover:hover) {
+  .primary-button:not(:disabled):hover {
+    border-color: var(--primary-button-hover-color);
+  }
+  .secondary-button:not(:disabled):hover {
+    border-color: var(--secondary-button-hover-color);
+  }
 }
 
 @media (width > 1024px) {
   .button {
     padding: 1rem;
   }
+}
+
+.danger {
+  color: var(--danger-color);
 }
 
 /* Menu */
@@ -203,6 +218,10 @@ p, h1, h2, h3, h4, h5, h6 {
   height: 1rem;
 }
 
+.primary-button svg {
+  stroke: var(--primary-button-color);
+}
+
 .secondary-button svg {
   fill: var(--secondary-button-color);
 }
@@ -214,7 +233,7 @@ p, h1, h2, h3, h4, h5, h6 {
 }
 
 @media (width < 480px) {
-  .button .label {
+  .title-bar .button .label {
     display: none;
   }
 }
@@ -404,6 +423,10 @@ p, h1, h2, h3, h4, h5, h6 {
   touch-action: manipulation;
 }
 
+.keyboard-key-large {
+  font-size: 1.75em;
+}
+
 .keyboard-key-bg {
   display: block;
   position: absolute;
@@ -432,6 +455,10 @@ p, h1, h2, h3, h4, h5, h6 {
   max-width: 120px;
 }
 
+.keyboard-key-large.keyboard-key-enter {
+  font-size: 1.17em;
+}
+
 .keyboard-key svg {
   --svg: clamp(5px, 5vw, 20px);
   width: var(--svg);
@@ -446,6 +473,14 @@ p, h1, h2, h3, h4, h5, h6 {
 
   .keyboard-key {
     height: 3.75rem;
+  }
+
+  .keyboard-key-large {
+    font-size: 2.25em;
+  }
+
+  .keyboard-key-large.keyboard-key-enter {
+    font-size: 1.75em;
   }
 
   .keyboard-key svg {
@@ -685,7 +720,6 @@ p, h1, h2, h3, h4, h5, h6 {
   color: var(--body-color)
 }
 
-/* STATS */
 .prompt {
   width: 580px;
   max-width: 100%;
@@ -696,6 +730,29 @@ p, h1, h2, h3, h4, h5, h6 {
   margin-top: 1rem;
 }
 
+
+/* Settings */
+.settings {
+  padding-bottom: 1rem;
+  overflow-y: auto;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.settings-menu-button {
+  display: flex;
+  align-items: center;
+  margin: 0.5rem 0;
+}
+
+.settings-title {
+  margin: 1rem 1rem 0.5rem;
+  flex-grow: 1;
+}
+
+/* Stats */
 .correct-word {
   font-weight: bold;
   text-transform: uppercase;
@@ -786,6 +843,22 @@ p, h1, h2, h3, h4, h5, h6 {
   font-size: 0.875rem;
 }
 
+.reset-warning {
+  display: flex;
+  align-items: center;
+}
+
+.reset-warning p {
+  margin: 0;
+  margin-inline-start: 0.5rem;
+}
+
+.reset-warning svg {
+  stroke: var(--danger-color);
+  fill: var(--danger-color);
+  width: 1.5rem;
+}
+
 .stats-reset-text {
   margin-top: 0.5rem;
   margin-bottom: 0.25rem;
@@ -793,9 +866,18 @@ p, h1, h2, h3, h4, h5, h6 {
   font-size: 0.875rem;
 }
 
+.stats-reset-text.succes {
+  color: var(--success-color);
+}
+
 .stats-reset-button {
   margin-left: 0.5ch;
   color: var(--primary-color);
+}
+
+.prompt-button-container .prompt-button {
+  margin-inline: 0;
+  margin-bottom: 0;
 }
 
 @media (width > 362px) {
