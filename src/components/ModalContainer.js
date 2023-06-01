@@ -28,6 +28,7 @@ export default function Modal({
     return (
         <>
             <ModalContent onClose={handleClose}
+                          modalContent={modalContent}
                           showModal={showModal} >
                 
                 {modalContent === 'info' && 
