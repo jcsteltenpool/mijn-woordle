@@ -19,7 +19,7 @@ export default function Menu({ setModalContent, handleToggle, settings }) {
                 <div className="settings">
                     <h2>Menu</h2>
                     <button className="button secondary-button full-width"
-                            onClick={() => setModalContent('stats')}
+                            onClick={() => setModalContent('result')}
                             aria-label="Bekijk statistieken"
                             type="button">
                         <span className="svg-icon">

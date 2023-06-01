@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import Header from "./components/Header";
+import TitleBar from "./components/TitleBarContainer";
 import Hint from "./components/Hint";
 import Grid from "./components/GridContainer";
 import Keyboard from "./components/KeyboardContainer";
@@ -31,8 +31,14 @@ export default function App() {
   const [guessArray, setGuessArray] = useState([]);
   const [hint, setHint] = useState(null);
   const [showHint, setShowHint] = useState(false);
+  const [inProgress, setInProgress] = useState(true);
   const [isWon, setIsWon] = useState(false);
   const [currentWin, setCurrentWin] = useState(null);
+
+  const [largeCharSize, setLargeCharSize] = useState(false);
+  const [showAnimations, setShowAnimations] = useState(true);
+  const [darkMode, setDarkMode] = useState(false);
+  const [highContrast, setHighContrast] = useState(false);
 
   const solution = useRef(randomPuzzleWord);
   console.log(solution);
@@ -106,10 +112,12 @@ export default function App() {
     setShowKeyboard(true);
     setTarget(0);
     setShowModal(false);
-    setIsWon(false);
     setTimeout(() => {
       solution.current = randomPuzzleWord;
-    }, 3);
+      setIsWon(false);
+      setInProgress(true);
+      setCurrentWin(null);
+    }, 500);
   }
 
 
@@ -184,8 +192,10 @@ export default function App() {
     } else {
       evaluateGuess();
       showResult();
-      disableKeyboard();
       clearGuessArray();
+      if (showAnimations) {
+        disableKeyboard();
+      }
       if (guess === solution.current) {
         let statIndex = (target / 5) - 1;
         incrementTotal();
@@ -194,22 +204,23 @@ export default function App() {
         updateMaxStreak();
         updateStatsDistribution(statIndex);
         setCurrentWin(statIndex);
+        setInProgress(false);
         setIsWon(true);
         setTimeout(() => {
           setModalContent('result');
           setShowModal(true);
           setShowKeyboard(false);
-        }, (7 * animationTime));
-      }
-      else if (target === 30 && guess !== solution.current) {
+        }, showAnimations ? (7 * animationTime) : 500);
+      } else if (target === 30 && guess !== solution.current) {
         incrementTotal();
         resetCurrentStreak();
+        setInProgress(false);
         setCurrentWin(null);
         setTimeout(() => {
           setModalContent('result');
           setShowModal(true);
           setShowKeyboard(false);
-        }, (7 * animationTime));
+        }, showAnimations ? (7 * animationTime) : 500);
       }
     }
   }
@@ -308,7 +319,7 @@ export default function App() {
             return key;
           }
         }));
-      }, (5 * animationTime));
+      }, showAnimations ? (5 * animationTime) : 0);
     });
   }
 
@@ -316,17 +327,16 @@ export default function App() {
     setGuessArray([]);
   }
 
-  
   // KEYBOARD ANIMATION
   const [tileToShow, setTileToShow] = useState(null);
   const [disabled, setDisabled] = useState(false);
-  const animationTime = 350;
+  const animationTime = 300;
   
   function showResult() {
     setTileToShow(target - 5);
     setTimeout(() => {
       setTileToShow(null);
-    }, (5 * animationTime))
+    }, showAnimations ? (5 * animationTime) : 1000);
   }
   
   useEffect(() => {
@@ -350,10 +360,10 @@ export default function App() {
       const intervalId = setInterval(() => {
         setGrid(nextGrid);
         setTileToShow(tileToShow + 1);
-      }, animationTime)
+      }, showAnimations ? animationTime : 0)
       return () => clearInterval(intervalId);
     }
-  }, [tileToShow, target, grid]);
+  }, [tileToShow, target, grid, showAnimations]);
 
   function disableKeyboard() {
     setTimeout(() => {
@@ -363,8 +373,8 @@ export default function App() {
   }
 
   // MODAL
-  const [showModal, setShowModal] = useState(true);
-  const [modalContent, setModalContent] = useState('menu');
+  const [showModal, setShowModal] = useState(false);
+  const [modalContent, setModalContent] = useState();
   
   useEffect(() => {
     if (modalContent) {
@@ -387,11 +397,10 @@ export default function App() {
   //SETTINGS
   const [settings, setSettings] = useState([
     {id: 0, title: "Grotere toetsenbordletters", event: "toggleCharSize", toggled: false},
-    {id: 1, title: "Animaties", event: "toggleAnimations", toggled: false},
-    {id: 2, title: "Donker thema", event: "toggleDarkTheme", toggled: false}
+    {id: 1, title: "Animaties", event: "toggleAnimations", toggled: true},
+    {id: 2, title: "Donker thema", event: "toggleDarkMode", toggled: false},
+    {id: 3, title: "Verhoogd contrast", event: "toggleHighContrast", toggled: false}
   ]);
-
-  const [toggleCharSize, setToggleCharSize] = useState(false);
 
   function handleToggle(id, event) {
     const nextSettings = settings.map(setting => {
@@ -408,33 +417,35 @@ export default function App() {
 
     switch(event) {
         case 'toggleCharSize':
-            setToggleCharSize(!toggleCharSize);
-            console.log("charSize toggled");
+          setLargeCharSize(!largeCharSize);
             break;
-        case 'toggleAnimations': 
-            console.log("animations toggled");
+        case 'toggleAnimations':
+          setShowAnimations(!showAnimations);
             break;
-        case 'toggleDarkTheme':
-            console.log("darkTheme toggled");
+        case 'toggleDarkMode':
+          setDarkMode(!darkMode);
+            break;
+        case 'toggleHighContrast':
+          setHighContrast(!highContrast);
             break;
         default: return;
     }
-}
+  }
 
   return (
-    <>
-      <Header setHint={setHint}
+    <div className={`game-container ${darkMode ? "darkMode":""} ${highContrast ? "high-contrast":""}`}>
+      <TitleBar setHint={setHint}
               setModalContent={setModalContent}/>
       <Hint hint={hint}
             showHint={showHint} />
-      <Grid grid={grid}/>
-      {!showKeyboard && 
-        <PlayAgainContainer startNewGame={startNewGame}/>}
-      {showKeyboard && 
-        <Keyboard onKeyboardClick={handleClick}
+      <Grid grid={grid}
+            showAnimations={showAnimations} />
+      {showKeyboard 
+        ? <Keyboard onKeyboardClick={handleClick}
                   keyboard={keyboard}
-                  toggleCharSize={toggleCharSize}
+                  largeCharSize={largeCharSize}
                   disabled={disabled} />
+        : <PlayAgainContainer startNewGame={startNewGame}/>
       }
       {modalContent && 
         <Modal modalContent={modalContent}
@@ -448,9 +459,10 @@ export default function App() {
               solution={solution.current}
               currentWin={currentWin}
               clearStats={clearStats}
+              inProgress={inProgress}
               isWon={isWon} />
       }
-    </>
+    </div>
   );
 }
 

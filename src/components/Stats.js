@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function Stats({ solution, currentWin }) {
+export default function Stats({ currentWin }) {
     const totalGames = JSON.parse(localStorage.getItem('totalGames'));
     const gamesWon = JSON.parse(localStorage.getItem('gamesWon'));
     const currentStreak = JSON.parse(localStorage.getItem('streak'));
@@ -47,11 +47,11 @@ export default function Stats({ solution, currentWin }) {
                         {stats.map((stat, i) => {
                             return (
                                 <div className="stats-distribution-row"
-                                     key={i + 1}>
+                                    key={i + 1}>
                                     <p className="index-column">{i + 1}</p>
                                     <div className="bar-column">
                                         <span className={`${i === currentWin ? "current" : ""} bar`}
-                                              style={{ width: `${percentageArray[i]}%`}}  >
+                                            style={{ width: `${percentageArray[i]}%`}}  >
                                             {stat}
                                         </span>
                                     </div>

@@ -35,7 +35,7 @@ export default function Reset({ onClose, clearStats }) {
                                 Statistieken resetten
                         </button>
                         {showMessage && 
-                            <p className="stats-reset-text succes">✔ Je statistieken zijn succesvol verwijderd.</p>
+                            <p className="modal-footer-text succes">✔ Je statistieken zijn succesvol verwijderd.</p>
                         }
                     </div>   
                 </div>
