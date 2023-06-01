@@ -82,7 +82,7 @@
 body {
   margin: 0;
   padding: 0;
-  height: 100%;
+  height: 100vh;
   -webkit-font-smoothing: antialiased;
 }
 
@@ -113,13 +113,13 @@ p, h1, h2, h3, h4, h5, h6 {
 
 #root {
   isolation: isolate;
-  /* height: 100%; */
+  height: 100%;
 }
 
 .game-container {
   position: relative;
   width: 100%;
-  height: 100%;
+  min-height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -191,12 +191,6 @@ p, h1, h2, h3, h4, h5, h6 {
   }
 }
 
-@media (width > 1024px) {
-  .button {
-    padding: 1rem;
-  }
-}
-
 .danger {
   color: var(--danger-color);
 }
@@ -220,12 +214,6 @@ p, h1, h2, h3, h4, h5, h6 {
   margin: 0;
   font-size: 1.5rem;
   text-align: center;
-}
-
-@media (width > 480px) {
-  .title-bar h1 {
-    font-size: 2rem;
-  }
 }
 
 .title-bar .slot {
@@ -262,23 +250,6 @@ p, h1, h2, h3, h4, h5, h6 {
 
 .secondary-button svg {
   fill: var(--secondary-button-color);
-}
-
-@media (width > 480px) {
-  .title-bar {
-    --padding: 1rem;
-  }
-}
-@media (width > 768px) {
-  .title-bar {
-    margin: 1rem auto 2rem auto;
-  }
-}
-
-@media (width <= 480px) {
-  .title-bar .button .label {
-    display: none;
-  }
 }
 
 /* Hint */
@@ -351,24 +322,6 @@ p, h1, h2, h3, h4, h5, h6 {
   gap: calc(0.05 * var(--cell-size));
   font-size: calc(0.55 * var(--cell-size));
   font-weight: bold;
-}
-
-@media (width > 480px) {
-  .game-grid {
-    --cell-size: clamp(12px, calc((100vh - 355px) / 6.25), 80px);
-  }
-}
-
-@media (width > 768px) {
-  .game-grid {
-    --cell-size: clamp(12px, calc((100vh - 390px) / 6.25), 80px);
-  }
-}
-
-@media (width > 1020px) {
-  .game-grid {
-    --cell-size: clamp(12px, calc((100vh - 395px) / 6.25), 80px);
-  }
 }
 
 .game-tile {
@@ -513,66 +466,6 @@ p, h1, h2, h3, h4, h5, h6 {
   fill: var(--keyboard-key-color);
 }
 
-@media (width > 480px) {
-  .keyboard {
-    height: 13.25rem;
-  }
-
-  .keyboard-key {
-    height: 3.75rem;
-  }
-
-  .keyboard-key-large {
-    font-size: 2.25em;
-  }
-
-  .keyboard-key-large.keyboard-key-enter {
-    font-size: 1.75em;
-  }
-
-  .keyboard-key svg {
-    --svg: 30px;
-  }
-
-  .keyboard-key:active .keyboard-key-bg {
-    opacity: 0.6;
-  }
-}
-
-@media (width > 787px) {
-  .keyboard {
-    --key-size: 70px;
-  }
-}
-
-@media (width < 340px) {
-  .keyboard {
-    --key-size: calc(100vw / 10 - 0.53rem);
-    --gap: 2.25vw;
-  }
-
-  .keyboard-key-content {
-    font-size: min(1rem, 5vw);
-  }
-}
-
-@media (width <= 480px) {
-  .keyboard-key:active:not(.keyboard-key-enter) {
-    font-size: 1.8rem;
-  }
-
-  .keyboard-key:active .keyboard-key-bg {
-    height: 108px;
-    top: -58px;
-    box-shadow: 0 1px 5px 0.5px rgb(0 0 0 / 20%);
-    background-image: linear-gradient(rgba(0, 0, 0, 0.25) 0 0)
-  }
-
-  .keyboard-key:active .keyboard-key-content {
-    top: -58px;
-  }
-}
-
 .keyboard-key:disabled .keyboard-key-content {
   opacity: 0.6;
 }
@@ -710,48 +603,6 @@ p, h1, h2, h3, h4, h5, h6 {
   /* width: calc(100vw - (4 * 16px)); */
   max-width: 300px;
   display: block;
-}
-
-@media (width <= 480px) {
-  .modal {
-    width: 100%;
-    height: 100%;
-  }
-}
-
-@media (width > 480px) {
-  .modal {
-    max-height: calc(100vh - 2 * 32px);
-    max-width: calc(100vw - 2 * 32px);
-    border-radius: 1rem;
-    box-shadow: 0 0 8px rgb(0 0 0 / 50%);
-  }
-
-  .modal h2 {
-    font-size: 1.5rem;
-    margin-bottom: 1rem;
-  }
-
-  .content-modal {
-    max-width: 400px;
-  }
-
-  .content-modal-panel {
-    max-width: 400px;
-  }
-}
-
-@media (width > 1020px) {
-  .modal {
-    max-width: 600px;
-    max-height: calc(100vh - 32px);
-  }
-
-  .content-modal,
-  .content-modal-panel {
-    max-width: fit-content;
-    width: 520px;
-  }
 }
 
 .content-modal-panel .primary-button {
@@ -922,6 +773,45 @@ p, h1, h2, h3, h4, h5, h6 {
   margin-bottom: 0;
 }
 
+/* MEDIA QUERIES */
+@media (width < 340px) {
+  .keyboard {
+    --key-size: calc(100vw / 10 - 0.53rem);
+    --gap: 2.25vw;
+  }
+
+  .keyboard-key-content {
+    font-size: min(1rem, 5vw);
+  }
+}
+
+@media (width <= 480px) {
+  .title-bar .button .label {
+    display: none;
+  }
+
+  .keyboard-key:active:not(.keyboard-key-enter) {
+    font-size: 1.8rem;
+  }
+
+  .keyboard-key:active .keyboard-key-bg {
+    height: 108px;
+    top: -58px;
+    box-shadow: 0 1px 5px 0.5px rgb(0 0 0 / 20%);
+    background-image: linear-gradient(rgba(0, 0, 0, 0.25) 0 0)
+  }
+
+  .keyboard-key:active .keyboard-key-content {
+    top: -58px;
+  }
+ 
+  .modal {
+    width: 100%;
+    height: 100%;
+  }
+}
+
+
 @media (width > 362px) {
   .prompt-button-container {
     flex-direction: row;
@@ -929,10 +819,107 @@ p, h1, h2, h3, h4, h5, h6 {
 }
 
 @media (width > 480px) {
+  .title-bar {
+    --padding: 1rem;
+  }
+
+  .title-bar h1 {
+    font-size: 2rem;
+  }
+
+  .game-grid {
+    --cell-size: clamp(12px, calc((100vh - 355px) / 6.25), 80px);
+  }
+
+  .keyboard {
+    height: 13.25rem;
+  }
+
+  .keyboard-key {
+    height: 3.75rem;
+  }
+
+  .keyboard-key-large {
+    font-size: 2.25em;
+  }
+
+  .keyboard-key-large.keyboard-key-enter {
+    font-size: 1.75em;
+  }
+
+  .keyboard-key svg {
+    --svg: 30px;
+  }
+
+  .keyboard-key:active .keyboard-key-bg {
+    opacity: 0.6;
+  }
+
   .stats h3 {
     margin-top: 2rem;
   }
+
   .prompt-button {
     font-size: 1rem;
+  }
+
+  .modal {
+    max-height: calc(100vh - 2 * 32px);
+    max-width: calc(100vw - 2 * 32px);
+    border-radius: 1rem;
+    box-shadow: 0 0 8px rgb(0 0 0 / 50%);
+  }
+
+  .modal h2 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .content-modal {
+    max-width: 400px;
+  }
+
+  .content-modal-panel {
+    max-width: 400px;
+  }
+}
+
+
+@media (width > 768px) {
+  .title-bar {
+    margin: 1rem auto 2rem auto;
+  }
+
+  .game-grid {
+    --cell-size: clamp(12px, calc((100vh - 390px) / 6.25), 80px);
+  }
+}
+
+
+@media (width > 787px) {
+  .keyboard {
+    --key-size: 70px;
+  }
+}
+
+
+@media (width > 1020px) {
+  .button {
+    padding: 1rem;
+  }
+
+  .game-grid {
+    --cell-size: clamp(12px, calc((100vh - 395px) / 6.25), 80px);
+  }
+
+  .modal {
+    max-width: 600px;
+    max-height: calc(100vh - 32px);
+  }
+  
+  .content-modal,
+  .content-modal-panel {
+    max-width: fit-content;
+    width: 520px;
   }
 }
