@@ -83,7 +83,7 @@ body {
   margin: 0;
   padding: 0;
   height: 100%;
-  /* height: 100vh; */
+  height: 100vh;
   max-height: -webkit-fill-available;
   overflow: auto;
   -webkit-font-smoothing: antialiased;
@@ -116,17 +116,17 @@ p, h1, h2, h3, h4, h5, h6 {
   margin: 0 0 1rem 0;
 }
 
-/* footer div {
+footer div {
   height: 10px;
   background-color: var(--keyboard-background-color);
   background-color: red;
-} */
+}
 
-/* #root {
+#root {
   isolation: isolate;
   width: 100%;
   height: 100%;
-} */
+}
 
 .game-container {
   position: relative;
