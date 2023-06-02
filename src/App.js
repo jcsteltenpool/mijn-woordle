@@ -175,8 +175,10 @@ export default function App() {
       handleEnter();
     } else if (keyValue === 'Backspace') {
       handleBackspace();
+      setShowHint(false);
     } else {
       handleGuess(keyValue);
+      setShowHint(false);
     }
   }
   
