@@ -84,7 +84,7 @@ html, body {
   margin: 0;
   padding: 0;
   height: 100%;
-  /* height: 100vh; */
+  height: 100svh;
   max-height: -webkit-fill-available;
   overflow: auto;
   -webkit-font-smoothing: antialiased;
@@ -118,13 +118,13 @@ p, h1, h2, h3, h4, h5, h6 {
 }
 
 footer div {
-  height: 100%;
+  height: 10px;
   background-color: var(--keyboard-background-color);
   background-color: red;
 }
 
 #root {
-  isolation: isolate;
+  /* isolation: isolate; */
   width: 100%;
   height: 100%;
 }
@@ -132,7 +132,7 @@ footer div {
 .game-container {
   position: relative;
   width: 100%;
-  min-height: 100%;
+  height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
