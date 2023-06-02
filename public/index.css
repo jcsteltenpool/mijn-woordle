@@ -84,7 +84,7 @@ body {
   margin: 0;
   padding: 0;
   background-color: var(--bg-color);
-  /* max-height: -webkit-fill-available; */
+  max-height: -webkit-fill-available;
   overflow: auto;
   transition: background-color 1.3s;
   -webkit-font-smoothing: antialiased;
