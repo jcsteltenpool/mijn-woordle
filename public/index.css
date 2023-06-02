@@ -872,10 +872,6 @@ footer div {
     font-size: 1rem;
   }
 
-  .info-paragraph {
-    margin-bottom: 0rem;
-  }
-
   .modal {
     max-height: calc(100vh - 2 * 32px);
     max-width: calc(100vw - 2 * 32px);
