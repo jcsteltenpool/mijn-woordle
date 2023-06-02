@@ -636,7 +636,7 @@ footer div {
 }
 
 .info-paragraph {
-  margin: 0;
+  margin-bottom: 0.5rem;
 }
 
 /* Settings */
@@ -870,6 +870,10 @@ footer div {
 
   .prompt-button {
     font-size: 1rem;
+  }
+
+  .info-paragraph {
+    margin-bottom: 0rem;
   }
 
   .modal {
