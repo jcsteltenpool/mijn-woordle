@@ -86,6 +86,8 @@ body {
   max-height: -webkit-fill-available;
   overflow: auto;
   -webkit-font-smoothing: antialiased;
+  transition: background-color 1.3s;
+
 }
 
 img, picture, video, canvas, svg {
@@ -113,8 +115,12 @@ p, h1, h2, h3, h4, h5, h6 {
   margin: 0 0 1rem 0;
 }
 
-footer div {
-  height: 5px;
+footer {
+  height: 0.5rem;
+  background-color: var(--keyboard-background-color);
+}
+
+footer.show-modal {
   background-color: var(--bg-color);
 }
 
@@ -130,7 +136,6 @@ footer div {
   font-family: var(--font-family-primary);
   background-color: var(--bg-color);
   color: var(--body-color);
-  transition: background-color 1.3s;
 }
 
 .button {
