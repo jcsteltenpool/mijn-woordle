@@ -615,7 +615,6 @@ footer div {
 
 .content-modal-panel .primary-button {
   margin-inline: auto;
-  /* margin-bottom: 1rem; */
 }
 
 .button.outline:not(:disabled):hover {
@@ -636,6 +635,9 @@ footer div {
   margin-top: 1rem;
 }
 
+.info-paragraph {
+  margin: 0;
+}
 
 /* Settings */
 .settings {

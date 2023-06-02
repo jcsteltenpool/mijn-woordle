@@ -8,12 +8,9 @@ export default function Info({ onClose, startNewGame, showKeyboard, setModalCont
                 <div className="content-modal-panel">
                     <h2>Mijn Woordle</h2>
                     <p>Raad het woord in 6 keer. Na elke poging geven de gekleurde letters aan hoe dichtbij je was.</p>
-                    <p> <span className="spacer">🟩</span> Goede letter op de goede plek 
-                        <br/>
-                        <span className="spacer">🟨</span> Goede letter op de verkeerde plek
-                        <br/>
-                        <span className="spacer">⬛</span> Verkeerde letter
-                    </p>
+                    <p className="info-paragraph"><span className="spacer">🟩</span> Goede letter op de goede plek </p>
+                    <p className="info-paragraph"><span className="spacer">🟨</span> Goede letter op de verkeerde plek </p>
+                    <p><span className="spacer">⬛</span> Verkeerde letter</p>
                     <p>Je kunt Mijn Woordle onbeperkt spelen!</p>
                     
                     <div className="prompt-button-container">
