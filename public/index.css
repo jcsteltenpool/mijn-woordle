@@ -85,7 +85,7 @@ html, body {
   height: 100%;
   height: 100vh;
   max-height: -webkit-fill-available;
-  /* overflow: auto; */
+  overflow: auto;
   -webkit-font-smoothing: antialiased;
 
   /* border: 5px solid red; */
@@ -123,6 +123,8 @@ footer div {
 
 #root {
   isolation: isolate;
+  display: block;
+  width: 100%;
   height: 100%;
 }
 
@@ -133,14 +135,13 @@ footer div {
   display: flex;
   flex-direction: column;
   align-items: center;
-  /* overflow: hidden; */
+  overflow: hidden;
   touch-action: manipulation;
 
   font-family: var(--font-family-primary);
   background-color: var(--bg-color);
   color: var(--body-color);
-  transition: opacity ease-in 0.2s,
-              background-color 1.3s;
+  transition: background-color 1.3s;
 }
 
 .button {
