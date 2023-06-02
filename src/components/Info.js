@@ -1,7 +1,7 @@
 import React from "react";
 import PlayAgainButton from "./PlayAgainButton";
 
-export default function Info({ onClose, startNewGame, showKeyboard, setModalContent }) {
+export default function Info({ onClose, startNewGame, inProgress, setModalContent }) {
     return (
         <div className="content-modal">
             <div className="content-modal-panel-wrapper">
@@ -14,7 +14,7 @@ export default function Info({ onClose, startNewGame, showKeyboard, setModalCont
                     <p>Je kunt Mijn Woordle onbeperkt spelen!</p>
                     
                     <div className="prompt-button-container">
-                        {showKeyboard
+                        {inProgress
                             ? <button className="button primary-button"
                                     onClick={onClose}>
                                 Speel Mijn Woordle

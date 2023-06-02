@@ -34,7 +34,7 @@ export default function Modal({
                 {modalContent === 'info' && 
                     <Info onClose={handleClose}
                           setModalContent={setModalContent} 
-                          showKeyboard={showKeyboard}
+                          inProgress={inProgress}
                           startNewGame={startNewGame} />} 
                 
                 {modalContent === 'menu' && 

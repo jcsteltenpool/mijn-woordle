@@ -1,4 +1,5 @@
 :root {
+
   --color-white: #ffffff;
   --color-dark: #1c1c1c;
   --color-light: #dcdcdc;
@@ -83,11 +84,10 @@ body {
   margin: 0;
   padding: 0;
   background-color: var(--bg-color);
-  max-height: -webkit-fill-available;
+  /* max-height: -webkit-fill-available; */
   overflow: auto;
-  -webkit-font-smoothing: antialiased;
   transition: background-color 1.3s;
-
+  -webkit-font-smoothing: antialiased;
 }
 
 img, picture, video, canvas, svg {
@@ -115,14 +115,14 @@ p, h1, h2, h3, h4, h5, h6 {
   margin: 0 0 1rem 0;
 }
 
-footer {
+/* footer {
   height: 0.5rem;
   background-color: var(--keyboard-background-color);
 }
 
 footer.show-modal {
   background-color: var(--bg-color);
-}
+} */
 
 .game-container {
   position: relative;
@@ -136,6 +136,9 @@ footer.show-modal {
   font-family: var(--font-family-primary);
   background-color: var(--bg-color);
   color: var(--body-color);
+
+  padding: env(safe-area-inset-bottom, 0.5vh);
+
 }
 
 .button {
@@ -319,7 +322,7 @@ footer.show-modal {
 }
 
 .game-grid {
-  --cell-size: clamp(12px, calc((100vh - 330px) / 6.25), 18vw);
+  --cell-size: clamp(12px, calc((100vh - 340px) / 6.25), 18vw);
 
   display: grid;
   grid-template-columns: repeat(5, auto);
@@ -392,40 +395,56 @@ footer.show-modal {
 
 /* Keyboard Container */
 .keyboard-wrapper {
-  width: 100%;
+  /* width: 100%;
   display: flex;
   justify-content: center;
-  flex: 0 0 auto;
+  flex: 0 0 auto; */
 
+  width: 100%;
   margin-top: 1rem;
   background-color: var(--keyboard-background-color);
 }
 
 .keyboard {
   --key-size: calc(100vw / 10 - 0.55rem);
-  --gap: 0.5rem;
 
-  display: flex;
-  gap: var(--gap);
-  justify-content: center;
-  flex-flow: row wrap; 
-  width: calc(10 * var(--key-size) + 9 * var(--gap)); 
   background-color: var(--keyboard-background-color);
-  margin: 0.5rem;
-  height: 11.375rem; 
+  height: calc(3 * 60.66666667px);
+  display: flex;
+  flex-direction: column;
+}
+
+.keyboard-row {
+  display: flex;
+  flex: 0 0 auto;
+  justify-content: center;
+  height: 50px;
+}
+
+.keyboard-row:first-child {
+  margin-top: 0.5rem;
+}
+
+.keyboard-row:not(:last-child) {
+  margin-bottom: 0.5rem;
 }
 
 .keyboard-key {
   position: relative;
   flex-grow: 0;
   flex-shrink: 0;
+  margin-right: 0.5rem;
+  max-width: 70px;
   width: var(--key-size);
-  height: 3.125rem;
   font-family: var(--font-family-primary);
   font-size: 1.25rem;
   text-transform: uppercase;
   -webkit-tap-highlight-color: transparent;
   touch-action: manipulation;
+}
+
+.keyboard-key:first-child {
+  margin-left: 0.5rem;
 }
 
 .keyboard-key-large {
@@ -797,6 +816,14 @@ footer.show-modal {
     display: none;
   }
 
+  .keyboard {
+    height: calc(3 * 70.66666667px);
+  }
+
+  .keyboard-row {
+    height: 60px;
+  }
+
   .keyboard-key:active:not(.keyboard-key-enter) {
     font-size: 1.8rem;
   }
@@ -834,15 +861,7 @@ footer.show-modal {
   }
 
   .game-grid {
-    --cell-size: clamp(12px, calc((100vh - 355px) / 6.25), 80px);
-  }
-
-  .keyboard {
-    height: 13.25rem;
-  }
-
-  .keyboard-key {
-    height: 3.75rem;
+    --cell-size: clamp(12px, calc((100vh - 310px) / 6.25), 80px);
   }
 
   .keyboard-key-large {
@@ -890,17 +909,15 @@ footer.show-modal {
   }
 }
 
-
 @media (min-width: 768px) {
   .title-bar {
     margin: 1rem auto 2rem auto;
   }
 
   .game-grid {
-    --cell-size: clamp(12px, calc((100vh - 390px) / 6.25), 80px);
+    --cell-size: clamp(12px, calc((100vh - 340px) / 6.25), 80px);
   }
 }
-
 
 @media (min-width: 787px) {
   .keyboard {
@@ -908,14 +925,13 @@ footer.show-modal {
   }
 }
 
-
 @media (min-width: 1020px) {
   .button {
     padding: 1rem;
   }
 
   .game-grid {
-    --cell-size: clamp(12px, calc((100vh - 395px) / 6.25), 80px);
+    --cell-size: clamp(12px, calc((100vh - 350px) / 6.25), 80px);
   }
 
   .modal {

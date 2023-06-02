@@ -125,7 +125,7 @@ export default function App() {
   useEffect(() => {
     if (!disabled) {
       function handleKeyDown(e) {
-          // e.preventDefault();
+          e.preventDefault();
         keyboard.forEach(key => {
           if (e.key === key.value && e.key !== 'Enter') {
             handleClick(e.key);
