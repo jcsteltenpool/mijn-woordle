@@ -88,6 +88,7 @@ body {
   overflow: auto;
   transition: background-color 1.3s;
   -webkit-font-smoothing: antialiased;
+  padding-bottom: env(safe-area-inset-bottom, 0.5rem);
 }
 
 img, picture, video, canvas, svg {
@@ -136,9 +137,6 @@ footer.show-modal {
   font-family: var(--font-family-primary);
   background-color: var(--bg-color);
   color: var(--body-color);
-
-  padding: env(safe-area-inset-bottom, 0.5vh);
-
 }
 
 .button {
