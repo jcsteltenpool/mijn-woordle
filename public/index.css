@@ -79,7 +79,7 @@
   user-select: none;
 }
 
-html, body {
+body {
   margin: 0;
   padding: 0;
   height: 100%;
@@ -88,7 +88,7 @@ html, body {
   overflow: auto;
   -webkit-font-smoothing: antialiased;
 
-  /* border: 5px solid red; */
+  background-color: var(--bg-color);
 }
 
 img, picture, video, canvas, svg {
@@ -117,8 +117,9 @@ p, h1, h2, h3, h4, h5, h6 {
 }
 
 footer div {
-  height: 1px;
+  height: 10px;
   background-color: var(--keyboard-background-color);
+  background-color: red;
 }
 
 #root {
@@ -131,7 +132,7 @@ footer div {
 .game-container {
   position: relative;
   width: 100%;
-  min-height: 100%;
+  height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
