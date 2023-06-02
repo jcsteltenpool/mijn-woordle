@@ -464,7 +464,7 @@ export default function App() {
                 isWon={isWon} />
         }
       </div>
-      <footer><p> </p></footer>
+      <footer><div> </div></footer>
     </>
   );
 }
