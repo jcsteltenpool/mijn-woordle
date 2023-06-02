@@ -79,8 +79,7 @@
   user-select: none;
 }
 
-html, body {
-  display: block;
+body {
   margin: 0;
   padding: 0;
   height: 100%;
@@ -123,11 +122,11 @@ footer div {
   background-color: red;
 }
 
-#root {
-  /* isolation: isolate; */
+/* #root {
+  isolation: isolate;
   width: 100%;
   height: 100%;
-}
+} */
 
 .game-container {
   position: relative;
