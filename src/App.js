@@ -433,36 +433,39 @@ export default function App() {
   }
 
   return (
-    <div className={`game-container ${darkMode ? "darkMode":""} ${highContrast ? "high-contrast":""}`}>
-      <TitleBar setHint={setHint}
-              setModalContent={setModalContent}/>
-      <Hint hint={hint}
-            showHint={showHint} />
-      <Grid grid={grid}
-            showAnimations={showAnimations} />
-      {showKeyboard 
-        ? <Keyboard onKeyboardClick={handleClick}
-                  keyboard={keyboard}
-                  largeCharSize={largeCharSize}
-                  disabled={disabled} />
-        : <PlayAgainContainer startNewGame={startNewGame}/>
-      }
-      {modalContent && 
-        <Modal modalContent={modalContent}
-              setModalContent={setModalContent}
-              showKeyboard={showKeyboard}
-              showModal={showModal}
-              setShowModal={setShowModal}
-              settings={settings}
-              handleToggle={handleToggle}
-              startNewGame={startNewGame}
-              solution={solution.current}
-              currentWin={currentWin}
-              clearStats={clearStats}
-              inProgress={inProgress}
-              isWon={isWon} />
-      }
-    </div>
+    <>
+      <div className={`game-container ${darkMode ? "darkMode":""} ${highContrast ? "high-contrast":""}`}>
+        <TitleBar setHint={setHint}
+                setModalContent={setModalContent}/>
+        <Hint hint={hint}
+              showHint={showHint} />
+        <Grid grid={grid}
+              showAnimations={showAnimations} />
+        {showKeyboard 
+          ? <Keyboard onKeyboardClick={handleClick}
+                    keyboard={keyboard}
+                    largeCharSize={largeCharSize}
+                    disabled={disabled} />
+          : <PlayAgainContainer startNewGame={startNewGame}/>
+        }
+        {modalContent && 
+          <Modal modalContent={modalContent}
+                setModalContent={setModalContent}
+                showKeyboard={showKeyboard}
+                showModal={showModal}
+                setShowModal={setShowModal}
+                settings={settings}
+                handleToggle={handleToggle}
+                startNewGame={startNewGame}
+                solution={solution.current}
+                currentWin={currentWin}
+                clearStats={clearStats}
+                inProgress={inProgress}
+                isWon={isWon} />
+        }
+      </div>
+      <footer><p> </p></footer>
+    </>
   );
 }
 
