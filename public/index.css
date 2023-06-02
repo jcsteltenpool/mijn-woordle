@@ -79,21 +79,13 @@
   user-select: none;
 }
 
-html {
-  background-color: var(--bg-color);
-}
-
 body {
   margin: 0;
   padding: 0;
-
+  background-color: var(--bg-color);
   max-height: -webkit-fill-available;
   overflow: auto;
   -webkit-font-smoothing: antialiased;
-}
-
-#root {
-  background-color: var(--bg-color);
 }
 
 img, picture, video, canvas, svg {
@@ -123,7 +115,7 @@ p, h1, h2, h3, h4, h5, h6 {
 
 footer div {
   height: 5px;
-  background-color: var(--keyboard-background-color);
+  background-color: var(--bg-color);
 }
 
 .game-container {
