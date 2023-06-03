@@ -86,13 +86,13 @@ body {
   background-color: var(--bg-color);
   overflow: auto;
   transition: background-color 1.3s;
-  max-height: -webkit-fill-available;
+  /* max-height: -webkit-fill-available; */
   -webkit-font-smoothing: antialiased;
-  padding:
+  /* padding:
     env(safe-area-inset-top, 20px)
     env(safe-area-inset-right, 20px)
     env(safe-area-inset-bottom, 20px)
-    env(safe-area-inset-left, 20px);
+    env(safe-area-inset-left, 20px); */
 }
 
 img, picture, video, canvas, svg {
@@ -120,19 +120,21 @@ p, h1, h2, h3, h4, h5, h6 {
   margin: 0 0 1rem 0;
 }
 
-/* footer {
-  height: 0.5rem;
+footer {
+  height: 5vh;
   background-color: var(--keyboard-background-color);
+  background-color: red;
+
 }
 
 footer.show-modal {
   background-color: var(--bg-color);
-} */
+}
 
 .game-container {
   position: relative;
   width: 100%;
-  height: 100vh;
+  height: 100dvh;
   display: flex;
   flex-direction: column;
   align-items: center;
