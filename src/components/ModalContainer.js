@@ -26,39 +26,38 @@ export default function Modal({
     }
 
     return (
-        <>
-            <ModalContent onClose={handleClose}
-                          modalContent={modalContent}
-                          showModal={showModal} >
-                
-                {modalContent === 'info' && 
-                    <Info onClose={handleClose}
-                          setModalContent={setModalContent} 
-                          inProgress={inProgress}
-                          startNewGame={startNewGame} />} 
-                
-                {modalContent === 'menu' && 
-                    <Menu setModalContent={setModalContent} 
-                          settings={settings}
-                          handleToggle={handleToggle} />}
-                
-                {modalContent === 'result' && 
-                    <Result onClose={handleClose} 
-                            startNewGame={startNewGame}
-                            inProgress={inProgress}
-                            isWon={isWon}
-                            currentWin={currentWin}
-                            solution={solution}
-                            setModalContent={setModalContent} />}
-                
-                {modalContent === 'reset' && 
-                    <Reset onClose={handleClose}
-                           clearStats={clearStats} />}
-
-                {modalContent === 'privacy' &&
-                    <Privacy setModalContent={setModalContent}/>}
+        <ModalContent onClose={handleClose}
+                        modalContent={modalContent}
+                        showModal={showModal} >
             
-            </ModalContent>
-        </>
+            {modalContent === 'info' && 
+                <Info onClose={handleClose}
+                        setModalContent={setModalContent} 
+                        inProgress={inProgress}
+                        startNewGame={startNewGame} />} 
+            
+            {modalContent === 'menu' && 
+                <Menu setModalContent={setModalContent} 
+                        settings={settings}
+                        handleToggle={handleToggle} />}
+            
+            {modalContent === 'result' && 
+                <Result onClose={handleClose} 
+                        startNewGame={startNewGame}
+                        inProgress={inProgress}
+                        isWon={isWon}
+                        currentWin={currentWin}
+                        solution={solution}
+                        setModalContent={setModalContent} />}
+            
+            {modalContent === 'reset' && 
+                <Reset onClose={handleClose}
+                        clearStats={clearStats} />}
+
+            {modalContent === 'privacy' &&
+                <Privacy setModalContent={setModalContent}/>}
+        
+        </ModalContent>
+        
     )
 }

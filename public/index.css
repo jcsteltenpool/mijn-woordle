@@ -84,11 +84,15 @@ body {
   margin: 0;
   padding: 0;
   background-color: var(--bg-color);
-  max-height: -webkit-fill-available;
   overflow: auto;
   transition: background-color 1.3s;
+  max-height: -webkit-fill-available;
   -webkit-font-smoothing: antialiased;
-  /* padding-bottom: env(safe-area-inset-bottom, 0.5rem); */
+  padding:
+    env(safe-area-inset-top, 20px)
+    env(safe-area-inset-right, 20px)
+    env(safe-area-inset-bottom, 20px)
+    env(safe-area-inset-left, 20px);
 }
 
 img, picture, video, canvas, svg {
