@@ -142,6 +142,8 @@ footer.show-modal {
 
   font-family: var(--font-family-primary);
   background-color: var(--bg-color);
+  background-color: lightblue;
+
   color: var(--body-color);
 }
 
