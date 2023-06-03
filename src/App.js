@@ -466,7 +466,7 @@ export default function App() {
                 isWon={isWon} />
         }
       </div>
-      <footer className={`${darkMode ? "darkMode" : ""} ${showModal ? "show-modal" : ""}`}>test</footer>
+      <footer className={`${darkMode ? "darkMode" : ""} ${showModal ? "showModal" : ""}`}>test</footer>
     </>
   );
 }

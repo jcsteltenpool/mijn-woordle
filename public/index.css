@@ -1,5 +1,4 @@
 :root {
-
   --color-white: #ffffff;
   --color-dark: #1c1c1c;
   --color-light: #dcdcdc;
@@ -128,14 +127,14 @@ footer {
 
 }
 
-footer.show-modal {
+footer.showModal {
   background-color: var(--bg-color);
 }
 
 .game-container {
   position: relative;
   width: 100%;
-  height: 100dvh;
+  height: 100svh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -143,7 +142,6 @@ footer.show-modal {
 
   font-family: var(--font-family-primary);
   background-color: var(--bg-color);
-  background-color: lightblue;
 
   color: var(--body-color);
 }
