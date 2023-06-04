@@ -80,11 +80,9 @@
 }
 
 body {
-  /* height: 100svh; */
   margin: 0;
   padding: 0;
   background-color: var(--bg-color);
-  /* overflow: auto; */
   max-height: -webkit-fill-available;
   transition: background-color 1.3s;
   -webkit-font-smoothing: antialiased;
@@ -117,7 +115,7 @@ body {
   color: var(--body-color);
 }
 
-footer {
+/* footer {
   text-align: center;
   height: 100vh;
   background-color: var(--keyboard-background-color);
@@ -127,7 +125,7 @@ footer {
 
 footer.showModal {
   background-color: var(--bg-color);
-}
+} */
 
 img, picture, video, canvas, svg {
   display: block;
@@ -335,9 +333,9 @@ p, h1, h2, h3, h4, h5, h6 {
 }
 
 .game-grid {
-  --cell-size: clamp(12px, calc((100vh - 340px) / 6.25), 18vw);
+  --cell-size: clamp(12px, calc((100svh - 340px) / 6.25), 18vw);
 
-  --cell-size: 20px;
+  /* --cell-size: 20px; */
 
   display: grid;
   grid-template-columns: repeat(5, auto);
@@ -827,14 +825,6 @@ p, h1, h2, h3, h4, h5, h6 {
     display: none;
   }
 
-  .keyboard {
-    height: calc(3 * 70.66666667px);
-  }
-
-  .keyboard-row {
-    height: 60px;
-  }
-
   .keyboard-key:active:not(.keyboard-key-enter) {
     font-size: 1.8rem;
   }
@@ -862,7 +852,7 @@ p, h1, h2, h3, h4, h5, h6 {
   }
 }
 
-@media (min-width: 480px) {
+@media (min-width: 481px) {
   .title-bar {
     --padding: 1rem;
   }
@@ -873,6 +863,14 @@ p, h1, h2, h3, h4, h5, h6 {
 
   .game-grid {
     --cell-size: clamp(12px, calc((100vh - 310px) / 6.25), 80px);
+  }
+
+  .keyboard {
+    height: calc(3 * 70.66666667px);
+  }
+
+  .keyboard-row {
+    height: 60px;
   }
 
   .keyboard-key-large {
