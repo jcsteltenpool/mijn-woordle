@@ -336,6 +336,8 @@ p, h1, h2, h3, h4, h5, h6 {
 .game-grid {
   --cell-size: clamp(12px, calc((100vh - 340px) / 6.25), 18vw);
 
+  --cell-size: 20px;
+
   display: grid;
   grid-template-columns: repeat(5, auto);
 
@@ -407,11 +409,9 @@ p, h1, h2, h3, h4, h5, h6 {
 
 /* Keyboard Container */
 .keyboard-wrapper {
-  
-
   width: 100%;
-  /* margin-top: 1rem; */
-  margin-top: auto;
+  margin-top: 1rem;
+  /* margin-top: auto; */
   background-color: var(--keyboard-background-color);
 }
 
