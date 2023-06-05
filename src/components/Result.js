@@ -9,7 +9,7 @@ export default function Result({
             <div className="prompt-panel">
                 { inProgress
                     ? <>
-                        <h2>Mijn Woordle</h2>
+                        <h2>Raad Het Woord</h2>
                         <p>Je hebt het huidige woord nog niet geraden.</p>
                       </>
                     : <>
