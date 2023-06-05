@@ -15,7 +15,10 @@ export default function Result({
                     : <>
                         { isWon 
                             ? <h2>Goed gedaan!</h2>
-                            : <h2>Jammer!</h2>
+                            : <>
+                                <h2>Helaas</h2>
+                                <p>Je hebt het woord niet geraden.</p>
+                              </>
                         }
                         <p>Het woord was: <span className="correct-word">{solution}</span></p>
                       </>

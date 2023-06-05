@@ -41,7 +41,6 @@ export default function App() {
   const [highContrast, setHighContrast] = useState(false);
 
   const solution = useRef(randomPuzzleWord);
-  console.log(solution);
 
   // LOCAL STORAGE
   const [total, setTotal] = useLocalStorage('totalGames', '0');
@@ -466,7 +465,6 @@ export default function App() {
                 isWon={isWon} />
         }
       </div>
-      {/* <footer className={`${darkMode ? "darkMode" : ""} ${showModal ? "showModal" : ""}`}><div> </div></footer> */}
     </>
   );
 }
