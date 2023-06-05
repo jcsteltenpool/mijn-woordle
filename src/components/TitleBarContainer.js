@@ -23,7 +23,7 @@ export default function TitleBar({ setHint, setModalContent }) {
                         <span className="label">Uitleg</span>
                     </button>
                 </div>
-                <h1>Mijn Woordle</h1>
+                <h1>Raad Het Woord</h1>
                 <div className="slot right">
                     <button className="button secondary-button"
                             onClick={() => handleClick('menu')} 
