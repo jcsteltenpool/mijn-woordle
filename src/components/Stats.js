@@ -50,7 +50,7 @@ export default function Stats({ currentWin }) {
                                     key={i + 1}>
                                     <p className="index-column">{i + 1}</p>
                                     <div className="bar-column">
-                                        <span className={`${i === currentWin ? "current" : ""} bar`}
+                                        <span className={`${i === currentWin && (parseInt(totalGames) > 0) ? "current" : ""} bar`}
                                             style={{ width: `${percentageArray[i]}%`}}  >
                                             {stat}
                                         </span>

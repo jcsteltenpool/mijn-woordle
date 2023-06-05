@@ -374,8 +374,8 @@ export default function App() {
   }
 
   // MODAL
-  const [showModal, setShowModal] = useState(false);
-  const [modalContent, setModalContent] = useState();
+  const [showModal, setShowModal] = useState(true);
+  const [modalContent, setModalContent] = useState('result');
   
   useEffect(() => {
     if (modalContent) {
@@ -437,9 +437,10 @@ export default function App() {
     <>
       <div className={`game-container ${darkMode ? "darkMode":""} ${highContrast ? "high-contrast":""}`}>
         <TitleBar setHint={setHint}
-                setModalContent={setModalContent}/>
+                setModalContent={setModalContent} />
         <Hint hint={hint}
-              showHint={showHint} />
+              showHint={showHint}
+              setModalContent={setModalContent} />
         <Grid grid={grid}
               showAnimations={showAnimations} />
         {showKeyboard 

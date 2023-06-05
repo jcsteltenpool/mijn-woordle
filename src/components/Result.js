@@ -4,6 +4,9 @@ import PlayAgainButton from "./PlayAgainButton";
 
 export default function Result({ 
     solution, isWon, startNewGame, onClose, currentWin, setModalContent, inProgress }) {
+    const totalGames = JSON.parse(localStorage.getItem('totalGames'));
+    let disabled = (parseInt(totalGames) === 0);
+    
     return (
         <div className="prompt">
             <div className="prompt-panel">
@@ -35,9 +38,10 @@ export default function Result({
                     {!inProgress && <PlayAgainButton startNewGame={startNewGame}/>}  
                 </div>
 
-                <p className="modal-footer-text">Statistieken
+                <p className={`modal-footer-text ${disabled ? "disabled" : ""}`}>Statistieken
                     <span> </span> 
                     <button className="linklike-button"
+                            disabled={disabled}
                             onClick={() => setModalContent('reset')}>
                         resetten
                     </button>

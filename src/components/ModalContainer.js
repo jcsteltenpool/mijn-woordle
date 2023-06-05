@@ -5,6 +5,7 @@ import Menu from "./Menu";
 import Result from "./Result";
 import Reset from "./ResetStats";
 import Privacy from "./Privacy";
+import Suggestion from "./Suggestion";
 
 export default function Modal({ 
     modalContent,
@@ -53,6 +54,9 @@ export default function Modal({
             {modalContent === 'reset' && 
                 <Reset onClose={handleClose}
                         clearStats={clearStats} />}
+            
+            {modalContent === 'suggestion' &&
+                <Suggestion />}
 
             {modalContent === 'privacy' &&
                 <Privacy setModalContent={setModalContent}/>}

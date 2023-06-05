@@ -28,7 +28,7 @@ export default function Reset({ onClose, clearStats }) {
                                 onClick={onClose}>
                             Annuleren
                         </button>
-                        <button className="button prompt-button primary-button"
+                        <button className="button prompt-button primary-button danger-button"
                                 type="reset"
                                 disabled={disabled}
                                 onClick={() => resetStats()}>

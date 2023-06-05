@@ -14,6 +14,7 @@
   --tertiary-color: var(--color-white);
   --success-color: var(--color-green);
   --danger-color: #ea4336;
+  --danger-border-color: #b6281e;
 
   --bg-color: var(--color-white);
   --body-color: var(--color-dark-gray);
@@ -133,6 +134,10 @@ p, h1, h2, h3, h4, h5, h6 {
   margin: 0 0 1rem 0;
 }
 
+p.disabled {
+  opacity: 0.6;
+}
+
 .button {
   display: flex;
   justify-content: center;
@@ -156,18 +161,9 @@ p, h1, h2, h3, h4, h5, h6 {
   color: var(--primary-color);
 }
 
-.spacer {
-  margin-right: 0.5ch;
-}
-
 .primary-button {
   color: var(--primary-button-color);
   background-color: var(--primary-button-background-color);
-}
-
-.primary-button:disabled,
-.secondary-button:disabled {
-  opacity: 0.6;
 }
 
 .secondary-button {
@@ -179,6 +175,16 @@ p, h1, h2, h3, h4, h5, h6 {
   background-image: linear-gradient(rgba(0, 0, 0, 0.25) 0 0);
 }
 
+.primary-button:disabled,
+.secondary-button:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+
+.linklike-button:disabled {
+  cursor: default;
+}
+
 @media (hover:hover) {
   .primary-button:not(:disabled):hover {
     border-color: var(--primary-button-hover-color);
@@ -186,13 +192,29 @@ p, h1, h2, h3, h4, h5, h6 {
   .secondary-button:not(:disabled):hover {
     border-color: var(--secondary-button-hover-color);
   }
-  .linklike-button:hover {
+  .linklike-button:not(:disabled):hover {
     color: var(--primary-color-hover);
+  }
+  .danger-button:not(:disabled):hover {
+    border-color: var(--danger-border-color);
   }
 }
 
 .danger {
   color: var(--danger-color);
+}
+
+.danger-button {
+  background-color: var(--danger-color);
+}
+
+.suggestion-button {
+  margin-left: 0.5ch;
+  text-decoration: underline;
+}
+
+.spacer {
+  margin-right: 0.5ch;
 }
 
 /* Title bar */
