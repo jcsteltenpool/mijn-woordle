@@ -19,8 +19,8 @@ export default function Suggestion({ guess, onClose, setModalContent }) {
     function handleSubmit(e) {
         fetch("/", {
             method: "POST",
-            header: { "Content-Type": "application/x-www-form-urlencoded"},
-            body: encode({ "form-name": "suggestion", word: {guess}})
+            header: { "Content-Type": "application/x-www-form-urlencoded" },
+            body: encode({ "form-name": "suggestion", word: ""})
         })
         .then(() => alert("Success!"))
         .catch(error => alert(error));
@@ -41,7 +41,7 @@ export default function Suggestion({ guess, onClose, setModalContent }) {
                     </button>
                     <form onSubmit={handleSubmit}>
                         {/* <input type="hidden" name="form-name" value="suggestion" /> */}
-                        {/* <input type="hidden" name="word" value={guess} /> */}
+                        <input type="hidden" name="word" value={guess} />
                         <button className="button prompt-button primary-button"
                                 type="submit"
                                 // disabled={disabled}
