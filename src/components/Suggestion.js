@@ -19,7 +19,7 @@ export default function Suggestion({ guess, onClose, setModalContent }) {
             .then(() => {
                 setTimeout(() => {
                     setModalContent('thanks') 
-                }, 1500)
+                }, 1000)
             })
             .catch((error) => alert(error));
     };
