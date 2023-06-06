@@ -1,5 +1,11 @@
 import * as React from "react";
 
+const encode = (data) => {
+    return Object.keys(data)
+        .map(key => encodeURIComponent(key) + "=" + encodeURIComponent(data[key]))
+        .join("&");
+  }
+
 export default function Suggestion({ guess, onClose, setModalContent }) {
     // const [disabled, setDisabled] = React.useState(false);
     
@@ -9,6 +15,18 @@ export default function Suggestion({ guess, onClose, setModalContent }) {
     //         setModalContent('thanks');
     //     },2000);
     // };
+
+    function handleSubmit(e) {
+        fetch("/", {
+            method: "POST",
+            header: { "Content-Type": "application/x-www-form-urlencoded"},
+            body: encode({ "form-name": "suggestion"})
+        })
+        .then(() => alert("Success!"))
+        .catch(error => alert(error));
+
+        e.preventDefault();
+    }
     
     return (
         <div className="prompt">
@@ -21,8 +39,8 @@ export default function Suggestion({ guess, onClose, setModalContent }) {
                             onClick={onClose}>
                         Nee
                     </button>
-                    <form name="suggestion" method="post">
-                        <input type="hidden" name="form-name" value="suggestion" />
+                    <form onSubmit={handleSubmit}>
+                        {/* <input type="hidden" name="form-name" value="suggestion" /> */}
                         <input type="hidden" name="word" value={guess} />
                         <button className="button prompt-button primary-button"
                                 type="submit"

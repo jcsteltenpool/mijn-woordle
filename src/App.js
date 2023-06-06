@@ -374,7 +374,7 @@ export default function App() {
 
   // MODAL
   const [showModal, setShowModal] = useState(true);
-  const [modalContent, setModalContent] = useState('info');
+  const [modalContent, setModalContent] = useState('suggestion');
   
   useEffect(() => {
     if (modalContent) {
