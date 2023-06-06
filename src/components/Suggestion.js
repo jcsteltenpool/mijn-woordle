@@ -42,7 +42,7 @@ export default function Suggestion({ guess, onClose, setModalContent }) {
                         Nee
                     </button>
                     <form onSubmit={handleSubmit}>
-                        <input type="hidden" name="formName" value="suggestion" />
+                        <input type="hidden" name="form-name" value="suggestion" />
                         <input type="text" name="word" value={guess} />
                         <button className="button prompt-button primary-button"
                                 type="submit"
