@@ -21,7 +21,7 @@ export default function Suggestion({ guess, onClose, setModalContent }) {
         fetch("/", {
             method: "POST",
             headers: { "Content-Type": "application/x-www-form-urlencoded" },
-            body: encode({ "form-name": "suggestion", "word": ""})
+            body: encode({ "form-name": "suggestion", "word": {guess}})
         })
         .then(() => alert("Success!"))
         .catch(error => alert(error));
