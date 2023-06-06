@@ -3,12 +3,12 @@ import * as React from "react";
 export default function Suggestion({ guess, onClose, setModalContent }) {
     const [disabled, setDisabled] = React.useState(false);
     
-    function postSuggestion() {
-        setDisabled(true);
-        setTimeout(() => {
-            setModalContent('thanks');
-        },2000);
-    };
+    // function postSuggestion() {
+    //     setDisabled(true);
+    //     setTimeout(() => {
+    //         setModalContent('thanks');
+    //     },2000);
+    // };
     
     return (
         <div className="prompt">
