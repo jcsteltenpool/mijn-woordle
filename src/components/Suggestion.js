@@ -27,7 +27,7 @@ export default function Suggestion({ guess, onClose, setModalContent }) {
                         <button className="button prompt-button primary-button"
                                 type="submit"
                                 disabled={disabled}
-                                onClick={postSuggestion}>
+                                >
                                 Ja
                         </button>
                     </form>
