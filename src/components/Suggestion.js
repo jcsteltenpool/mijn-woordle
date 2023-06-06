@@ -21,14 +21,15 @@ export default function Suggestion({ guess, onClose, setModalContent }) {
         fetch("/", {
             method: "POST",
             header: { "Content-Type": "application/x-www-form-urlencoded" },
-            body: encode({ "form-name": "suggestion", "word": `${guess}`})
+            body: encode({ "form-name": "suggestion", "word": ""})
         })
         .then(() => alert("Success!"))
         .catch(error => alert(error));
 
         e.preventDefault();
     };
-    
+
+
     return (
         <div className="prompt">
             <div className="prompt-panel">
@@ -41,7 +42,7 @@ export default function Suggestion({ guess, onClose, setModalContent }) {
                         Nee
                     </button>
                     <form onSubmit={handleSubmit}>
-                        {/* <input type="hidden" name="form-name" value="suggestion" /> */}
+                        <input type="hidden" name="formName" value="suggestion" />
                         <input type="text" name="word" value={guess} />
                         <button className="button prompt-button primary-button"
                                 type="submit"
