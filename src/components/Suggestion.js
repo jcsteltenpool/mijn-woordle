@@ -1,34 +1,8 @@
 import * as React from "react";
 
-// const encode = (data) => {
-//     return Object.keys(data)
-//         .map(key => encodeURIComponent(key) + "=" + encodeURIComponent(data[key]))
-//         .join("&");
-//   }
-
 export default function Suggestion({ guess, onClose, setModalContent }) {
-    // const [suggestion] = React.useState(guess);
     const [disabled, setDisabled] = React.useState(false);
     
-    // function postSuggestion() {
-    //     setDisabled(true);
-    //     setTimeout(() => {
-    //         setModalContent('thanks');
-    //     },2000);
-    // };
-
-    // function handleSubmit(e) {
-    //     setDisabled(true);
-    //     fetch("/", {
-    //         method: "POST",
-    //         headers: { "Content-Type": "application/x-www-form-urlencoded" },
-    //         body: encode({ "form-name": "suggestion", "word": `${guess}`})
-    //     })
-    //     .then(() => setModalContent('thanks'))
-    //     .catch(error => alert(error));
-
-    //     e.preventDefault();
-    // };
 
     const handleSubmit = event => {
         event.preventDefault();
@@ -42,7 +16,11 @@ export default function Suggestion({ guess, onClose, setModalContent }) {
             headers: { "Content-Type": "application/x-www-form-urlencoded" },
             body: new URLSearchParams(formData).toString(),
           })
-            .then(() => setModalContent('thanks'))
+            .then(() => {
+                setTimeout(() => {
+                    setModalContent('thanks') 
+                }, 1500)
+            })
             .catch((error) => alert(error));
     };
 
