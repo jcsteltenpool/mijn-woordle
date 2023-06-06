@@ -6,15 +6,16 @@ import Result from "./Result";
 import Reset from "./ResetStats";
 import Privacy from "./Privacy";
 import Suggestion from "./Suggestion";
+import ThanksMessage from "./ThanksMessage";
 
 export default function Modal({ 
     modalContent,
     setModalContent,
-    showKeyboard, 
     showModal, 
     setShowModal,
     settings,
     handleToggle, 
+    guess,
     solution,
     inProgress,
     isWon,
@@ -53,10 +54,15 @@ export default function Modal({
             
             {modalContent === 'reset' && 
                 <Reset onClose={handleClose}
-                        clearStats={clearStats} />}
+                       clearStats={clearStats} />}
             
             {modalContent === 'suggestion' &&
-                <Suggestion />}
+                <Suggestion onClose={handleClose}
+                            setModalContent={setModalContent}
+                            guess={guess}/>}
+
+            {modalContent === 'thanks' && 
+                <ThanksMessage onClose={handleClose}/>}
 
             {modalContent === 'privacy' &&
                 <Privacy setModalContent={setModalContent}/>}

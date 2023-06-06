@@ -41,6 +41,7 @@ export default function App() {
   const [highContrast, setHighContrast] = useState(false);
 
   const solution = useRef(randomPuzzleWord);
+  const guess = guessArray.join('');
 
   // LOCAL STORAGE
   const [total, setTotal] = useLocalStorage('totalGames', '0');
@@ -182,8 +183,6 @@ export default function App() {
   }
   
   function handleEnter() {
-    const guess = guessArray.join('');
-
     if (guess.length < 5) {
       setHint('Woorden moeten 5 letters lang zijn.');
       setShowHint(true);
@@ -375,7 +374,7 @@ export default function App() {
 
   // MODAL
   const [showModal, setShowModal] = useState(true);
-  const [modalContent, setModalContent] = useState('result');
+  const [modalContent, setModalContent] = useState('info');
   
   useEffect(() => {
     if (modalContent) {
@@ -459,6 +458,7 @@ export default function App() {
                 settings={settings}
                 handleToggle={handleToggle}
                 startNewGame={startNewGame}
+                guess={guess}
                 solution={solution.current}
                 currentWin={currentWin}
                 clearStats={clearStats}

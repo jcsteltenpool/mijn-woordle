@@ -20,11 +20,11 @@ export default function Hint({ hint, showHint, setModalContent }) {
                         {hintSVG}
                     </span> 
                     {hint}
-                    {/* {hint==="Dit woord staat niet in de lijst." &&
+                    {hint==="Dit woord staat niet in de lijst." &&
                      <button className="suggestion-button"
                              onClick={() => setModalContent('suggestion')}>
                         Niet mee eens?
-                    </button>} */}
+                    </button>}
                 </p>
             }
         </div>

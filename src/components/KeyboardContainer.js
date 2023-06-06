@@ -28,33 +28,23 @@ function KeyboardRow({ row, onKeyboardClick, disabled, largeCharSize }) {
 }
 
 export default function Keyboard({ onKeyboardClick, disabled, keyboard, largeCharSize }) {
+    const firstRow = keyboard.filter((key, i) => i >= 0 && i <= 9);
+    const secondRow = keyboard.filter((key, i) => i >= 10 && i <= 19);
+    const thirdRow = keyboard.filter((key, i) => i >= 20 && i <= 27);
     
-    const firstRow = keyboard.filter((key, i) => 
-        i >= 0 && i <= 9
-    );
-    const secondRow = keyboard.filter((key, i) => 
-        i >= 10 && i <= 19
-    );
-    const thirdRow = keyboard.filter((key, i) => 
-        i >= 20 && i <= 27
-    );
-    
+    const rowArray = [firstRow, secondRow, thirdRow];
+
     return (
         <>
             <div className="keyboard-wrapper">
                     <section className="keyboard">
-                            <KeyboardRow row={firstRow}
+                        {rowArray.map((row, i) =>
+                            <KeyboardRow key={i}
+                                         row={row}
                                          onKeyboardClick={onKeyboardClick}
                                          disabled={disabled}
                                          largeCharSize={largeCharSize}/>
-                            <KeyboardRow row={secondRow}
-                                         onKeyboardClick={onKeyboardClick}
-                                         disabled={disabled}
-                                         largeCharSize={largeCharSize}/>        
-                            <KeyboardRow row={thirdRow}
-                                         onKeyboardClick={onKeyboardClick}
-                                         disabled={disabled}
-                                         largeCharSize={largeCharSize}/>        
+                        )}
                     </section>
             </div>
         </>

@@ -1,27 +1,33 @@
-import React from "react";
+import * as React from "react";
 
-export default function Suggestion() {
+export default function Suggestion({ guess, onClose, setModalContent }) {
+    const [disabled, setDisabled] = React.useState(false);
+    // Mockup function TODO
+    function postSuggestion(guess) {
+        setDisabled(true);
+        setTimeout(() => {
+            setModalContent('thanks');
+        },2000);
+    };
+    
     return (
-        <div className="content-modal">
-            <div className="content-modal-panel-wrapper">
-                <div className="content-modal-panel">
-                    <h2>Weet je het zeker?</h2>
-                    <div className="danger reset-warning">
-                        
-                        <p>Het resetten van je statistieken kan niet worden teruggedraaid.</p>
-                    </div>
-                    <div className="prompt-button-container">
-                        <button className="button prompt-button secondary-button"
-                                >
-                            Annuleren
-                        </button>
-                        <button className="button prompt-button primary-button danger-button"
-                                type="reset"
-                                >
-                                Statistieken resetten
-                        </button>
-                    </div>   
-                </div>
+        <div className="prompt">
+            <div className="prompt-panel">
+                <h2>Suggestie</h2>
+                <p>Wil je het woord "{guess}" aangeven als suggestie voor de woordenlijst?</p>
+                <div className="prompt-button-container">
+                    <button className="button prompt-button secondary-button"
+                            disabled={disabled}
+                            onClick={onClose}>
+                        Nee
+                    </button>
+                    <button className="button prompt-button primary-button"
+                            type="submit"
+                            disabled={disabled}
+                            onClick={postSuggestion}>
+                            Ja
+                    </button>
+                </div>   
             </div>
         </div>
     )

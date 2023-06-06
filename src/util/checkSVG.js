@@ -1,0 +1,1 @@
+export const checkSVG = <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" id="check"><polyline fill="none" stroke="" strokeLinecap="round" strokeLinejoin="round" strokeWidth="32" points="216 72.005 104 184 48 128.005"></polyline></svg>
