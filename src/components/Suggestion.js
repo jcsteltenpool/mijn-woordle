@@ -8,7 +8,7 @@ const encode = (data) => {
 
 export default function Suggestion({ guess, onClose, setModalContent }) {
     // const [suggestion] = React.useState(guess);
-    // const [disabled, setDisabled] = React.useState(false);
+    const [disabled, setDisabled] = React.useState(false);
     
     // function postSuggestion() {
     //     setDisabled(true);
@@ -18,12 +18,13 @@ export default function Suggestion({ guess, onClose, setModalContent }) {
     // };
 
     function handleSubmit(e) {
+        setDisabled(true);
         fetch("/", {
             method: "POST",
             headers: { "Content-Type": "application/x-www-form-urlencoded" },
             body: encode({ "form-name": "suggestion", "word": `${guess}`})
         })
-        .then(() => alert("Success!"))
+        .then(() => setModalContent('thanks'))
         .catch(error => alert(error));
 
         e.preventDefault();
@@ -46,7 +47,7 @@ export default function Suggestion({ guess, onClose, setModalContent }) {
                 <p>Wil je het woord "{guess}" aangeven als suggestie voor de woordenlijst?</p>
                 <div className="prompt-button-container">
                     <button className="button prompt-button secondary-button"
-                            // disabled={disabled}
+                            disabled={disabled}
                             onClick={onClose}>
                         Nee
                     </button>
@@ -55,8 +56,7 @@ export default function Suggestion({ guess, onClose, setModalContent }) {
                         <input type="text" name="word" value={guess} />
                         <button className="button prompt-button primary-button"
                                 type="submit"
-                                // disabled={disabled}
-                                >
+                                disabled={disabled}>
                                 Ja
                         </button>
                     </form>
