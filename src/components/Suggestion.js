@@ -1,10 +1,10 @@
 import * as React from "react";
 
-const encode = (data) => {
-    return Object.keys(data)
-        .map(key => encodeURIComponent(key) + "=" + encodeURIComponent(data[key]))
-        .join("&");
-  }
+// const encode = (data) => {
+//     return Object.keys(data)
+//         .map(key => encodeURIComponent(key) + "=" + encodeURIComponent(data[key]))
+//         .join("&");
+//   }
 
 export default function Suggestion({ guess, onClose, setModalContent }) {
     // const [suggestion] = React.useState(guess);
@@ -17,27 +17,34 @@ export default function Suggestion({ guess, onClose, setModalContent }) {
     //     },2000);
     // };
 
-    function handleSubmit(e) {
+    // function handleSubmit(e) {
+    //     setDisabled(true);
+    //     fetch("/", {
+    //         method: "POST",
+    //         headers: { "Content-Type": "application/x-www-form-urlencoded" },
+    //         body: encode({ "form-name": "suggestion", "word": `${guess}`})
+    //     })
+    //     .then(() => setModalContent('thanks'))
+    //     .catch(error => alert(error));
+
+    //     e.preventDefault();
+    // };
+
+    const handleSubmit = event => {
+        event.preventDefault();
         setDisabled(true);
+
+        const myForm = event.target;
+        const formData = new FormData(myForm);
+        
         fetch("/", {
             method: "POST",
             headers: { "Content-Type": "application/x-www-form-urlencoded" },
-            body: encode({ "form-name": "suggestion", "word": `${guess}`})
-        })
-        .then(() => setModalContent('thanks'))
-        .catch(error => alert(error));
-
-        e.preventDefault();
+            body: new URLSearchParams(formData).toString(),
+          })
+            .then(() => setModalContent('thanks'))
+            .catch((error) => alert(error));
     };
-
-    // const handleSubmit = event => {
-    //     event.preventDefault();
-
-    //     const myForm = event.target;
-    //     const formData = new FormData(myForm);
-
-
-    // }
 
 
     return (
