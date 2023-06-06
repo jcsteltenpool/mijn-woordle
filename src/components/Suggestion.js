@@ -20,7 +20,7 @@ export default function Suggestion({ guess, onClose, setModalContent }) {
     function handleSubmit(e) {
         fetch("/", {
             method: "POST",
-            header: { "Content-Type": "application/x-www-form-urlencoded" },
+            headers: { "Content-Type": "application/x-www-form-urlencoded" },
             body: encode({ "form-name": "suggestion", "word": ""})
         })
         .then(() => alert("Success!"))
@@ -28,6 +28,15 @@ export default function Suggestion({ guess, onClose, setModalContent }) {
 
         e.preventDefault();
     };
+
+    // const handleSubmit = event => {
+    //     event.preventDefault();
+
+    //     const myForm = event.target;
+    //     const formData = new FormData(myForm);
+
+
+    // }
 
 
     return (
