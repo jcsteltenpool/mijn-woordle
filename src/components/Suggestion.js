@@ -36,26 +36,3 @@ export default function Suggestion({ guess, onClose, setModalContent }) {
         </div>
     )
 }
-
-// return (
-//     <div className="prompt">
-//         <div className="prompt-panel">
-//             <h2>Suggestie</h2>
-//             <p>Wil je het woord "{guess}" aangeven als suggestie voor de woordenlijst?</p>
-//             <div className="prompt-button-container">
-//                 <button className="button prompt-button secondary-button"
-//                         disabled={disabled}
-//                         onClick={onClose}>
-//                     Nee
-//                 </button>
-                
-//                 <button className="button prompt-button primary-button"
-//                         type="submit"
-//                         disabled={disabled}
-//                         onClick={postSuggestion}>
-//                         Ja
-//                 </button>
-//             </div>   
-//         </div>
-//     </div>
-// )
