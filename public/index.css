@@ -659,7 +659,31 @@ p.disabled {
   margin-top: 1rem;
 }
 
+/* Info */
+.square {
+  display: inline-block;
+  width: 1.2rem;
+  height: 1.2rem;
+}
+
+.square[data-status="correct"] {
+  background-color: var(--bg-color-correct);
+}
+
+.square[data-status="present"] {
+  background-color: var(--bg-color-present);
+}
+
+.square[data-status="absent"] {
+  background-color: var(--bg-color-absent);
+}
+
 .info-paragraph {
+  display: flex;
+  gap: 0.4rem;
+}
+
+.info-paragraph:not(:nth-child(5)) {
   margin-bottom: 0.5rem;
 }
 
@@ -775,6 +799,7 @@ p.disabled {
   font-size: 0.875rem;
 }
 
+/* RESET */
 .reset-warning {
   display: flex;
   align-items: center;

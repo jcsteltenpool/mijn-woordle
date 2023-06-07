@@ -3,7 +3,6 @@ import * as React from "react";
 export default function Suggestion({ guess, onClose, setModalContent }) {
     const [disabled, setDisabled] = React.useState(false);
     
-
     const handleSubmit = event => {
         event.preventDefault();
         setDisabled(true);
