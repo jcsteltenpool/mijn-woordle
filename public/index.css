@@ -792,13 +792,17 @@ p.disabled {
 }
 
 .modal-footer-text {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 0.5rem;
+  text-align: center;
   margin-top: 0.5rem;
   margin-bottom: 0.25rem;
   font-size: 0.875rem;
+}
+
+.modal-footer-text.flex {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.25rem;
 }
 
 .modal-footer-text.succes p {

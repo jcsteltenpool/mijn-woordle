@@ -30,14 +30,14 @@ export default function Reset({ onClose, clearStats }) {
                                 Statistieken resetten
                         </button>
                         {isReset &&
-                            <div className="modal-footer-text succes">
+                            <div className="modal-footer-text flex succes">
                                 <span className="svg-icon">
                                     {checkSVG}
                                 </span>
                                 <p>Je statistieken zijn succesvol verwijderd.</p>
                             </div>
                         }
-                    </div>   
+                    </div> 
                 </div>
             </div>
         </div>
