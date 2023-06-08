@@ -7,7 +7,7 @@ function KeyboardRow({ row, onKeyboardClick, disabled, largeCharSize }) {
         <button key={key.value} 
                 className={`keyboard-key ${key.value === "Enter" ? "keyboard-key-enter" : ""} ${largeCharSize ? "keyboard-key-large" : ""} `}
                 disabled={disabled}
-                tabIndex={-1}             
+                tabIndex="0"             
                 onClick={() => onKeyboardClick(key.value)}>
             <span className="keyboard-key-bg" 
                   data-status={key.status}></span>

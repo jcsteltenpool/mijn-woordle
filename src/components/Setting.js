@@ -9,7 +9,7 @@ export default function Setting({ title, id, buttonEvent, toggled, toggleButton 
             <p className="settings-title">{title}</p>
             <button className={`button ${toggled ? "primary-button toggled" : "secondary-button"}`}
                     onClick={() => toggleButton(id, buttonEvent)}
-                    aria-label={title}
+                    aria-label={`${title} ${toggled ? "Aan" : "Uit"}`}
                     type="button">
                 <span className="svg-icon">
                     {toggled ? checkSVG : closeSVG}

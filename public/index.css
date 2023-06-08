@@ -128,6 +128,10 @@ button {
   outline: inherit;
 }
 
+button:focus-visible, button:focus {
+  outline: -webkit-focus-ring-color auto 1px;;
+}
+
 p, h1, h2, h3, h4, h5, h6 {
   overflow-wrap: break-word;
   color: var(--body-color);

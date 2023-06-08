@@ -41,6 +41,7 @@ export default function Result({
                 <p className={`modal-footer-text ${disabled ? "disabled" : ""}`}>Statistieken
                     <span> </span> 
                     <button className="linklike-button"
+                            aria-label="Statistieken resetten"
                             disabled={disabled}
                             onClick={() => setModalContent('reset')}>
                         resetten

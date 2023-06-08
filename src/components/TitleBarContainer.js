@@ -15,7 +15,8 @@ export default function TitleBar({ setHint, setModalContent }) {
                 <div className="slot left">
                     <button className="button secondary-button"
                             onClick={() => handleClick('info')} 
-                            aria-label="Hoe werkt het?" 
+                            aria-label="Hoe werkt het?"
+                            tabIndex={0} 
                             type="button">
                         <span className="svg-icon">
                             {helpSVG}
@@ -28,6 +29,7 @@ export default function TitleBar({ setHint, setModalContent }) {
                     <button className="button secondary-button"
                             onClick={() => handleClick('menu')} 
                             aria-label="Menu"
+                            tabIndex="0"
                             type="button">
                         <span className="svg-icon">
                                 {menuSVG}

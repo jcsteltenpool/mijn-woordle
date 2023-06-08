@@ -22,6 +22,7 @@ export default function ModalContent({ onClose, showModal, modalContent, childre
             <div className={modal}>
                 {children}
                 <button onClick={onClose}
+                        aria-label="Dit dialoogscherm sluiten"
                         className="button outline close-button">
                     <span className="svg-icon">
                         {closeSVG}

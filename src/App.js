@@ -125,14 +125,16 @@ export default function App() {
   useEffect(() => {
     if (!disabled) {
       function handleKeyDown(e) {
-          e.preventDefault();
         keyboard.forEach(key => {
-          if (e.key === key.value && e.key !== 'Enter') {
-            handleClick(e.key);
-            setShowHint(false);
-          } else if (e.key === key.value) {
-            handleClick(e.key);
-          } 
+          if (e.key === key.value) {
+            if (e.key === 'Enter') {
+              e.preventDefault();
+              handleClick('Enter');
+            } else {
+              handleClick(e.key);
+              setShowHint(false);
+            } 
+          }
         })
       }
       document.addEventListener('keydown', handleKeyDown);
@@ -171,14 +173,18 @@ export default function App() {
   }, [showHint]);
   
   function handleClick(keyValue) {
-    if (keyValue === 'Enter') {
-      handleEnter();
-    } else if (keyValue === 'Backspace') {
-      handleBackspace();
-      setShowHint(false);
-    } else {
-      handleGuess(keyValue);
-      setShowHint(false);
+    console.log(keyValue);
+    switch(keyValue) {
+      case 'Enter':
+        handleEnter();
+        break;
+      case 'Backspace':
+        handleBackspace();
+        setShowHint(false);
+        break;
+      default:
+        handleGuess(keyValue);
+        setShowHint(false);
     }
   }
   

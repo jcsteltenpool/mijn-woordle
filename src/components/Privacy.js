@@ -27,6 +27,8 @@ export default function Privacy({ setModalContent }) {
                     <p>Op Raad Het Woord zelf kun je ook op elk moment jouw statistieken 
                         <span> </span>
                         <button className="linklike-button"
+                                tabIndex={0}
+                                aria-label="Statistieken resetten"
                                 onClick={() => setModalContent('reset')}>
                             resetten
                         </button>.
