@@ -5,6 +5,7 @@ import Menu from "./Menu";
 import Result from "./Result";
 import Reset from "./ResetStats";
 import Privacy from "./Privacy";
+import Disclaimer from "./Disclaimer";
 import Suggestion from "./Suggestion";
 import ThanksMessage from "./ThanksMessage";
 
@@ -66,6 +67,8 @@ export default function Modal({
 
             {modalContent === 'privacy' &&
                 <Privacy setModalContent={setModalContent}/>}
+
+            {modalContent === 'disclaimer' && <Disclaimer />}
         
         </ModalContent>
         

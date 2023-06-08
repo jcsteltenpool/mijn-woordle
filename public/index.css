@@ -138,6 +138,10 @@ p.disabled {
   opacity: 0.6;
 }
 
+.privacy p {
+  font-size: 0.875rem;
+}
+
 .button {
   display: flex;
   justify-content: center;
@@ -157,8 +161,17 @@ p.disabled {
   touch-action: manipulation;
 }
 
-.linklike-button {
+a, .linklike-button {
   color: var(--primary-color);
+  text-decoration: none;
+}
+
+.link-icon svg{
+  display: inline;
+  width: 0.7rem;
+  height: 0.7rem;
+  margin-bottom: 0.2rem;
+  fill: var(--primary-color);
 }
 
 .primary-button {
@@ -192,11 +205,14 @@ p.disabled {
   .secondary-button:not(:disabled):hover {
     border-color: var(--secondary-button-hover-color);
   }
-  .linklike-button:not(:disabled):hover {
+  a:hover, .linklike-button:not(:disabled):hover {
     color: var(--primary-color-hover);
   }
   .danger-button:not(:disabled):hover {
     border-color: var(--danger-border-color);
+  }
+  .link-icon:hover {
+    fill: var(--primary-color-hover)
   }
 }
 
@@ -607,6 +623,14 @@ p.disabled {
   margin-bottom: 0.75rem;
 }
 
+.modal h3 {
+  font-size: 1rem;
+}
+
+.modal h4 {
+  font-size: 0.875rem;
+}
+
 .modal .close-button {
   position: absolute;
   top: 8px;
@@ -635,6 +659,10 @@ p.disabled {
   /* width: calc(100vw - (4 * 16px)); */
   max-width: 300px;
   display: block;
+}
+
+.content-modal h2 {
+  margin-top: 1rem;
 }
 
 .content-modal-panel .primary-button {
@@ -685,6 +713,10 @@ p.disabled {
 
 .info-paragraph:not(:nth-child(5)) {
   margin-bottom: 0.5rem;
+}
+
+.info .prompt-button-container >* {
+  margin-bottom: 1rem;
 }
 
 /* Settings */
@@ -799,6 +831,38 @@ p.disabled {
   font-size: 0.875rem;
 }
 
+.modal-footer-text {
+  text-align: center;
+  margin-top: 0.5rem;
+  margin-bottom: 0.25rem;
+  font-size: 0.875rem;
+}
+
+.modal-footer-text.flex {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.modal-footer-text p {
+  margin: 0;
+}
+
+.modal-footer-text.succes p {
+  color: var(--success-color);
+}
+
+.modal-footer-text.succes svg {
+  stroke: var(--success-color);
+  width: 1.5rem;
+}
+
+.prompt-button-container .prompt-button {
+  margin-inline: 0;
+  margin-bottom: 0;
+}
+
 /* RESET */
 .reset-warning {
   display: flex;
@@ -814,35 +878,6 @@ p.disabled {
   stroke: var(--danger-color);
   fill: var(--danger-color);
   width: 1.5rem;
-}
-
-.modal-footer-text {
-  text-align: center;
-  margin-top: 0.5rem;
-  margin-bottom: 0.25rem;
-  font-size: 0.875rem;
-}
-
-.modal-footer-text.flex {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 0.25rem;
-}
-
-.modal-footer-text.succes p {
-  margin: 0;
-  color: var(--success-color);
-}
-
-.modal-footer-text.succes svg {
-  stroke: var(--success-color);
-  width: 1.5rem;
-}
-
-.prompt-button-container .prompt-button {
-  margin-inline: 0;
-  margin-bottom: 0;
 }
 
 /* MEDIA QUERIES */
