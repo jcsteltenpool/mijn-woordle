@@ -138,6 +138,13 @@ p, h1, h2, h3, h4, h5, h6 {
   margin: 0 0 1rem 0;
 }
 
+.flex {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.25rem;
+}
+
 p.disabled {
   opacity: 0.6;
 }
@@ -292,6 +299,10 @@ a, .linklike-button {
 
 .secondary-button svg {
   fill: var(--secondary-button-color);
+}
+
+.bmc-button {
+  max-width: 217px;
 }
 
 /* Hint */
@@ -840,13 +851,6 @@ a, .linklike-button {
   margin-top: 0.5rem;
   margin-bottom: 0.25rem;
   font-size: 0.875rem;
-}
-
-.modal-footer-text.flex {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 0.25rem;
 }
 
 .modal-footer-text p {
