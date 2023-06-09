@@ -1,7 +1,28 @@
-import React from "react";
+import * as React from "react";
+import CookieConsent, {getCookieConsentValue, Cookies} from "react-cookie-consent";
+import { initGA } from "../util/ga-utils.ts";
 import PlayAgainButton from "./PlayAgainButton";
 
 export default function Info({ onClose, startNewGame, inProgress, setModalContent }) {
+    const handleAcceptCookie = () => {
+        if (process.env.REACT_APP_GOOGLE_ANALYTICS_ID) {
+            initGA(process.env.REACT_APP_GOOGLE_ANALYTICS_ID);
+        }
+    };
+
+    const handleDeclineCookie = () => {
+        Cookies.remove("_ga");
+        Cookies.remove("_gat");
+        Cookies.remove("_gid");
+    }
+
+    React.useEffect(() => {
+        const isConsent = getCookieConsentValue();
+        if (isConsent === "true") {
+            handleAcceptCookie();
+        }
+    }, []);
+    
     return (
         <div className="content-modal">
             <div className="content-modal-panel-wrapper">
@@ -22,14 +43,26 @@ export default function Info({ onClose, startNewGame, inProgress, setModalConten
                             : <PlayAgainButton startNewGame={startNewGame}/>
                         }
                     </div>
+                    <CookieConsent 
+                        enableDeclineButton
+                        onAccept={handleAcceptCookie}
+                        onDecline={handleDeclineCookie}
+                        disableStyles={true}
+                        buttonText="Accepteren"
+                        declineButtonText="Afwijzen"
+                        ariaAcceptLabel="Accepteer cookies"
+                        ariaDeclineLabel="Wijs cookies af"
+                        containerClasses= "cookie-alert-container"
+                        buttonWrapperClasses="prompt-button-container"
+                        buttonClasses="button primary-button prompt-button"
+                        declineButtonClasses="button secondary-button prompt-button"> 
+                        Deze website plaatst analytische cookies om het gebruik van de site te meten. Deze cookies leggen geen persoonsgegevens vast.
+                    </CookieConsent>
                     <div className="modal-footer-text flex">
-                        <p>Raadhetwoord.nl maakt gebruik van <strong>analytische cookies</strong>. Lees erover in de
-                            <span> </span>
-                            <button className="linklike-button"
-                                    onClick={() => setModalContent('privacy')}>
-                                privacy- en cookieverklaring
-                            </button>
-                        .</p>
+                        <button className="linklike-button"
+                                onClick={() => setModalContent('privacy')}>
+                            Privacy- en cookieverklaring
+                        </button>
                     </div>
                     <div className="modal-footer-text">
                         <button className="linklike-button"

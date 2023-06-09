@@ -1040,3 +1040,27 @@ a, .linklike-button {
     width: 520px;
   }
 }
+
+.cookie-alert-container {
+  color: var(--body-color);
+  font-size: 0.875rem;
+  font-weight: 600;
+  border: 2px solid var(--color-gray);
+  width: 100%;
+  border-radius: 8px;
+  padding: 12px;
+  background: var(--bg-color);
+  margin: 1rem auto;
+}
+
+.cookie-alert-container .prompt-button-container {
+  margin-top: 0.75rem;
+}
+
+.cookie-decline-button {
+  background-color: var(--bg-color-present);
+}
+
+.cookie-accept-button {
+  background-color: var(--bg-color-correct);
+}
