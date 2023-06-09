@@ -730,9 +730,9 @@ a, .linklike-button {
   margin-bottom: 0.5rem;
 }
 
-.info .prompt-button-container >* {
+/* .info .prompt-button-container >* {
   margin-bottom: 1rem;
-}
+} */
 
 /* Settings */
 .settings {
@@ -1046,25 +1046,37 @@ a, .linklike-button {
 }
 
 .cookie-alert-container {
-  color: var(--body-color);
+  position: fixed;
   font-size: 0.875rem;
-  font-weight: 600;
-  border: 2px solid var(--color-gray);
   width: 100%;
-  border-radius: 8px;
   padding: 12px;
-  background: var(--bg-color);
-  margin: 1rem auto;
+  background: var(--color-dark-gray);
+  z-index: 999;
+  left: 0px;
+  bottom: 0px;
+}
+
+.cookie-alert-container button {
+  font-size: 0.875rem;
+}
+.cookie-alert-container h3,
+.cookie-alert-container p {
+  color: var(--color-white);
+  margin-bottom: 0.5rem;
+}
+
+.cookie-alert-container h3 {
+  font-size: 0.875rem;
 }
 
 .cookie-alert-container .prompt-button-container {
   margin-top: 0.75rem;
 }
 
-.cookie-decline-button {
-  background-color: var(--bg-color-present);
-}
-
-.cookie-accept-button {
-  background-color: var(--bg-color-correct);
+@media (min-width: 481px) {
+  .cookie-alert-container {
+    position: initial;
+    border-radius: 8px;
+    margin-top: 1.5rem;
+  }
 }

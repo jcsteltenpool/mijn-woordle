@@ -1,8 +1,8 @@
 import React from "react";
 
-function Tile({ value, result, visible, showAnimations }) {
+function Tile({ value, result, visible, animations }) {
     return (
-        <div className={`game-tile ${!showAnimations ? "hide-animation" : ""}`}>
+        <div className={`game-tile ${!animations ? "hide-animation" : ""}`}>
             <div data-status={value === '' ? "empty" : "tbd"} 
                  data-visible={!visible}>
                     {value}
@@ -15,13 +15,13 @@ function Tile({ value, result, visible, showAnimations }) {
     )
 }
 
-export default function Grid({ grid, showAnimations }) {
+export default function Grid({ grid, animations }) {
     const gridRows = grid.map((tile, i) => 
         <Tile key={i}
               value={tile.value}
               result={tile.result}
               visible={tile.visible}
-              showAnimations={showAnimations}
+              animations={animations}
         />
     );
 

@@ -56,7 +56,14 @@ export default function Info({ onClose, startNewGame, inProgress, setModalConten
                         buttonWrapperClasses="prompt-button-container"
                         buttonClasses="button primary-button prompt-button"
                         declineButtonClasses="button secondary-button prompt-button"> 
-                        Deze website plaatst analytische cookies om het gebruik van de site te meten. Deze cookies leggen geen persoonsgegevens vast.
+                        <h3>Cookiemelding</h3>
+                        <p>Deze website plaatst analytische cookies om het gebruik van de site te meten. Deze cookies leggen geen persoonsgegevens vast. Lees voor meer informatie de 
+                            <span> </span> 
+                            <button className="linklike-button"
+                                onClick={() => setModalContent('privacy')}>
+                            privacy- en cookieverklaring
+                            </button>.
+                        </p>
                     </CookieConsent>
                     <div className="modal-footer-text flex">
                         <button className="linklike-button"

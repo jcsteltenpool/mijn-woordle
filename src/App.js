@@ -36,15 +36,14 @@ export default function App() {
   const [isWon, setIsWon] = useState(false);
   const [currentWin, setCurrentWin] = useState(null);
 
-  const [largeCharSize, setLargeCharSize] = useState(false);
-  const [showAnimations, setShowAnimations] = useState(true);
-  const [darkMode, setDarkMode] = useState(false);
-  const [highContrast, setHighContrast] = useState(false);
-
   const solution = useRef(randomPuzzleWord);
   const guess = guessArray.join('');
 
   // LOCAL STORAGE
+  const [largeCharSize, setLargeCharSize] = useLocalStorage('largeCharSize', false);
+  const [animations, setAnimations] = useLocalStorage('animations', true);
+  const [darkMode, setDarkMode] = useLocalStorage('darkMode', false);
+  const [highContrast, setHighContrast] = useLocalStorage('highContrast', false);
   const [total, setTotal] = useLocalStorage('totalGames', '0');
   const [gamesWon, setGamesWon] = useLocalStorage('gamesWon', '0');
   const [currentStreak, setCurrentStreak] = useLocalStorage('streak', '0');
@@ -174,7 +173,6 @@ export default function App() {
   }, [showHint]);
   
   function handleClick(keyValue) {
-    console.log(keyValue);
     switch(keyValue) {
       case 'Enter':
         handleEnter();
@@ -200,7 +198,7 @@ export default function App() {
       evaluateGuess();
       showResult();
       clearGuessArray();
-      if (showAnimations) {
+      if (animations) {
         disableKeyboard();
       }
       if (guess === solution.current) {
@@ -217,7 +215,7 @@ export default function App() {
           setModalContent('result');
           setShowModal(true);
           setShowKeyboard(false);
-        }, showAnimations ? (7 * animationTime) : 500);
+        }, animations ? (7 * animationTime) : 500);
       } else if (target === 30 && guess !== solution.current) {
         incrementTotal();
         resetCurrentStreak();
@@ -227,7 +225,7 @@ export default function App() {
           setModalContent('result');
           setShowModal(true);
           setShowKeyboard(false);
-        }, showAnimations ? (7 * animationTime) : 500);
+        }, animations ? (7 * animationTime) : 500);
       }
     }
   }
@@ -326,7 +324,7 @@ export default function App() {
             return key;
           }
         }));
-      }, showAnimations ? (5 * animationTime) : 0);
+      }, animations ? (5 * animationTime) : 0);
     });
   }
 
@@ -343,7 +341,7 @@ export default function App() {
     setTileToShow(target - 5);
     setTimeout(() => {
       setTileToShow(null);
-    }, showAnimations ? (5 * animationTime) : 1000);
+    }, animations ? (5 * animationTime) : 1000);
   }
   
   useEffect(() => {
@@ -367,10 +365,10 @@ export default function App() {
       const intervalId = setInterval(() => {
         setGrid(nextGrid);
         setTileToShow(tileToShow + 1);
-      }, showAnimations ? animationTime : 0)
+      }, animations ? animationTime : 0)
       return () => clearInterval(intervalId);
     }
-  }, [tileToShow, target, grid, showAnimations]);
+  }, [tileToShow, target, grid, animations]);
 
   function disableKeyboard() {
     setTimeout(() => {
@@ -403,10 +401,10 @@ export default function App() {
 
   //SETTINGS
   const [settings, setSettings] = useState([
-    {id: 0, title: "Grotere toetsenbordletters", event: "toggleCharSize", toggled: false},
-    {id: 1, title: "Animaties", event: "toggleAnimations", toggled: true},
-    {id: 2, title: "Donker thema", event: "toggleDarkMode", toggled: false},
-    {id: 3, title: "Verhoogd contrast", event: "toggleHighContrast", toggled: false}
+    {id: 0, title: "Grotere toetsenbordletters", event: "toggleCharSize", toggled: largeCharSize},
+    {id: 1, title: "Animaties", event: "toggleAnimations", toggled: animations},
+    {id: 2, title: "Donker thema", event: "toggleDarkMode", toggled: darkMode},
+    {id: 3, title: "Verhoogd contrast", event: "toggleHighContrast", toggled: highContrast}
   ]);
 
   function handleToggle(id, event) {
@@ -427,7 +425,7 @@ export default function App() {
           setLargeCharSize(!largeCharSize);
             break;
         case 'toggleAnimations':
-          setShowAnimations(!showAnimations);
+          setAnimations(!animations);
             break;
         case 'toggleDarkMode':
           setDarkMode(!darkMode);
@@ -448,7 +446,7 @@ export default function App() {
               showHint={showHint}
               setModalContent={setModalContent} />
         <Grid grid={grid}
-              showAnimations={showAnimations} />
+              animations={animations} />
         {showKeyboard 
           ? <Keyboard onKeyboardClick={handleClick}
                     keyboard={keyboard}
