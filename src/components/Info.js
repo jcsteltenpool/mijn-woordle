@@ -23,7 +23,7 @@ export default function Info({ onClose, startNewGame, inProgress, setModalConten
                         }
                     </div>
                     
-                    <div className="modal-footer-text flex">
+                    <div className="modal-footer-text">
                         <button className="linklike-button"
                                 onClick={() => setModalContent('privacy')}>
                             Privacy- en cookieverklaring

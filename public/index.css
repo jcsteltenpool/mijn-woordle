@@ -190,6 +190,10 @@ a, .linklike-button {
   background-color: var(--primary-button-background-color);
 }
 
+.primary-button a {
+  color: var(--primary-button-color);
+}
+
 .secondary-button {
   color: var(--secondary-button-color);
   background-color: var(--secondary-button-background-color);
@@ -355,35 +359,6 @@ a, .linklike-button {
   width: 1rem;
   height: 1rem;
   margin-inline-end: 0.25rem;
-}
-
-/* Cookies */
-.cookie-alert-container {
-  position: fixed;
-  font-size: 0.875rem;
-  width: 100%;
-  padding: 12px;
-  background: var(--color-dark-gray);
-  z-index: 999;
-  left: 0px;
-  bottom: 0px;
-}
-
-.cookie-alert-container button {
-  font-size: 0.875rem;
-}
-.cookie-alert-container h3,
-.cookie-alert-container p {
-  color: var(--color-white);
-  margin-bottom: 0.5rem;
-}
-
-.cookie-alert-container h3 {
-  font-size: 0.875rem;
-}
-
-.cookie-alert-container .prompt-button-container {
-  margin-top: 0.75rem;
 }
 
 /* Grid Container */
@@ -916,6 +891,31 @@ a, .linklike-button {
   width: 1.5rem;
 }
 
+/* Cookies */
+.cookie-alert-container {
+  position: fixed;
+  width: 100%;
+  padding: 12px;
+  background: var(--color-dark-gray);
+  z-index: 999;
+  left: 0px;
+  bottom: 0px;
+}
+
+.cookie-alert-container button {
+  font-size: 0.875rem;
+}
+.cookie-content >* {
+  color: var(--color-white);
+  margin-bottom: 0.5rem;
+  font-size: 0.875rem;
+}
+
+.cookie-alert-container .prompt-button-container {
+  margin-top: 0.75rem;
+}
+
+
 /* MEDIA QUERIES */
 @media (min-width: 295px) {
   .hint {
@@ -1046,11 +1046,11 @@ a, .linklike-button {
   }
 
   .cookie-alert-container{
-    padding: 2rem;
+    padding: 1.5rem;
     align-items: center;
     display: grid;
     grid-template-columns: 1fr auto;
-    gap: 2rem;
+    gap: 1.5rem;
   }
 
   .cookie-alert-container p {
