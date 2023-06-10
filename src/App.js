@@ -1,8 +1,4 @@
 import React, { useState, useEffect, useRef } from "react";
-import CookieConsent, {getCookieConsentValue, Cookies} from "react-cookie-consent";
-import { initGA } from "./util/ga-utils.ts";
-
-
 import TitleBar from "./components/TitleBarContainer";
 import Hint from "./components/Hint";
 import Grid from "./components/GridContainer";
@@ -11,6 +7,7 @@ import Modal from "./components/ModalContainer";
 import { initialKeyboard } from "./util/keyboard_keys";
 import { puzzle_words } from "./util/puzzle_words_5";
 import PlayAgainContainer from "./components/PlayAgainContainer";
+import CookieAlert from "./components/CookieAlert.js";
 
 const useLocalStorage = (storageKey, fallbackState) => {
   const [value, setValue] = useState(
@@ -106,28 +103,6 @@ export default function App() {
     setMaxStreak('0');
     setStats(statsInitial);
   }
-
-  
-  // COOKIES
-  const handleAcceptCookie = () => {
-    initGA("G-12MS71069J");
-    // if (process.env.REACT_APP_GOOGLE_ANALYTICS_ID) {
-    //     initGA(process.env.REACT_APP_GOOGLE_ANALYTICS_ID);
-    // }
-  };
-
-  const handleDeclineCookie = () => {
-      Cookies.remove("_ga");
-      Cookies.remove("_gat");
-      Cookies.remove("_gid");
-  }
-
-  useEffect(() => {
-      const isConsent = getCookieConsentValue();
-      if (isConsent === "true") {
-          handleAcceptCookie();
-      }
-  }, []);
 
   // RESET GAME
   function startNewGame() {
@@ -495,32 +470,7 @@ export default function App() {
                 isWon={isWon} />
         }
       </div>
-      <CookieConsent 
-          enableDeclineButton
-          onAccept={handleAcceptCookie}
-          onDecline={handleDeclineCookie}
-          disableStyles={true}
-          buttonText="Accepteren"
-          declineButtonText="Afwijzen"
-          ariaAcceptLabel="Accepteer cookies"
-          ariaDeclineLabel="Wijs cookies af"
-          containerClasses= "cookie-alert-container"
-          contentClasses="cookie-alert"
-          buttonWrapperClasses="prompt-button-container"
-          buttonClasses="button primary-button prompt-button"
-          declineButtonClasses="button secondary-button prompt-button">
-            <>
-              <h3>Cookiemelding</h3>
-              <p>Deze website plaatst analytische cookies om het gebruik van de site te meten. Deze cookies leggen geen persoonsgegevens vast.
-                Lees voor meer informatie de 
-                  <span> </span> 
-                  <button className="linklike-button"
-                      onClick={() => setModalContent('privacy')}>
-                  privacy- en cookieverklaring
-                  </button>.
-              </p>
-            </> 
-      </CookieConsent>
+      <CookieAlert setModalContent={setModalContent}/>
     </>
   );
 }

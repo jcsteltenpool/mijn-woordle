@@ -906,15 +906,21 @@ a, .linklike-button {
   font-size: 0.875rem;
 }
 
-.cookie-alert {
-  display: block;
+.cookie-alert-container .secondary-button {
+  background-color: var(--color-light);
+  color: var(--color-dark-gray);
 }
 
-.cookie-alert >* {
+.cookie-alert {
   color: var(--color-white);
   margin-bottom: 0.5rem;
   font-size: 0.875rem;
 }
+/* .cookie-alert >* {
+  color: var(--color-white);
+  margin-bottom: 0.5rem;
+  font-size: 0.875rem;
+} */
 
 .cookie-alert-container .prompt-button-container {
   margin-top: 0.75rem;
