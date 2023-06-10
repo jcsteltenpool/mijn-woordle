@@ -85,6 +85,7 @@ body {
   padding: 0;
   background-color: var(--bg-color);
   max-height: -webkit-fill-available;
+  font-family: var(--font-family-primary);
   -webkit-font-smoothing: antialiased;
   /* padding:
     env(safe-area-inset-top, 20px)
@@ -103,7 +104,6 @@ body {
   align-items: center;
   touch-action: manipulation;
 
-  font-family: var(--font-family-primary);
   background-color: var(--bg-color);
   color: var(--body-color);
   transition: background-color 1.3s;
@@ -357,6 +357,34 @@ a, .linklike-button {
   margin-inline-end: 0.25rem;
 }
 
+/* Cookies */
+.cookie-alert-container {
+  position: fixed;
+  font-size: 0.875rem;
+  width: 100%;
+  padding: 12px;
+  background: var(--color-dark-gray);
+  z-index: 999;
+  left: 0px;
+  bottom: 0px;
+}
+
+.cookie-alert-container button {
+  font-size: 0.875rem;
+}
+.cookie-alert-container h3,
+.cookie-alert-container p {
+  color: var(--color-white);
+  margin-bottom: 0.5rem;
+}
+
+.cookie-alert-container h3 {
+  font-size: 0.875rem;
+}
+
+.cookie-alert-container .prompt-button-container {
+  margin-top: 0.75rem;
+}
 
 /* Grid Container */
 .game-grid-wrapper {
@@ -1016,6 +1044,22 @@ a, .linklike-button {
   .game-grid {
     --cell-size: clamp(12px, calc((100svh - 370px) / 6.25), 80px);
   }
+
+  .cookie-alert-container{
+    padding: 2rem;
+    align-items: center;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 2rem;
+  }
+
+  .cookie-alert-container p {
+    margin-bottom: 0;
+  }
+
+  .cookie-alert-container .prompt-button-container {
+    margin-top: 0;
+  }
 }
 
 @media (min-width: 787px) {
@@ -1042,41 +1086,5 @@ a, .linklike-button {
   .content-modal-panel {
     max-width: fit-content;
     width: 520px;
-  }
-}
-
-.cookie-alert-container {
-  position: fixed;
-  font-size: 0.875rem;
-  width: 100%;
-  padding: 12px;
-  background: var(--color-dark-gray);
-  z-index: 999;
-  left: 0px;
-  bottom: 0px;
-}
-
-.cookie-alert-container button {
-  font-size: 0.875rem;
-}
-.cookie-alert-container h3,
-.cookie-alert-container p {
-  color: var(--color-white);
-  margin-bottom: 0.5rem;
-}
-
-.cookie-alert-container h3 {
-  font-size: 0.875rem;
-}
-
-.cookie-alert-container .prompt-button-container {
-  margin-top: 0.75rem;
-}
-
-@media (min-width: 481px) {
-  .cookie-alert-container {
-    position: initial;
-    border-radius: 8px;
-    margin-top: 1.5rem;
   }
 }
