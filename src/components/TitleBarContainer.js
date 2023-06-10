@@ -11,7 +11,7 @@ export default function TitleBar({ setHint, setModalContent }) {
 
     return (
         <div className="title-bar-wrapper">
-            <div className="title-bar preserve-height">
+            <div className="title-bar">
                 <div className="slot left">
                     <button className="button secondary-button"
                             onClick={() => handleClick('info')} 
