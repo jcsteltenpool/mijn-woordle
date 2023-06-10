@@ -905,7 +905,12 @@ a, .linklike-button {
 .cookie-alert-container button {
   font-size: 0.875rem;
 }
-.cookie-content >* {
+
+.cookie-alert {
+  display: block;
+}
+
+.cookie-alert >* {
   color: var(--color-white);
   margin-bottom: 0.5rem;
   font-size: 0.875rem;

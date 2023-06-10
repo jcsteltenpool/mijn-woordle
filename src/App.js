@@ -505,19 +505,21 @@ export default function App() {
           ariaAcceptLabel="Accepteer cookies"
           ariaDeclineLabel="Wijs cookies af"
           containerClasses= "cookie-alert-container"
-          contentClasses="cookie-content"
+          contentClasses="cookie-alert"
           buttonWrapperClasses="prompt-button-container"
           buttonClasses="button primary-button prompt-button"
-          declineButtonClasses="button secondary-button prompt-button"> 
-            <h3>Cookiemelding</h3>
-            <p>Deze website plaatst analytische cookies om het gebruik van de site te meten. Deze cookies leggen geen persoonsgegevens vast.
-               Lees voor meer informatie de 
-                <span> </span> 
-                <button className="linklike-button"
-                    onClick={() => setModalContent('privacy')}>
-                privacy- en cookieverklaring
-                </button>.
-            </p>
+          declineButtonClasses="button secondary-button prompt-button">
+            <>
+              <h3>Cookiemelding</h3>
+              <p>Deze website plaatst analytische cookies om het gebruik van de site te meten. Deze cookies leggen geen persoonsgegevens vast.
+                Lees voor meer informatie de 
+                  <span> </span> 
+                  <button className="linklike-button"
+                      onClick={() => setModalContent('privacy')}>
+                  privacy- en cookieverklaring
+                  </button>.
+              </p>
+            </> 
       </CookieConsent>
     </>
   );
