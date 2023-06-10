@@ -110,9 +110,10 @@ export default function App() {
   
   // COOKIES
   const handleAcceptCookie = () => {
-    if (process.env.REACT_APP_GOOGLE_ANALYTICS_ID) {
-        initGA(process.env.REACT_APP_GOOGLE_ANALYTICS_ID);
-    }
+    initGA("G-12MS71069J");
+    // if (process.env.REACT_APP_GOOGLE_ANALYTICS_ID) {
+    //     initGA(process.env.REACT_APP_GOOGLE_ANALYTICS_ID);
+    // }
   };
 
   const handleDeclineCookie = () => {
