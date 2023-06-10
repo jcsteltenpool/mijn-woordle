@@ -1,6 +1,5 @@
 import React from "react";
 import { extLinkSVG } from "../util/extlinkSVG";
-import { buymeacoffee } from "../util/bmc";
 
 export default function Disclaimer() {
     return (
