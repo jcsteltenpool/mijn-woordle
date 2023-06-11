@@ -33,7 +33,13 @@ export default function Info({ onClose, startNewGame, inProgress, setModalConten
                                 onClick={() => setModalContent('disclaimer')}>
                             Disclaimer
                         </button>
-                    </div>    
+                    </div> 
+                    <div className="modal-footer-text">
+                        <button className="linklike-button"
+                                onClick={() => setModalContent('donate')}>
+                            Doe een donatie
+                        </button>
+                    </div>   
                 </div>
             </div>
         </div>

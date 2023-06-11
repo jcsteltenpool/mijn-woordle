@@ -8,6 +8,7 @@ import Privacy from "./Privacy";
 import Disclaimer from "./Disclaimer";
 import Suggestion from "./Suggestion";
 import ThanksMessage from "./ThanksMessage";
+import Donate from "./Donate";
 
 export default function Modal({ 
     modalContent,
@@ -69,6 +70,8 @@ export default function Modal({
                 <Privacy setModalContent={setModalContent}/>}
 
             {modalContent === 'disclaimer' && <Disclaimer />}
+            {modalContent === 'donate' && <Donate />}
+
         
         </ModalContent>
         
