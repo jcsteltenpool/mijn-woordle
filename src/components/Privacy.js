@@ -12,7 +12,8 @@ export default function Privacy({ setModalContent }) {
                     <h3>Persoonsgegevens</h3>
                     <p>Raad Het Woord verzamelt geen persoonsgegevens van zijn gebruikers</p>
                     <p>Bezoekt je een andere website via een link op Raad Het Woord? Dan is Raad Het Woord niet meer verantwoordelijk voor de eventuele verwerking van je persoonsgegevens door deze andere website. Deel je gegevens met een andere website die je bezoekt? Dan wordt aangeraden om de privacyverklaring van die website te lezen.</p>
-
+                    <br/>
+                    
                     <h2>Cookiebeleid</h2>
                     <p>Raad Het Woord maakt gebruik van analytische cookies en van local storage.</p>
                     
