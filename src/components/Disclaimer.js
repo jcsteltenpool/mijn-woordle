@@ -13,7 +13,7 @@ export default function Disclaimer() {
                     <br/>
                     <h3>Donatie</h3>
                     <p>Raad Het Woord is onbeperkt gratis te spelen. Het kost echter wel tijd en geld om online te houden.<br/>Als je blij wordt van het spelen van Raad Het Woord, doneer dan wat je kan missen om Joost Steltenpool te laten weten dat je zijn werk waardeert. <br/>Hij is je er zeer dankbaar voor!</p>
-                    <a href="https://donate.stripe.com/cN22b888vgBn35e288" target="_blank" rel="noreferrer">
+                    <a href="https://donate.stripe.com/6oE02ueg9grWa1G3cc" target="_blank" rel="noreferrer">
                         <button className="button primary-button">
                             Doneren
                         </button>
