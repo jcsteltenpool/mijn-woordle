@@ -377,8 +377,8 @@ export default function App() {
   }
 
   // MODAL
-  const [showModal, setShowModal] = useState(false);
-  const [modalContent, setModalContent] = useState();
+  const [showModal, setShowModal] = useState(true);
+  const [modalContent, setModalContent] = useState('info');
   
   useEffect(() => {
     if (modalContent) {

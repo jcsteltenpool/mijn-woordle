@@ -11,8 +11,8 @@ export default function Info({ onClose, startNewGame, inProgress, setModalConten
                     <p className="info-paragraph"><span className="square" data-status="correct"></span> Goede letter op de goede plek </p>
                     <p className="info-paragraph"><span className="square" data-status="present"></span> Goede letter op de verkeerde plek </p>
                     <p className="info-paragraph"><span className="square" data-status="absent"></span> Verkeerde letter</p>
-                    <p>Je kunt Raad Het Woord onbeperkt spelen!</p>
-                    
+                    <p><strong>Je kunt Raad Het Woord onbeperkt spelen!</strong></p>
+                    <p className="tip"><b>Tip: </b>zet Raad Het Woord op je begin&shy;scherm voor de beste gebruiks&shy;ervaring. </p>
                     <div className="prompt-button-container">
                         {inProgress
                             ? <button className="button primary-button"
@@ -22,7 +22,6 @@ export default function Info({ onClose, startNewGame, inProgress, setModalConten
                             : <PlayAgainButton startNewGame={startNewGame}/>
                         }
                     </div>
-                    
                     <div className="modal-footer-text">
                         <button className="linklike-button"
                                 onClick={() => setModalContent('privacy')}>

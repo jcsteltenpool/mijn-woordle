@@ -261,6 +261,7 @@ a, .linklike-button {
   justify-content: space-between;
   align-items: center;
   margin: 0.5rem 0;
+  gap: 0.5rem;
 }
 
 .title-bar h1 {
@@ -371,7 +372,7 @@ a, .linklike-button {
 }
 
 .game-grid {
-  --cell-size: clamp(12px, calc((100svh - 310px) / 6.25), 18vw);
+  --cell-size: clamp(12px, calc((100svh - 300px) / 6.25), 18vw);
 
   display: grid;
   grid-template-columns: repeat(5, auto);
@@ -876,6 +877,10 @@ a, .linklike-button {
   margin-bottom: 0;
 }
 
+.tip {
+  font-size: 0.875rem;
+}
+
 /* RESET */
 .reset-warning {
   display: flex;
@@ -940,7 +945,7 @@ a, .linklike-button {
   }
 }
 
-@media (max-width: 480px) {
+@media (max-width: 479px) {
   .title-bar .button .label {
     display: none;
   }
@@ -976,13 +981,14 @@ a, .linklike-button {
   }
 }
 
-@media (min-width: 481px) {
+@media (min-width: 480px) {
   .title-bar {
     --padding: 1rem;
   }
 
   .title-bar h1 {
-    font-size: 2rem;
+    white-space: nowrap;
+    font-size: min(6vw, 2rem);
   }
 
   .hint {
@@ -1069,6 +1075,10 @@ a, .linklike-button {
 }
 
 @media (min-width: 1020px) {
+  .tip {
+    display: none;
+  }
+
   .button {
     padding: 1rem;
   }
