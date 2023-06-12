@@ -128,7 +128,7 @@ button {
   outline: inherit;
 }
 
-button:focus-visible, button:focus {
+button:focus-visible {
   outline: -webkit-focus-ring-color auto 1px;;
 }
 
