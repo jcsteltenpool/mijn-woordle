@@ -7,7 +7,7 @@ export default function Reset({ onClose, clearStats }) {
     const totalGames = JSON.parse(localStorage.getItem('totalGames'));
     let noStats = (parseInt(totalGames) === 0);
     
-    function handleClick() {
+    const handleClick = () => {
         clearStats();
         setIsReset(true);
     }

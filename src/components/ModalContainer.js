@@ -25,7 +25,7 @@ export default function Modal({
     startNewGame,
     clearStats }) {
 
-    function handleClose() {
+    const handleClose = () => {
         setShowModal(false);
     }
 
