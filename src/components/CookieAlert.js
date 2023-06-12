@@ -5,10 +5,9 @@ import { initGA } from "../util/ga-utils.ts";
 export default function CookieAlert({ setModalContent }) {
 
     const handleAcceptCookie = () => {
-        initGA("G-12MS71069J");
-        // if (process.env.REACT_APP_GOOGLE_ANALYTICS_ID) {
-        //     initGA(process.env.REACT_APP_GOOGLE_ANALYTICS_ID);
-        // }
+        if (process.env.REACT_APP_GOOGLE_ANALYTICS_ID) {
+            initGA(process.env.REACT_APP_GOOGLE_ANALYTICS_ID);
+        }
       };
     
       const handleDeclineCookie = () => {

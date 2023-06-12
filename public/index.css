@@ -181,7 +181,7 @@ a, .linklike-button {
   display: inline;
   width: 0.7rem;
   height: 0.7rem;
-  margin-bottom: 0.2rem;
+  margin-bottom: 0.1rem;
   fill: var(--primary-color);
 }
 
