@@ -21,7 +21,7 @@ export default function Hint({ hint, showHint, setModalContent }) {
                     </span> 
                     {hint}
                     {hint==="Dit woord staat niet in de lijst." &&
-                     <button className="suggestion-button"
+                    <button className="suggestion-button"
                              onClick={() => setModalContent('suggestion')}>
                         Niet mee eens?
                     </button>}

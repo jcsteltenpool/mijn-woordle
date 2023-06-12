@@ -42,7 +42,7 @@ export default function App() {
   // LOCAL STORAGE
   const [largeCharSize, setLargeCharSize] = useLocalStorage('largeCharSize', false);
   const [animations, setAnimations] = useLocalStorage('animations', true);
-  const [darkMode, setDarkMode] = useLocalStorage('darkMode', false);
+  // const [darkMode, setDarkMode] = useLocalStorage('darkMode', false);
   const [highContrast, setHighContrast] = useLocalStorage('highContrast', false);
   const [total, setTotal] = useLocalStorage('totalGames', '0');
   const [gamesWon, setGamesWon] = useLocalStorage('gamesWon', '0');
@@ -373,13 +373,36 @@ export default function App() {
   }, [showModal, showKeyboard]);
 
   //SETTINGS
+  const mq = window.matchMedia('(prefers-color-scheme: dark)');
+  const [darkMode, setDarkMode] = useState(mq.matches);
+
+  useEffect(() => {
+    const toggleDarkMode = () => {
+      function updateSettings(value) {
+        setSettings(s => s.map(setting =>
+          setting.event === "toggleDarkMode"
+          ? {...setting, toggled: value}
+          : setting))
+      }
+      if (mq.matches) {
+        setDarkMode(true);
+        updateSettings(true);
+      } else {
+        setDarkMode(false);
+        updateSettings(false);
+      }
+    }
+    mq.addEventListener('change', toggleDarkMode);
+    return() => mq.removeEventListener('change', toggleDarkMode);
+  }, [mq])
+
   const [settings, setSettings] = useState([
     {id: 0, title: "Grotere toetsenbordletters", event: "toggleCharSize", toggled: largeCharSize},
     {id: 1, title: "Animaties", event: "toggleAnimations", toggled: animations},
     {id: 2, title: "Donker thema", event: "toggleDarkMode", toggled: darkMode},
     {id: 3, title: "Verhoogd contrast", event: "toggleHighContrast", toggled: highContrast}
   ]);
-
+  
   function handleToggle(id, event) {
     const nextSettings = settings.map(setting => 
       setting.id === id
