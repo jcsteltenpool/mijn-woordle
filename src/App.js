@@ -233,16 +233,12 @@ export default function App() {
     if (guessArray.length === 0) {
       return
     } else {
-      setGrid(grid.map((tile, i) => {
-        if (i === target - 1) {
-          return {
-            ...tile,
-            value: '',
-          }
-        } else {
-          return tile;
-        }
-      }));
+      setGrid(grid.map((tile, i) => 
+        i === target - 1 
+          ? {...tile, value: ''}
+          :  tile
+        
+      ));
       setGuessArray([...guessArray.slice(0, -1)]);
       setTarget(target - 1);
     }
@@ -252,16 +248,11 @@ export default function App() {
     if (guessArray.length === 5) {
       return;
     } else {
-      setGrid(grid.map((tile, i) => {
-        if (i === target) {
-          return {
-            ...tile,
-            value: keyValue,
-          };
-        } else {
-          return tile;
-        }
-      }));
+      setGrid(grid.map((tile, i) => 
+        i === target
+          ? {...tile, value: keyValue}
+          : tile
+        ));
       setGuessArray([
         ...guessArray,
         keyValue
@@ -295,16 +286,11 @@ export default function App() {
     })
 
     resultArray.forEach((result, index) => {
-      setGrid(gr => gr.map((tile, i) => {
-        if (i === (target - 5) + index) {
-          return {
-            ...tile,
-            result: result.status,
-          }
-        } else {
-          return tile;
-        }
-      }));
+      setGrid(gr => gr.map((tile, i) => 
+        i === (target - 5) + index
+          ? {...tile, result: result.status}
+          : tile
+      ));
 
       setTimeout(() => {
         setKeyboard(k => k.map(key => {
@@ -344,16 +330,11 @@ export default function App() {
   }
   
   useEffect(() => {
-    const nextGrid = grid.map((tile, i) => {
-      if (i === tileToShow) {
-        return {
-          ...tile,
-          visible: true,
-        }
-      } else {
-        return tile;
-      }
-    });
+    const nextGrid = grid.map((tile, i) =>
+      i === tileToShow
+        ? {...tile, visible: true,}
+        : tile
+    );
     if (tileToShow === null) {
       return;
     } else if (tileToShow === target - 5) {
@@ -407,16 +388,12 @@ export default function App() {
   ]);
 
   function handleToggle(id, event) {
-    const nextSettings = settings.map(setting => {
-        if (setting.id === id) {
-            return {
-                ...setting,
-                toggled: !setting.toggled
-            };
-        } else {
-            return setting;
-        }
-    })
+    const nextSettings = settings.map(setting => 
+      setting.id === id
+        ? {...setting, toggled: !setting.toggled}
+        : setting
+    );
+      
     setSettings(nextSettings);
 
     switch(event) {
