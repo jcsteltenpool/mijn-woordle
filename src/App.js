@@ -53,25 +53,25 @@ export default function App() {
   const [stats, setStats] = useLocalStorage('stats', statsInitial);
 
 
-  function incrementTotal() {
+  const incrementTotal = () => {
     let totalParseInt = parseInt(total);
     totalParseInt ++;
     setTotal(totalParseInt.toString());
   }
 
-  function incrementGamesWon() {
+  const incrementGamesWon = () => {
     let gamesWonParseInt = parseInt(gamesWon);
     gamesWonParseInt ++;
     setGamesWon(gamesWonParseInt.toString());
   }
 
-  function incrementCurrentStreak() {
+  const incrementCurrentStreak = () => {
     let currentStreakParseInt = parseInt(currentStreak);
     currentStreakParseInt ++;
     setCurrentStreak(currentStreakParseInt.toString());
   }
 
-  function updateMaxStreak() {
+  const updateMaxStreak = () => {
     let currentStreakParseInt = parseInt(currentStreak);
     let maxStreakParseInt = parseInt(maxStreak);
     if (currentStreakParseInt >= maxStreakParseInt) {
@@ -79,11 +79,11 @@ export default function App() {
     }
   }
 
-  function resetCurrentStreak() {
+  const resetCurrentStreak = () => {
     setCurrentStreak('0');    
   }
 
-  function updateStatsDistribution(index) {
+  const updateStatsDistribution = index => {
     let nextStats = [];
 
     for (let i = 0; i < stats.length; i++) {
@@ -94,7 +94,7 @@ export default function App() {
     setStats(nextStats);
   }
 
-  function clearStats() {
+  const clearStats = () => {
     setTotal('0');
     setGamesWon('0');
     setCurrentStreak('0');
@@ -103,7 +103,7 @@ export default function App() {
   }
 
   // RESET GAME
-  function startNewGame() {
+  const startNewGame = () => {
     setGrid(initialGrid);
     setKeyboard(initialKeyboard);
     setShowKeyboard(true);
@@ -117,11 +117,10 @@ export default function App() {
     }, 500);
   }
 
-
   // PLAY GAME
   useEffect(() => {
     if (!disabled) {
-      function handleKeyDown(e) {
+      const handleKeyDown = e => {
         keyboard.forEach(key => {
           if (e.key === key.value) {
             if (e.key === 'Enter') {
@@ -140,7 +139,7 @@ export default function App() {
         document.removeEventListener('keydown', handleKeyDown);
       }
     } else {
-      function handleEscKey(e) {
+      const handleEscKey = e => {
         e.key === 'Escape' && setShowModal(false)
       }
       document.addEventListener('keydown', handleEscKey);
@@ -165,7 +164,7 @@ export default function App() {
     }
   }, [showHint]);
   
-  function handleClick(keyValue) {
+  const handleClick = keyValue => {
     switch(keyValue) {
       case 'Enter':
         handleEnter();
@@ -180,7 +179,7 @@ export default function App() {
     }
   }
   
-  function handleEnter() {
+  const handleEnter = () => {
     if (guess.length < 5) {
       setHint('Woorden moeten 5 letters lang zijn.');
       setShowHint(true);
@@ -223,7 +222,7 @@ export default function App() {
     }
   }
 
-  function handleBackspace() {
+  const handleBackspace = () => {
     if (guessArray.length === 0) {
       return
     } else {
@@ -237,7 +236,7 @@ export default function App() {
     }
   }
 
-  function handleGuess(keyValue) {
+  const handleGuess = keyValue => {
     if (guessArray.length === 5) {
       return;
     } else {
@@ -254,7 +253,7 @@ export default function App() {
     }
   }
 
-  function evaluateGuess() {
+  const evaluateGuess = () => {
     const solutionTemp = solution.current.split('');
     let resultArray = [];
 
@@ -306,7 +305,7 @@ export default function App() {
     });
   }
 
-  function clearGuessArray() {
+  const clearGuessArray = () => {
     setGuessArray([]);
   }
 
@@ -315,7 +314,7 @@ export default function App() {
   const [disabled, setDisabled] = useState(false);
   const animationTime = 300;
   
-  function showResult() {
+  const showResult = () => {
     setTileToShow(target - 5);
     setTimeout(() => {
       setTileToShow(null);
@@ -343,7 +342,7 @@ export default function App() {
     }
   }, [tileToShow, target, grid, animations]);
 
-  function disableKeyboard() {
+  const disableKeyboard = () => {
     setTimeout(() => {
       setDisabled(false);
     }, (5 * animationTime));
@@ -403,7 +402,7 @@ export default function App() {
     {id: 3, title: "Verhoogd contrast", event: "toggleHighContrast", toggled: highContrast}
   ]);
   
-  function handleToggle(id, event) {
+  const handleToggle = (id, event) => {
     const nextSettings = settings.map(setting => 
       setting.id === id
         ? {...setting, toggled: !setting.toggled}
