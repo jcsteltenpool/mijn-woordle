@@ -87,11 +87,9 @@ export default function App() {
     let nextStats = [];
 
     for (let i = 0; i < stats.length; i++) {
-      if (i === index) {
-        nextStats.push(stats[i] += 1);
-      } else {
-        nextStats.push(stats[i]);
-      }
+      i === index
+       ? nextStats.push(stats[i] += 1)
+       : nextStats.push(stats[i]);
     }
     setStats(nextStats);
   }
@@ -143,11 +141,7 @@ export default function App() {
       }
     } else {
       function handleEscKey(e) {
-        if (e.key === 'Escape') {
-          setShowModal(false);
-        } else {
-          return;
-        }
+        e.key === 'Escape' && setShowModal(false)
       }
       document.addEventListener('keydown', handleEscKey);
       
@@ -236,8 +230,7 @@ export default function App() {
       setGrid(grid.map((tile, i) => 
         i === target - 1 
           ? {...tile, value: ''}
-          :  tile
-        
+          :  tile  
       ));
       setGuessArray([...guessArray.slice(0, -1)]);
       setTarget(target - 1);
