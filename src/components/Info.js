@@ -1,7 +1,9 @@
 import * as React from "react";
 import PlayAgainButton from "./PlayAgainButton";
 
-export default function Info({ onClose, startNewGame, inProgress, setModalContent }) {
+export default function Info(props) {
+    const { onClose, startNewGame, inProgress, setModalContent } = props;
+    
     return (
         <div className="content-modal">
             <div className="content-modal-panel-wrapper">

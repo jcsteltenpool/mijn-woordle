@@ -1,6 +1,7 @@
 import * as React from "react";
 
-export default function Suggestion({ guess, onClose, setModalContent }) {
+export default function Suggestion(props) {
+    const { guess, onClose, setModalContent } = props;
     const [disabled, setDisabled] = React.useState(false);
     
     const handleSubmit = event => {

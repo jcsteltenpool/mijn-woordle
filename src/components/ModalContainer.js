@@ -10,20 +10,21 @@ import Suggestion from "./Suggestion";
 import ThanksMessage from "./ThanksMessage";
 import Donate from "./Donate";
 
-export default function Modal({ 
-    modalContent,
-    setModalContent,
-    showModal, 
-    setShowModal,
-    settings,
-    handleToggle, 
-    guess,
-    solution,
-    inProgress,
-    isWon,
-    currentWin, 
-    startNewGame,
-    clearStats }) {
+export default function Modal(props) {
+    const { 
+        modalContent,
+        setModalContent,
+        showModal, 
+        setShowModal,
+        settings,
+        handleToggle, 
+        guess,
+        solution,
+        inProgress,
+        isWon,
+        currentWin, 
+        startNewGame,
+        clearStats } = props;
 
     const handleClose = () => {
         setShowModal(false);
@@ -72,7 +73,6 @@ export default function Modal({
             {modalContent === 'disclaimer' && <Disclaimer />}
             {modalContent === 'donate' && <Donate />}
 
-        
         </ModalContent>
         
     )

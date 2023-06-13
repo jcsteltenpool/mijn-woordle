@@ -1,6 +1,7 @@
 import React from "react";
 
-function Tile({ value, result, visible, animations }) {
+function Tile(props) {
+    const { value, result, visible, animations } = props;
     return (
         <div className={`game-tile ${!animations ? "hide-animation" : ""}`}>
             <div data-status={value === '' ? "empty" : "tbd"} 

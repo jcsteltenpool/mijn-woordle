@@ -2,8 +2,8 @@ import React from "react";
 import Stats from "./Stats";
 import PlayAgainButton from "./PlayAgainButton";
 
-export default function Result({ 
-    solution, isWon, startNewGame, onClose, currentWin, setModalContent, inProgress }) {
+export default function Result(props) {
+    const { solution, isWon, startNewGame, onClose, currentWin, setModalContent, inProgress } = props;
     const totalGames = JSON.parse(localStorage.getItem('totalGames'));
     let disabled = (parseInt(totalGames) === 0);
     

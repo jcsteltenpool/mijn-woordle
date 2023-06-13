@@ -2,7 +2,8 @@ import * as React from 'react';
 import { checkSVG } from '../util/checkSVG';
 import { closeSVG } from '../util/closeSVG';
 
-export default function Setting({ title, id, buttonEvent, toggled, toggleButton }) {
+export default function Setting(props) {
+    const { title, id, buttonEvent, toggled, toggleButton } = props;
 
     return (
         <div className="settings-menu-button">

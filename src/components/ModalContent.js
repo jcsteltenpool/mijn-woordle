@@ -1,7 +1,8 @@
 import * as React from "react";
 import { closeSVG } from "../util/closeSVG";
 
-export default function ModalContent({ onClose, showModal, modalContent, children }) {
+export default function ModalContent(props) {
+    const { onClose, showModal, modalContent, children } = props;
     const [backdrop, setBackdrop] = React.useState("modal-backdrop cover-parent show-backdrop");
     const [modal, setModal] = React.useState("modal show-modal");
     
