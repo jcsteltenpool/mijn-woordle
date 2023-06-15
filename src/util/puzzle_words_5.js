@@ -1005,7 +1005,21 @@ export const puzzle_words= [
     "zweet",
     "zwemt",
     "zwerm",
-    "zwijn"
+    "zwijn",
+    "alpen",
+    "katje",
+    "kozak",
+    "uitje",
+    "eitje",
+    "pitje",
+    "armoe",
+    "porie",
+    "plens",
+    "onmin",
+    "stond",
+    "spray",
+    "serum",
+    "manie",
+    "scrub",
+    "bakje"
 ];
-
-
