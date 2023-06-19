@@ -1,6 +1,6 @@
 import * as React from "react";
 import CookieConsent, {getCookieConsentValue, Cookies} from "react-cookie-consent";
-import { initGA } from "../util/ga-utils.ts";
+import { initGA } from '../../util/ga-utils.ts';
 
 export default function CookieAlert({ setModalContent }) {
 

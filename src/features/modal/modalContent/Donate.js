@@ -1,5 +1,5 @@
 import React from "react";
-import { extLinkSVG } from "../util/extlinkSVG";
+import { extLinkSVG } from "../../../util/extlinkSVG";
 
 export default function Donate() {
     return (

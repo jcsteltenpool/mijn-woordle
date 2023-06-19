@@ -1,14 +1,14 @@
 import React from "react";
-import ModalContent from "./ModalContent";
-import Info from "./Info";
-import Menu from "./Menu";
-import Result from "./Result";
-import Reset from "./ResetStats";
-import Privacy from "./Privacy";
-import Disclaimer from "./Disclaimer";
-import Suggestion from "./Suggestion";
-import ThanksMessage from "./ThanksMessage";
-import Donate from "./Donate";
+import ModalContent from "./modalContent/ModalContent";
+import Info from "./modalContent/Info";
+import Menu from "./modalContent/Menu";
+import Result from "./modalContent/Result";
+import Reset from "./modalContent/ResetStats";
+import Privacy from "./modalContent/Privacy";
+import Disclaimer from "./modalContent/Disclaimer";
+import Suggestion from "./modalContent/Suggestion";
+import ThanksMessage from "./modalContent/ThanksMessage";
+import Donate from "./modalContent/Donate";
 
 export default function Modal(props) {
     const { 

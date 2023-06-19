@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { checkSVG } from '../util/checkSVG';
-import { closeSVG } from '../util/closeSVG';
+import { checkSVG } from '../../util/checkSVG';
+import { closeSVG } from '../../util/closeSVG';
 
 export default function Setting(props) {
     const { title, id, buttonEvent, toggled, toggleButton } = props;

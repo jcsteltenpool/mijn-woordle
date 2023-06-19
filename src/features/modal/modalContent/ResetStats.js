@@ -1,5 +1,5 @@
 import * as React from "react";
-import { checkSVG } from "../util/checkSVG";
+import { checkSVG } from "../../../util/checkSVG";
 
 export default function Reset({ onClose, clearStats }) {
     const [isReset, setIsReset] = React.useState(false);

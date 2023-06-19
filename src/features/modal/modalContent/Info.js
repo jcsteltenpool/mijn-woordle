@@ -1,5 +1,5 @@
 import * as React from "react";
-import PlayAgainButton from "./PlayAgainButton";
+import PlayAgainButton from "../../components/PlayAgainButton";
 
 export default function Info(props) {
     const { onClose, startNewGame, inProgress, setModalContent } = props;

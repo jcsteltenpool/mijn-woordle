@@ -1,13 +1,13 @@
 import React, { useState, useEffect, useRef } from "react";
-import TitleBar from "./components/TitleBarContainer";
-import Hint from "./components/Hint";
-import Grid from "./components/GridContainer";
-import Keyboard from "./components/KeyboardContainer";
-import Modal from "./components/ModalContainer";
+import TitleBar from "./features/titleBar/TitleBarContainer";
+import Hint from "./features/hint/Hint";
+import Grid from "./features/grid/GridContainer";
+import Keyboard from "./features/keyboard/KeyboardContainer";
+import Modal from "./features/modal/ModalContainer";
 import { initialKeyboard } from "./util/keyboard_keys";
 import { puzzle_words } from "./util/puzzle_words_5";
-import PlayAgainContainer from "./components/PlayAgainContainer";
-import CookieAlert from "./components/CookieAlert.js";
+import PlayAgainContainer from "./features/components/PlayAgainContainer";
+import CookieAlert from "./features/cookieAlert/CookieAlert";
 
 const useLocalStorage = (storageKey, fallbackState) => {
   const [value, setValue] = useState(

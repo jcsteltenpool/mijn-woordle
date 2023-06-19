@@ -1,5 +1,5 @@
 import * as React from "react";
-import { closeSVG } from "../util/closeSVG";
+import { closeSVG } from "../../../util/closeSVG";
 
 export default function ModalContent(props) {
     const { onClose, showModal, modalContent, children } = props;

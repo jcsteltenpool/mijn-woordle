@@ -1,6 +1,6 @@
 import React from "react";
-import Stats from "./Stats";
-import PlayAgainButton from "./PlayAgainButton";
+import Stats from "../../components/Stats";
+import PlayAgainButton from "../../components/PlayAgainButton";
 
 export default function Result(props) {
     const { solution, isWon, startNewGame, onClose, currentWin, setModalContent, inProgress } = props;
