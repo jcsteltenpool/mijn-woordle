@@ -268,11 +268,11 @@ export default function App() {
 
     resultArray.forEach((guess, i) => {
       if (guess.status === 'tbd') {
-        if (solutionTemp.indexOf(guessArray[i]) !== -1) {
+        if (solutionTemp.includes(guessArray[i])) {
           delete solutionTemp[solutionTemp.indexOf(guessArray[i])];
           resultArray[i] = { ...guess, status: 'present' }; 
         } else {
-          resultArray[i] = { ...guess, status: 'absent'};
+          resultArray[i] = { ...guess, status: 'absent' };
         }
       }
     })
