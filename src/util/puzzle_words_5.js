@@ -1144,5 +1144,10 @@ export const puzzle_words= [
     "inrit",
     "smoor",
     "stelt",
+    "topje",
+    "takel",
+    "kwast",
+    "navel",
+    "nagel",
 ];
 
