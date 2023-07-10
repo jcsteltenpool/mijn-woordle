@@ -1194,6 +1194,16 @@ export const puzzle_words= [
     "zetje",
     "podia",
     "besje",
+    "deins",
+    "dreun",
+    "kreun",
+    "huist",
+    "puree",
+    "wenen",
+    "hoost",
+    "razen",
+    "snoet",
+    "klier",
 ];
 
 
