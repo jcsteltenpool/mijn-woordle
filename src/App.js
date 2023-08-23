@@ -428,8 +428,8 @@ export default function App() {
     }
   }
 
-  // const sortedWords = puzzle_words.sort();
-  // console.log(sortedWords);
+  const sortedWords = puzzle_words.sort();
+  console.log(sortedWords);
 
   return (
     <>
