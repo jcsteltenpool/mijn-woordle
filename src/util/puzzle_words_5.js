@@ -12,6 +12,7 @@ export const puzzle_words= [
     "adder",
     "adept",
     "aders",
+    "adieu",
     "adres",
     "afdak",
     "afrit",
