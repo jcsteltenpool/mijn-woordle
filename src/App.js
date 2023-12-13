@@ -194,32 +194,40 @@ export default function App() {
         disableKeyboard();
       }
       if (guess === solution.current) {
-        let statIndex = (target / 5) - 1;
-        incrementTotal();
-        incrementGamesWon();
-        incrementCurrentStreak();
-        updateMaxStreak();
-        updateStatsDistribution(statIndex);
-        setCurrentWin(statIndex);
-        setInProgress(false);
-        setIsWon(true);
-        setTimeout(() => {
-          setModalContent('result');
-          setShowModal(true);
-          setShowKeyboard(false);
-        }, animations ? (7 * animationTime) : 500);
+        runWin();
       } else if (target === 30 && guess !== solution.current) {
-        incrementTotal();
-        resetCurrentStreak();
-        setInProgress(false);
-        setCurrentWin(null);
-        setTimeout(() => {
-          setModalContent('result');
-          setShowModal(true);
-          setShowKeyboard(false);
-        }, animations ? (7 * animationTime) : 500);
+        runLose();
       }
     }
+  }
+
+  const runWin = () => {
+    let statIndex = (target / 5) - 1;
+    incrementTotal();
+    incrementGamesWon();
+    incrementCurrentStreak();
+    updateMaxStreak();
+    updateStatsDistribution(statIndex);
+    setCurrentWin(statIndex);
+    setIsWon(true);
+    setInProgress(false);
+    showGameResult();
+  }
+
+  const runLose = () => {
+    incrementTotal();
+    resetCurrentStreak();
+    setCurrentWin(null);
+    setInProgress(false); 
+    showGameResult();
+  }
+
+  const showGameResult = () => {
+    setTimeout(() => {
+      setModalContent('result');
+      setShowModal(true);
+      setShowKeyboard(false);
+    }, animations ? (7 * animationTime) : 500);
   }
 
   const handleBackspace = () => {
