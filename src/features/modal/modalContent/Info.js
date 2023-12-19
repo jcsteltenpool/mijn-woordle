@@ -1,9 +1,7 @@
 import * as React from "react";
 import PlayAgainButton from "../../components/PlayAgainButton";
 
-export default function Info(props) {
-    const { onClose, startNewGame, inProgress, setModalContent } = props;
-    
+export default function Info({ onClose, startNewGame, inProgress, setModalContent }) {    
     return (
         <div className="content-modal">
             <div className="content-modal-panel-wrapper">
@@ -36,12 +34,6 @@ export default function Info(props) {
                             Disclaimer
                         </button>
                     </div> 
-                    <div className="modal-footer-text">
-                        <button className="linklike-button"
-                                onClick={() => setModalContent('donate')}>
-                            Doe een donatie
-                        </button>
-                    </div>   
                 </div>
             </div>
         </div>

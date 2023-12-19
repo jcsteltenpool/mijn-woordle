@@ -10,7 +10,7 @@ export default function Privacy({ setModalContent }) {
                     <p>Deze privacyverklaring gaat over de gegevens die Raad Het Woord verwerkt. Raad Het Woord is gemaakt en wordt onderhouden door <a href="https://jooststeltenpool.nl" target="_blank" rel="noreferrer">Joost Steltenpool<span className="svg-icon link-icon" aria-label="externe link">{extLinkSVG}</span></a>.</p>
                     
                     <h3>Persoonsgegevens</h3>
-                    <p>Raad Het Woord verzamelt geen persoonsgegevens van zijn gebruikers</p>
+                    <p>Raad Het Woord verzamelt geen persoonsgegevens van zijn gebruikers.</p>
                     <p>Bezoekt je een andere website via een link op Raad Het Woord? Dan is Raad Het Woord niet meer verantwoordelijk voor de eventuele verwerking van je persoonsgegevens door deze andere website. Deel je gegevens met een andere website die je bezoekt? Dan wordt aangeraden om de privacyverklaring van die website te lezen.</p>
                     <br/>
                     
@@ -33,7 +33,7 @@ export default function Privacy({ setModalContent }) {
                                 onClick={() => setModalContent('reset')}>
                             resetten
                         </button>.
-                    </p>                           
+                    </p>
                 </div>
             </div>
         </div>

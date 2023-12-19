@@ -9,6 +9,7 @@ import Disclaimer from "./modalContent/Disclaimer";
 import Suggestion from "./modalContent/Suggestion";
 import ThanksMessage from "./modalContent/ThanksMessage";
 import Donate from "./modalContent/Donate";
+import DonationButton from "../components/DonationButton";
 
 export default function Modal(props) {
     const { 
@@ -35,26 +36,39 @@ export default function Modal(props) {
                         modalContent={modalContent}
                         showModal={showModal} >
             
-            {modalContent === 'info' && 
-                <Info onClose={handleClose}
+            {modalContent === 'info' &&  (
+                <>
+                    <Info onClose={handleClose}
                         setModalContent={setModalContent} 
                         inProgress={inProgress}
-                        startNewGame={startNewGame} />} 
+                        startNewGame={startNewGame} />
+                    <DonationButton setModalContent={setModalContent}/>
+                </>
+            )} 
             
-            {modalContent === 'menu' && 
-                <Menu setModalContent={setModalContent} 
+            {modalContent === 'menu' && (
+                <>
+                    <Menu setModalContent={setModalContent} 
                         settings={settings}
-                        handleToggle={handleToggle} />}
+                        handleToggle={handleToggle} />
+                    <DonationButton setModalContent={setModalContent}/>
+                </>
+            )
+                }
             
-            {modalContent === 'result' && 
-                <Result onClose={handleClose} 
+            {modalContent === 'result' && (
+                <>
+                    <Result onClose={handleClose} 
                         startNewGame={startNewGame}
                         inProgress={inProgress}
                         isWon={isWon}
                         currentWin={currentWin}
                         solution={solution}
-                        setModalContent={setModalContent} />}
-            
+                        setModalContent={setModalContent} />
+                    <DonationButton setModalContent={setModalContent}/>   
+                </>
+            )}    
+
             {modalContent === 'reset' && 
                 <Reset onClose={handleClose}
                        clearStats={clearStats} />}
@@ -64,15 +78,28 @@ export default function Modal(props) {
                             setModalContent={setModalContent}
                             guess={guess}/>}
 
-            {modalContent === 'thanks' && 
-                <ThanksMessage onClose={handleClose}/>}
+            {modalContent === 'thanks' && (
+                <>
+                    <ThanksMessage onClose={handleClose}/>
+                    <DonationButton setModalContent={setModalContent}/>   
+                </>
+            )}
 
-            {modalContent === 'privacy' &&
-                <Privacy setModalContent={setModalContent}/>}
+            {modalContent === 'privacy' && (
+                <>
+                    <Privacy setModalContent={setModalContent}/>
+                    <DonationButton setModalContent={setModalContent}/>                          
+                </>
+            )}
 
-            {modalContent === 'disclaimer' && <Disclaimer />}
+            {modalContent === 'disclaimer' && (
+                <>
+                    <Disclaimer setModalContent={setModalContent}/>
+                    <DonationButton setModalContent={setModalContent}/>
+                </>
+            )}
+
             {modalContent === 'donate' && <Donate />}
-
         </ModalContent>
         
     )
