@@ -4,4 +4,9 @@ export const blacklist = [
     "penis",
     "joden",
     "porno",
+    "klote",
+    "tyfus",
+    "kutje",
+    "neukt",
+    "zuigt",
 ]
