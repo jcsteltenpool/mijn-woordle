@@ -771,6 +771,7 @@ export const puzzle_words= [
     "loden",
     "loens",
     "loket",
+    "lolly",
     "lonen",
     "loods",
     "loopt",
