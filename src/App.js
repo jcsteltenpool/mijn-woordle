@@ -1,10 +1,11 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import TitleBar from "./features/titleBar/TitleBarContainer";
 import Hint from "./features/hint/Hint";
 import Grid from "./features/grid/GridContainer";
 import Keyboard from "./features/keyboard/KeyboardContainer";
 import Modal from "./features/modal/ModalContainer";
 import { initialKeyboard } from "./util/keyboard_keys";
+import { blacklist } from "./util/blacklist";
 import { puzzle_words } from "./util/puzzle_words_5";
 import PlayAgainContainer from "./features/components/PlayAgainContainer";
 import CookieAlert from "./features/cookieAlert/CookieAlert";
@@ -22,8 +23,7 @@ const useLocalStorage = (storageKey, fallbackState) => {
 };
 
 export default function App() {
-  let initialGrid = Array(30).fill({ value: "", result: "", visible: false })
-  let randomPuzzleWord = puzzle_words[Math.floor(Math.random() * puzzle_words.length)]
+  const initialGrid = Array(30).fill({ value: "", result: "", visible: false });
 
   const [grid, setGrid] = useState(initialGrid);
   const [keyboard, setKeyboard] = useState(initialKeyboard);
@@ -35,14 +35,28 @@ export default function App() {
   const [inProgress, setInProgress] = useState(true);
   const [isWon, setIsWon] = useState(false);
   const [currentWin, setCurrentWin] = useState(null);
+  const [solution, setSolution] = useState("");
 
-  const solution = useRef(randomPuzzleWord);
   const guess = guessArray.join('');
+
+  const setNextSolution = () => {
+    const nextSolution = puzzle_words[Math.floor(Math.random() * puzzle_words.length)];
+    if (blacklist.indexOf(nextSolution) !== -1) {
+      setNextSolution();
+    } else {
+      setSolution(nextSolution);
+    }
+  }
+
+  useEffect(() => {
+    setNextSolution();
+  }, []);
+
+  console.log(solution);
 
   // LOCAL STORAGE
   const [largeCharSize, setLargeCharSize] = useLocalStorage('largeCharSize', false);
   const [animations, setAnimations] = useLocalStorage('animations', true);
-  // const [darkMode, setDarkMode] = useLocalStorage('darkMode', false);
   const [highContrast, setHighContrast] = useLocalStorage('highContrast', false);
   const [total, setTotal] = useLocalStorage('totalGames', '0');
   const [gamesWon, setGamesWon] = useLocalStorage('gamesWon', '0');
@@ -51,7 +65,6 @@ export default function App() {
 
   const statsInitial = [0, 0, 0, 0, 0, 0];
   const [stats, setStats] = useLocalStorage('stats', statsInitial);
-
 
   const incrementTotal = () => {
     let totalParseInt = parseInt(total);
@@ -110,7 +123,7 @@ export default function App() {
     setTarget(0);
     setShowModal(false);
     setTimeout(() => {
-      solution.current = randomPuzzleWord;
+      setNextSolution();
       setIsWon(false);
       setInProgress(true);
       setCurrentWin(null);
@@ -193,9 +206,9 @@ export default function App() {
       if (animations) {
         disableKeyboard();
       }
-      if (guess === solution.current) {
+      if (guess === solution) {
         runWin();
-      } else if (target === 30 && guess !== solution.current) {
+      } else if (target === 30 && guess !== solution) {
         runLose();
       }
     }
@@ -262,11 +275,11 @@ export default function App() {
   }
 
   const evaluateGuess = () => {
-    const solutionTemp = solution.current.split('');
+    const solutionTemp = solution.split('');
     let resultArray = [];
 
     guessArray.forEach((guess, i) => {
-      if (guess === solution.current.charAt(i)) {
+      if (guess === solution.charAt(i)) {
         delete solutionTemp[solutionTemp.indexOf(guess)];
         resultArray.push({ value: guess, status: 'correct' });
       } else {
@@ -436,9 +449,6 @@ export default function App() {
     }
   }
 
-  // const sortedWords = puzzle_words.sort();
-  // console.log(sortedWords);
-
   return (
     <>
       <div className={`game-container ${darkMode ? "darkMode":""} ${highContrast ? "high-contrast":""}`}>
@@ -466,7 +476,7 @@ export default function App() {
                 handleToggle={handleToggle}
                 startNewGame={startNewGame}
                 guess={guess}
-                solution={solution.current}
+                solution={solution}
                 currentWin={currentWin}
                 clearStats={clearStats}
                 inProgress={inProgress}
