@@ -1050,6 +1050,7 @@ export const puzzle_words= [
     "retro",
     "revue",
     "riant",
+    "richt",
     "rijmt",
     "rijst",
     "riool",

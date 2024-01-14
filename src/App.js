@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import TitleBar from "./features/titleBar/TitleBarContainer";
 import Hint from "./features/hint/Hint";
 import Grid from "./features/grid/GridContainer";
@@ -39,20 +39,18 @@ export default function App() {
 
   const guess = guessArray.join('');
 
-  const setNextSolution = () => {
+  const setNextSolution = useCallback(() => {
     const nextSolution = puzzle_words[Math.floor(Math.random() * puzzle_words.length)];
     if (blacklist.indexOf(nextSolution) !== -1) {
       setNextSolution();
     } else {
       setSolution(nextSolution);
     }
-  }
+  },[]);
 
   useEffect(() => {
     setNextSolution();
-  }, []);
-
-  console.log(solution);
+  }, [setNextSolution]);
 
   // LOCAL STORAGE
   const [largeCharSize, setLargeCharSize] = useLocalStorage('largeCharSize', false);
