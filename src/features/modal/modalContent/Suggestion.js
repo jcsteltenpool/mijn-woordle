@@ -4,24 +4,38 @@ export default function Suggestion(props) {
     const { guess, onClose, setModalContent } = props;
     const [disabled, setDisabled] = React.useState(false);
     
-    const handleSubmit = event => {
-        event.preventDefault();
-        setDisabled(true);
+    const handleSubmit = async (e) => {
 
-        const myForm = event.target;
-        const formData = new FormData(myForm);
+        e.preventDefault();
+        setDisabled(true)
         
-        fetch("/", {
+        const { word } = e.target.elements;
+        let details = {
+            word: word.value
+        }
+         
+        // let response = await fetch("http://localhost:4000/suggestion", {
+        //     method: "POST",
+        //     headers: {
+        //         "Content-Type": "application/json;charset=utf-8",
+        //     },
+        //     body: JSON.stringify(details),
+        // })
+        // let result = await response.json();
+        // if (result === "success") {
+        //     setModalContent('thanks')
+        // } 
+        fetch("http://localhost:4000/suggestion", {
             method: "POST",
-            headers: { "Content-Type": "application/x-www-form-urlencoded" },
-            body: new URLSearchParams(formData).toString(),
-          })
-            .then(() => {
-                setTimeout(() => {
-                    setModalContent('thanks') 
-                }, 1000)
-            })
-            .catch((error) => alert(error));
+            headers: {
+                "Content-Type": "application/json;charset=utf-8",
+            },
+            body: JSON.stringify(details),
+        }).then(() => {
+            setTimeout(() => {
+                setModalContent('thanks');
+            }, 1000)
+        }).catch((error) => alert(error));
     };
 
 
@@ -37,7 +51,6 @@ export default function Suggestion(props) {
                         Nee
                     </button>
                     <form onSubmit={handleSubmit}>
-                        <input type="hidden" name="form-name" value="suggestion" />
                         <input type="hidden" name="word" value={guess} />
                         <button className="button prompt-button primary-button"
                                 type="submit"
