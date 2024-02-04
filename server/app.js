@@ -10,10 +10,10 @@ app.listen(4000, () => console.log("Server Running"));
 
 
 const suggestionMail = nodemailer.createTransport({
-    service: process.env.REACT_APP_MAIL_SERVICE,
+    service: "gmail",
     auth: {
-        user: process.env.REACT_APP_MAIL_USERNAME,
-        pass: process.env.REACT_APP_MAIL_PASSWORD,
+        user: 'jsteltenpool@gmail.com',
+        pass: "qcejnfwtejeuhodp",
     },
 })
 
@@ -28,8 +28,8 @@ suggestionMail.verify((error) => {
 router.post("/suggestion", (req, res) => {
     const word = req.body.word;
     const mail = {
-        from: process.env.REACT_APP_MAIL_FROM,
-        to: process.env.REACT_APP_MAIL_TO,
+        from: "jsteltenpool@gmail.com",
+        to: "mail@jooststeltenpool.nl",
         subject: "Nieuwe woordsuggestie op raadhetwoord.nl",
         html: `<div>
         <p>Woordsuggestie:</p>
@@ -38,9 +38,9 @@ router.post("/suggestion", (req, res) => {
     };
     suggestionMail.sendMail(mail, (error) => {
         if (error) {
-        res.json({ status: "error" });
+        res.json({ status: "ERROR" });
         } else {
-        res.json({ status: "success" });
+        res.json({ status: "Message Sent" });
         }   
     })
 })
