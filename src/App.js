@@ -447,6 +447,8 @@ export default function App() {
     }
   }
 
+  // console.log(puzzle_words.sort())
+
   return (
     <>
       <div className={`game-container ${darkMode ? "darkMode":""} ${highContrast ? "high-contrast":""}`}>
