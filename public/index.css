@@ -87,7 +87,6 @@ body {
   max-height: -webkit-fill-available;
   font-family: var(--font-family-primary);
   -webkit-font-smoothing: antialiased;
-  overflow: hidden;
 }
 
 .game-container {
@@ -311,6 +310,7 @@ a, .linklike-button {
   --reserved-height: 30px;
   margin: 0 0 8px;
   padding: 0 8px;
+  width: 100%;
   height: var(--reserved-height);
   line-height: var(--reserved-height);
   flex-shrink: 0;
