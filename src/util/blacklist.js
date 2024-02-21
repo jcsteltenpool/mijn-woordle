@@ -21,4 +21,5 @@ export const blacklist = [
     "gelul",
     "lulde",
     "lullo",
+    "pijpt",
 ]
