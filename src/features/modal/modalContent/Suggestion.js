@@ -8,20 +8,23 @@ export default function Suggestion(props) {
         event.preventDefault();
         setDisabled(true);
 
-        const myForm = event.target;
-        const formData = new FormData(myForm);
-        
-        fetch("/", {
-            method: "POST",
-            headers: { "Content-Type": "application/x-www-form-urlencoded" },
-            body: new URLSearchParams(formData).toString(),
-          })
-            .then(() => {
-                setTimeout(() => {
+        setTimeout(() => {
                     setModalContent('thanks') 
                 }, 1000)
-            })
-            .catch((error) => alert(error));
+        // const myForm = event.target;
+        // const formData = new FormData(myForm);
+        
+        // fetch("/", {
+        //     method: "POST",
+        //     headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        //     body: new URLSearchParams(formData).toString(),
+        //   })
+        //     .then(() => {
+        //         setTimeout(() => {
+        //             setModalContent('thanks') 
+        //         }, 1000)
+        //     })
+        //     .catch((error) => alert(error));
     };
 
 
