@@ -17,4 +17,5 @@ export const blacklist = [
     "lijpe",
     "geilt",
     "queer",
+    "dildo",
 ]
