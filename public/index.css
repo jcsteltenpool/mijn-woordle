@@ -338,7 +338,6 @@ a, .linklike-button {
     opacity: 0;
   }
   80% {
-    transform: scale(1.02);
     opacity: 1;
   }
   100% {
