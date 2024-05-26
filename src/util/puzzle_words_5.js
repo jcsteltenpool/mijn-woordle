@@ -2444,6 +2444,7 @@ export const puzzle_words = [
   "sprak",
   "spray",
   "sprei",
+  "sprot",
   "spruw",
   "spuit",
   "spurt",
